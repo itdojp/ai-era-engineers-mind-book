@@ -1,0 +1,30 @@
+{
+  "name": "ai時代のプロフェッショナルitエンジニアの思考法",
+  "version": "1.0.0",
+  "description": "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら人間にしかできない高度な判断力の向上を目指す実践的ガイド",
+  "main": "index.md",
+  "scripts": {
+    "start": "jekyll serve --livereload",
+    "build": "jekyll build",
+    "test": "npm run lint && npm run check-links",
+    "lint": "markdownlint src/**/*.md",
+    "check-links": "markdown-link-check src/**/*.md",
+    "deploy": "gh-pages -d _site"
+  },
+  "keywords": [
+    "book",
+    "documentation",
+    "ja"
+  ],
+  "author": "ITDO Inc.",
+  "license": "All Rights Reserved",
+  "devDependencies": {
+    "markdownlint-cli": "^0.37.0",
+    "markdown-link-check": "^3.11.2",
+    "gh-pages": "^6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "title": "AI時代のプロフェッショナルITエンジニアの思考法",
+  "description": "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら人間にしかできない高度な判断力の向上を目指す実践的ガイド",
+  "author": "ITDO Inc.",
+  "version": "1.0.0",
+  "structure": {
+    "introduction": [
+      {
+        "id": "preface",
+        "title": "はじめに",
+        "path": "/introduction/preface.html",
+        "description": "本書の目的とAI時代のエンジニア像"
+      }
+    ],
+    "chapters": [
+      {
+        "id": "1",
+        "title": "エンジニアの思考OS",
+        "subtitle": "基本的な認知フレームワーク",
+        "path": "/chapters/chapter1.html",
+        "description": "抽象化と具体化、トレードオフの定量化、技術的負債の評価、AI活用フレームワーク",
+        "sections": [
+          {
+            "id": "1",
+            "title": "抽象化と具体化の往復運動",
+            "path": "/chapters/chapter1.html#section-1-1"
+          },
+          {
+            "id": "2",
+            "title": "トレードオフの定量化手法",
+            "path": "/chapters/chapter1.html#section-1-2"
+          },
+          {
+            "id": "3",
+            "title": "技術的負債の経済学的評価",
+            "path": "/chapters/chapter1.html#section-1-3"
+          },
+          {
+            "id": "4",
+            "title": "AI時代のエンジニアリング思考フレームワーク",
+            "path": "/chapters/chapter1.html#section-1-4"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "title": "要件定義の認知プロセス",
+        "subtitle": "曖昧性との戦い",
+        "path": "/chapters/chapter2.html",
+        "description": "顧客言語と技術言語の変換、隠れた制約の発見、スコープクリープ制御、AI活用による高度化",
+        "sections": [
+          {
+            "id": "1",
+            "title": "顧客の言語と技術の言語の変換機構",
+            "path": "/chapters/chapter2.html#section-2-1"
+          },
+          {
+            "id": "2",
+            "title": "隠れた制約条件の発見手法",
+            "path": "/chapters/chapter2.html#section-2-2"
+          },
+          {
+            "id": "3",
+            "title": "スコープクリープの予防的制御",
+            "path": "/chapters/chapter2.html#section-2-3"
+          },
+          {
+            "id": "4",
+            "title": "AIを活用した要件定義の高度化",
+            "path": "/chapters/chapter2.html#section-2-4"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "title": "アーキテクチャ設計の意思決定",
+        "subtitle": "未来への投資",
+        "path": "/chapters/chapter3.html",
+        "description": "不確実性への対処、技術選定マトリクス、リスクリターン評価、AI組み込み設計",
+        "sections": [
+          {
+            "id": "1",
+            "title": "将来の不確実性への対処戦略",
+            "path": "/chapters/chapter3.html#section-3-1"
+          },
+          {
+            "id": "2",
+            "title": "技術選定マトリクスの構築",
+            "path": "/chapters/chapter3.html#section-3-2"
+          },
+          {
+            "id": "3",
+            "title": "リスクとリターンの定量評価",
+            "path": "/chapters/chapter3.html#section-3-3"
+          },
+          {
+            "id": "4",
+            "title": "AI時代のアーキテクチャ設計",
+            "path": "/chapters/chapter3.html#section-3-4"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "title": "開発/構築フェーズの最適化思考",
+        "subtitle": "チーム生産性の科学",
+        "path": "/chapters/chapter4.html",
+        "description": "レビュープロセス、技術的妥協点、チーム生産性モデル、AI支援品質保証",
+        "sections": [
+          {
+            "id": "1",
+            "title": "レビュープロセスにおける交渉術",
+            "path": "/chapters/chapter4.html#section-4-1"
+          },
+          {
+            "id": "2",
+            "title": "技術的妥協点の見極め方",
+            "path": "/chapters/chapter4.html#section-4-2"
+          },
+          {
+            "id": "3",
+            "title": "チーム生産性の数理モデル",
+            "path": "/chapters/chapter4.html#section-4-3"
+          },
+          {
+            "id": "4",
+            "title": "AI支援開発における品質保証",
+            "path": "/chapters/chapter4.html#section-4-4"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "title": "ステークホルダーマネジメント",
+        "subtitle": "技術と経営の架け橋",
+        "path": "/chapters/chapter5.html",
+        "description": "経営層説明、予算獲得、リスクコミュニケーション、AI活用の経営提案",
+        "sections": [
+          {
+            "id": "1",
+            "title": "経営層への技術説明フレームワーク",
+            "path": "/chapters/chapter5.html#section-5-1"
+          },
+          {
+            "id": "2",
+            "title": "予算獲得のためのROI提示手法",
+            "path": "/chapters/chapter5.html#section-5-2"
+          },
+          {
+            "id": "3",
+            "title": "リスクコミュニケーション戦略",
+            "path": "/chapters/chapter5.html#section-5-3"
+          },
+          {
+            "id": "4",
+            "title": "AI活用を前提とした経営コミュニケーション",
+            "path": "/chapters/chapter5.html#section-5-4"
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "title": "危機管理と問題解決",
+        "subtitle": "火消しの科学",
+        "path": "/chapters/chapter6.html",
+        "description": "インシデント対応、根本原因分析、ポストモーテム、AI活用による高度化",
+        "sections": [
+          {
+            "id": "1",
+            "title": "インシデント対応の優先順位付け",
+            "path": "/chapters/chapter6.html#section-6-1"
+          },
+          {
+            "id": "2",
+            "title": "根本原因分析の思考プロセス",
+            "path": "/chapters/chapter6.html#section-6-2"
+          },
+          {
+            "id": "3",
+            "title": "ポストモーテムの価値最大化",
+            "path": "/chapters/chapter6.html#section-6-3"
+          },
+          {
+            "id": "4",
+            "title": "AIを活用したインシデント対応の高度化",
+            "path": "/chapters/chapter6.html#section-6-4"
+          }
+        ]
+      }
+    ],
+    "appendices": [
+      {
+        "id": "a",
+        "title": "思考ツールテンプレート集",
+        "path": "/appendices/templates.html",
+        "description": "実践的なツールとテンプレートの集合"
+      },
+      {
+        "id": "b",
+        "title": "ケーススタディ",
+        "path": "/appendices/case-studies.html",
+        "description": "実際のプロジェクト事例とAI活用例"
+      },
+      {
+        "id": "c",
+        "title": "推奨読書リスト",
+        "path": "/appendices/reading-list.html",
+        "description": "さらなる学習のための推奨書籍"
+      }
+    ]
+  }
+}
