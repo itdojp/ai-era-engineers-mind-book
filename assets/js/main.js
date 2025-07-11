@@ -32,90 +32,67 @@
     
     // Add IDs to headings for anchor links
     function addHeadingIds() {
-        const headings = document.querySelectorAll('.page-content h1, .page-content h2, .page-content h3, .page-content h4, .page-content h5, .page-content h6');
-        
-        headings.forEach(heading => {
-            if (!heading.id) {
-                // Generate ID from heading text
-                const text = heading.textContent.trim();
-                const id = text
-                    .toLowerCase()
-                    .replace(/[^a-z0-9\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf\u3400-\u4dbf]+/g, '-')
-                    .replace(/^-+|-+$/g, '');
-                
-                // Ensure unique ID
-                let uniqueId = id;
-                let counter = 1;
-                while (document.getElementById(uniqueId)) {
-                    uniqueId = `${id}-${counter}`;
-                    counter++;
+        try {
+            const headings = document.querySelectorAll('.page-content h1, .page-content h2, .page-content h3, .page-content h4, .page-content h5, .page-content h6');
+            
+            headings.forEach((heading, index) => {
+                if (!heading.id) {
+                    // Simple ID generation
+                    heading.id = `heading-${index}`;
                 }
                 
-                heading.id = uniqueId;
-            }
-            
-            // Add anchor link
-            if (!heading.querySelector('.heading-anchor')) {
-                const anchor = document.createElement('a');
-                anchor.className = 'heading-anchor';
-                anchor.href = `#${heading.id}`;
-                anchor.innerHTML = '#';
-                anchor.setAttribute('aria-label', 'Anchor link');
-                heading.appendChild(anchor);
-            }
-        });
+                // Add anchor link
+                if (!heading.querySelector('.heading-anchor')) {
+                    const anchor = document.createElement('a');
+                    anchor.className = 'heading-anchor';
+                    anchor.href = `#${heading.id}`;
+                    anchor.innerHTML = '#';
+                    anchor.setAttribute('aria-label', 'Anchor link');
+                    heading.appendChild(anchor);
+                }
+            });
+        } catch (e) {
+            console.error('Error adding heading IDs:', e);
+        }
     }
     
     // Table of Contents generator for current page
     function generateTOC() {
-        const tocContainer = document.querySelector('.page-toc');
-        if (!tocContainer) return;
-        
-        const headings = document.querySelectorAll('.page-content h2, .page-content h3');
-        if (headings.length === 0) return;
-        
-        const toc = document.createElement('ul');
-        toc.className = 'page-toc-list';
-        
-        let currentLevel = 2;
-        let currentList = toc;
-        const stack = [toc];
-        
-        headings.forEach(heading => {
-            const level = parseInt(heading.tagName.charAt(1));
-            const item = document.createElement('li');
-            const link = document.createElement('a');
+        try {
+            const tocContainer = document.querySelector('.page-toc');
+            if (!tocContainer) return;
             
-            link.href = `#${heading.id}`;
-            link.textContent = heading.textContent.replace('#', '').trim();
-            link.className = 'page-toc-link';
+            const headings = document.querySelectorAll('.page-content h2, .page-content h3');
+            if (headings.length === 0) return;
             
-            if (level > currentLevel) {
-                const sublist = document.createElement('ul');
-                sublist.className = 'page-toc-sublist';
-                currentList.lastElementChild?.appendChild(sublist);
-                stack.push(sublist);
-                currentList = sublist;
-            } else if (level < currentLevel) {
-                stack.pop();
-                currentList = stack[stack.length - 1];
-            }
+            const toc = document.createElement('ul');
+            toc.className = 'page-toc-list';
             
-            currentLevel = level;
-            item.appendChild(link);
-            currentList.appendChild(item);
-        });
-        
-        tocContainer.appendChild(toc);
-        
-        // Highlight current section on scroll
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(updateTOCHighlight, 100);
-        });
-        
-        updateTOCHighlight();
+            headings.forEach(heading => {
+                const item = document.createElement('li');
+                const link = document.createElement('a');
+                
+                link.href = `#${heading.id || ''}`;
+                link.textContent = heading.textContent.replace('#', '').trim().substring(0, 100);
+                link.className = 'page-toc-link';
+                
+                item.appendChild(link);
+                toc.appendChild(item);
+            });
+            
+            tocContainer.appendChild(toc);
+            
+            // Highlight current section on scroll with debounce
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateTOCHighlight, 250);
+            }, { passive: true });
+            
+            updateTOCHighlight();
+        } catch (e) {
+            console.error('Error generating TOC:', e);
+        }
     }
     
     // Update TOC highlight based on scroll position
@@ -345,10 +322,14 @@
     function init() {
         addStyles();
         initSmoothScrolling();
-        addHeadingIds();
-        generateTOC();
-        handleExternalLinks();
-        enhanceImages();
+        
+        // Delay heavy operations
+        setTimeout(() => {
+            addHeadingIds();
+            generateTOC();
+            handleExternalLinks();
+            enhanceImages();
+        }, 100);
     }
     
     // Initialize when DOM is ready
