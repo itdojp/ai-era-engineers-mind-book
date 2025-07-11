@@ -36,9 +36,33 @@ defaults:
       path: ""
       type: "pages"
     values:
-      layout: "default"
+      layout: "book"
   - scope:
       path: "src"
+    values:
+      layout: "book"
+  - scope:
+      path: "src/chapter-1"
+    values:
+      layout: "book"
+  - scope:
+      path: "src/chapter-2"
+    values:
+      layout: "book"
+  - scope:
+      path: "src/chapter-3"
+    values:
+      layout: "book"
+  - scope:
+      path: "src/chapter-4"
+    values:
+      layout: "book"
+  - scope:
+      path: "src/chapter-5"
+    values:
+      layout: "book"
+  - scope:
+      path: "src/chapter-6"
     values:
       layout: "book"
 

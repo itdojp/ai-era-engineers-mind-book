@@ -4,7 +4,7 @@ subtitle: "生成AIを活用した技術的意思決定とステークホルダ�
 description: "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら人間にしかできない高度な判断力の向上を目指す実践的ガイド"
 author: "ITDO Inc."
 version: "1.0.0"
-layout: default
+layout: book
 ---
 
 # {{ page.title }}
