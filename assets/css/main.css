@@ -350,6 +350,11 @@ a:hover {
     cursor: pointer;
     border-radius: 6px;
     transition: var(--transition);
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sidebar-toggle:hover,
@@ -412,7 +417,8 @@ a:hover {
     z-index: 850;
 }
 
-@media (max-width: 1024px) {
+/* タブレット・モバイル向けレスポンシブ対応 */
+@media (max-width: 768px) {
     .book-sidebar {
         transform: translateX(-100%);
     }
@@ -428,21 +434,68 @@ a:hover {
     .sidebar-overlay.active {
         display: block;
     }
-}
-
-@media (max-width: 768px) {
+    
+    .sidebar-toggle {
+        display: block;
+    }
+    
     .book-content {
-        padding: 1.5rem 1rem;
+        padding: 1rem 0.5rem;
     }
     
     .page-content {
-        padding: 1.5rem;
+        padding: 1rem;
+        margin: 0;
+        border-radius: 0;
     }
     
     .header-center {
         display: none;
     }
+    
+    /* モバイル画面サイズ調整 */
+    .book-layout {
+        width: 100vw;
+        overflow-x: hidden;
+    }
+    
+    .book-header {
+        padding: 0 0.5rem;
+    }
+    
+    .header-title h1 {
+        font-size: 1rem;
+    }
+    
+    /* テキストサイズ調整 */
+    body {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    h4 { font-size: 1.125rem; }
+    h5 { font-size: 1rem; }
+    h6 { font-size: 0.9rem; }
 }
+
+/* デスクトップ・大画面向け */
+@media (min-width: 769px) {
+    .sidebar-toggle {
+        display: none;
+    }
+    
+    .book-sidebar {
+        transform: translateX(0);
+    }
+    
+    .book-main {
+        margin-left: var(--sidebar-width);
+    }
+}
+
 
 /* Print Styles */
 @media print {

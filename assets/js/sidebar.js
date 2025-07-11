@@ -40,7 +40,7 @@
         sidebarToggle?.setAttribute('aria-expanded', 'true');
         
         // Prevent body scroll on mobile
-        if (window.innerWidth <= 1024) {
+        if (window.innerWidth <= 768) {
             document.body.style.overflow = 'hidden';
         }
     }
@@ -59,7 +59,7 @@
     
     // Handle window resize
     function handleResize() {
-        if (window.innerWidth > 1024) {
+        if (window.innerWidth > 768) {
             // Desktop: ensure sidebar is visible
             closeSidebar(); // This will clean up any mobile-specific states
         }
