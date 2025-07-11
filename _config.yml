@@ -64,3 +64,40 @@ kramdown:
 github:
   is_project_page: true
 
+# サイト構造設定
+structure:
+  introduction:
+    - title: "まえがき"
+      path: "/src/introduction/preface.html"
+  
+  chapters:
+    - id: 1
+      title: "エンジニアの思考OS"
+      path: "/src/chapter-1/index.html"
+    - id: 2
+      title: "要件定義の認知プロセス"
+      path: "/src/chapter-2/index.html"
+    - id: 3
+      title: "アーキテクチャ設計の意思決定"
+      path: "/src/chapter-3/index.html"
+    - id: 4
+      title: "開発/構築フェーズの最適化思考"
+      path: "/src/chapter-4/index.html"
+    - id: 5
+      title: "ステークホルダーマネジメント"
+      path: "/src/chapter-5/index.html"
+    - id: 6
+      title: "危機管理と問題解決"
+      path: "/src/chapter-6/index.html"
+  
+  appendices:
+    - id: "A"
+      title: "思考ツールテンプレート集"
+      path: "/src/appendices/templates.html"
+    - id: "B"
+      title: "ケーススタディ"
+      path: "/src/appendices/case-studies.html"
+    - id: "C"
+      title: "推奨読書リスト"
+      path: "/src/appendices/reading-list.html"
+
