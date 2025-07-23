@@ -41,6 +41,66 @@ chapter: 1
 
 ### レベル間の変換メカニズム
 
+```mermaid
+graph TD
+    subgraph "抽象化と具体化の往復運動"
+        subgraph "抽象化の階層レベル"
+            Business[🎯 ビジネス要求レベル<br/><br/>【Why - なぜ】<br/>・顧客満足度向上<br/>・市場シェア拡大<br/>・コスト削減<br/>・競争優位性確保<br/><br/>【特徴】<br/>・経営戦略に直結<br/>・定性的な表現<br/>・長期的視点]
+            
+            Functional[📋 機能要件レベル<br/><br/>【What - 何を】<br/>・99.99%可用性<br/>・1秒以内応答<br/>・1万人同時接続<br/>・24/7サービス提供<br/><br/>【特徴】<br/>・測定可能な指標<br/>・定量的な要求<br/>・検証可能]
+            
+            Architecture[🏗️ アーキテクチャレベル<br/><br/>【How - どのような構造で】<br/>・マイクロサービス構成<br/>・冗長化設計<br/>・ロードバランシング<br/>・データレプリケーション<br/><br/>【特徴】<br/>・システム全体構造<br/>・コンポーネント関係<br/>・非機能要件対応]
+            
+            Implementation[⚙️ 実装構築レベル<br/><br/>【How to - 具体的にどう】<br/>・Java Spring Boot<br/>・PostgreSQL Cluster<br/>・Kubernetes deployment<br/>・AWS Load Balancer<br/><br/>【特徴】<br/>・技術詳細<br/>・具体的な設定<br/>・実装可能な形]
+        end
+        
+        subgraph "上位レベルへの抽象化プロセス"
+            Abstract1[パターン認識<br/>・複数事象の共通点抽出<br/>・類似性の発見<br/>・規則性の特定]
+            Abstract2[一般化<br/>・特定事例から一般法則へ<br/>・原因と結果の関係性<br/>・本質的要因の特定]
+            Abstract3[価値への昇華<br/>・技術的問題をビジネス価値へ<br/>・戦略的意味の明確化<br/>・投資対効果の評価]
+        end
+        
+        subgraph "下位レベルへの具体化プロセス"
+            Concrete1[制約条件の適用<br/>・予算制約<br/>・時間制約<br/>・技術制約<br/>・人的制約]
+            Concrete2[実現可能性の検証<br/>・技術的実現性<br/>・性能要件達成可能性<br/>・運用保守可能性]
+            Concrete3[最適化と選択<br/>・複数選択肢の評価<br/>・トレードオフの考慮<br/>・最適解の決定]
+        end
+        
+        subgraph "実例: 障害分析の抽象化"
+            Incident1[個別事象<br/>・月曜朝DB遅延<br/>・月末APIタイムアウト<br/>・キャンペーン時不安定]
+            Incident2[パターン認識<br/>・特定タイミングでの負荷集中<br/>・処理能力の不足<br/>・予測可能な高負荷]
+            Incident3[根本原因<br/>・ピーク時性能要求未対応<br/>・スケーラビリティ不足<br/>・容量計画の問題]
+            Incident4[ビジネス影響<br/>・顧客体験の悪化<br/>・機会損失の発生<br/>・ブランド価値の毀損]
+        end
+        
+        subgraph "実例: 可用性要求の具体化"
+            HA1[ビジネス要求<br/>・高可用性システム構築<br/>・ビジネス継続性確保<br/>・顧客信頼性向上]
+            HA2[機能要件<br/>・可用性99.99%<br/>・RPO 1時間以内<br/>・RTO 15分以内]
+            HA3[アーキテクチャ<br/>・Active-Standby構成<br/>・複数AZ分散配置<br/>・自動フェイルオーバー]
+            HA4[実装<br/>・PostgreSQL Streaming Replication<br/>・Route 53 Health Check<br/>・Kubernetes Pod自動再起動]
+        end
+        
+        Implementation --> Abstract1 --> Abstract2 --> Abstract3 --> Business
+        Business --> Concrete1 --> Concrete2 --> Concrete3 --> Implementation
+        
+        Incident1 --> Incident2 --> Incident3 --> Incident4
+        HA1 --> HA2 --> HA3 --> HA4
+        
+        subgraph "AI時代の変換支援"
+            AISupport[🤖 AI活用のポイント<br/><br/>【AIが支援可能】<br/>・中間レベルの変換<br/>・パターンの提案<br/>・実装オプションの生成<br/><br/>【人間が判断必要】<br/>・ビジネス価値の評価<br/>・制約条件の優先順位<br/>・最終的な意思決定<br/><br/>【協働の形】<br/>・AIによる選択肢生成<br/>・人間による評価・選択<br/>・段階的な精緻化]
+        end
+        
+        Abstract2 -.-> AISupport
+        Concrete2 -.-> AISupport
+    end
+    
+    style Business fill:#e3f2fd
+    style Functional fill:#e8f5e8
+    style Architecture fill:#fff3e0
+    style Implementation fill:#ffebee
+    style AISupport fill:#f3e5f5
+```
+
 #### 上位レベルへの抽象化：パターン認識と一般化
 
 具体的な事象から共通パターンを見出し、より上位の概念に昇華させるプロセスである。
@@ -239,6 +299,73 @@ ROI = (削減される年間コスト × 残存年数 - 返済コスト) / 返�
 ### AI活用の6要素モデル
 
 AI時代のエンジニアには、AIツールを効果的に活用しながら高度な判断を行う能力が求められる。この能力を6つの要素に分解して体系化する。
+
+```mermaid
+graph TB
+    subgraph "AI時代のエンジニアリング思考フレームワーク"
+        subgraph "AI活用の6要素モデル"
+            Element1[1️⃣ 適用領域の識別<br/><br/>【何をAIに行わせられるか思いつく】<br/>・AI能力と限界の理解<br/>・適切な活用領域の見極め<br/>・効果的な分業設計<br/><br/>【実践例】<br/>・コード生成・単体テスト<br/>・アーキテクチャパターン提案<br/>・ログ分析・脆弱性スキャン<br/>・API仕様書・運用手順書作成]
+            
+            Element2[2️⃣ 効果的な指示<br/><br/>【AIに行わせる指示ができる】<br/>・明確で構造化されたプロンプト設計<br/>・必要なコンテキストの伝達<br/>・制約条件の適切な指定<br/><br/>【設計原則】<br/>・具体的な出力形式指定<br/>・必要な制約条件の明示<br/>・段階的な処理の依頼<br/>・検証可能な成果物要求]
+            
+            Element3[3️⃣ プロセス理解<br/><br/>【何が行われるか理解できる】<br/>・AI処理ロジックと限界の把握<br/>・ブラックボックス化の回避<br/>・メカニズムの理解<br/><br/>【理解要素】<br/>・学習データの特性と偏り<br/>・モデルの処理能力と限界<br/>・確率的な出力の性質<br/>・ハルシネーションのメカニズム]
+            
+            Element4[4️⃣ 品質評価<br/><br/>【出力の品質を評価できる】<br/>・技術的正確性と実用性の検証<br/>・ドメイン知識による妥当性判断<br/>・多角的な品質評価<br/><br/>【評価観点】<br/>・機能的正確性<br/>・非機能的要件の考慮<br/>・セキュリティ・脆弱性<br/>・保守性・可読性]
+            
+            Element5[5️⃣ リスク管理<br/><br/>【リスクを管理できる】<br/>・ハルシネーション・脆弱性の識別<br/>・適切なガバナンスの構築<br/>・予防的対策の実装<br/><br/>【主要リスク】<br/>・不正確な情報の生成<br/>・機密情報の漏洩<br/>・著作権・ライセンス違反<br/>・過度な依存による技術力低下]
+            
+            Element6[6️⃣ 統合と改善<br/><br/>【結果を統合・改善できる】<br/>・複数AI出力の組み合わせ<br/>・人間の専門知識で補完<br/>・継続的な改善プロセス<br/><br/>【統合手法】<br/>・複数モデルの結果比較検討<br/>・段階的な精緻化プロセス<br/>・ドメイン知識による補完<br/>・フィードバックループ構築]
+        end
+        
+        subgraph "実践フェーズでの適用"
+            Planning[📋 計画フェーズ<br/>・要件分析支援<br/>・技術選定支援<br/>・リスク評価<br/>・工数見積もり]
+            
+            Design[🏗️ 設計フェーズ<br/>・アーキテクチャ設計<br/>・詳細設計支援<br/>・パターン提案<br/>・設計検証]
+            
+            Implementation[⚙️ 実装フェーズ<br/>・コード生成<br/>・テスト生成<br/>・品質チェック<br/>・リファクタリング]
+            
+            Operation[🔧 運用フェーズ<br/>・監視設定<br/>・障害分析<br/>・性能最適化<br/>・保守改善]
+        end
+        
+        subgraph "成熟度レベル"
+            Level1[レベル1: 基本活用<br/>・AIツールの基本操作<br/>・簡単なタスクの自動化<br/>・出力結果の基本検証]
+            
+            Level2[レベル2: 効果的活用<br/>・複雑なプロンプト設計<br/>・品質評価の体系化<br/>・リスク管理の実装]
+            
+            Level3[レベル3: 戦略的活用<br/>・業務プロセス全体の最適化<br/>・組織レベルでの価値創造<br/>・イノベーションの推進]
+        end
+        
+        Element1 --> Planning
+        Element2 --> Design
+        Element3 --> Implementation
+        Element4 --> Operation
+        Element5 -.-> Level1
+        Element6 -.-> Level2
+        
+        Level1 --> Level2 --> Level3
+        
+        subgraph "AI協働のアンチパターン"
+            AntiPattern1[❌ 盲目的依存<br/>・AI出力をそのまま使用<br/>・検証プロセスの欠如<br/>・品質評価の軽視]
+            
+            AntiPattern2[❌ 曖昧な指示<br/>・期待した結果が得られない<br/>・指示能力の不足<br/>・制約条件の未明示]
+            
+            AntiPattern3[❌ 過度な複雑化<br/>・AI適用範囲の見誤り<br/>・人間判断領域の軽視<br/>・技術的負債の蓄積]
+        end
+        
+        Element4 --> AntiPattern1
+        Element2 --> AntiPattern2
+        Element1 --> AntiPattern3
+    end
+    
+    style Element1 fill:#e8f5e8
+    style Element2 fill:#fff3e0
+    style Element3 fill:#e3f2fd
+    style Element4 fill:#ffe0b2
+    style Element5 fill:#ffebee
+    style Element6 fill:#f3e5f5
+    style Level3 fill:#e1f5fe
+    style AntiPattern1 fill:#ffcdd2
+```
 
 #### 1. 適用領域の識別
 

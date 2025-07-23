@@ -84,5 +84,128 @@ AIが「どのように」実装するかを支援する今、エンジニアに
 
 本書が、読者のエンジニアリング人生において、AI時代を生き抜く思考の羅針盤となることを願っている。
 
+```mermaid
+mindmap
+  root((AI時代の\nエンジニア\n思考法))
+    基礎的認知フレームワーク
+      エンジニアの思考OS
+        抽象化と具体化の往復
+        トレードオフの定量化
+        技術的負債の経済学的評価
+        AI活用6要素モデル
+    実践的思考プロセス
+      要件定義の認知プロセス
+        ビジネス言語から技術言語へ
+        隠れた制約の発見
+        スコープ制御
+        AI活用要件分析
+      アーキテクチャ設計の意思決定
+        不確実性への対応
+        技術選定フレームワーク
+        リスク評価手法
+        AI組み込み設計原則
+      開発構築フェーズの最適化
+        合意形成プロセス
+        品質と納期のバランス
+        チーム生産性最適化
+        AI生成成果物の品質保証
+    組織との連携
+      ステークホルダーマネジメント
+        経営層コミュニケーション
+        予算獲得戦略
+        リスクコミュニケーション
+        AI投資ROI説明
+      危機管理と問題解決
+        インシデント対応思考
+        障害分析フレームワーク
+        プレッシャー下の判断
+        AI活用初期診断
+    AI時代特有の能力
+      適用領域識別
+        AI活用可能性判断
+        適用範囲の見極め
+        人間の判断領域の明確化
+      効果的指示設計
+        プロンプトエンジニアリング
+        制約条件の伝達
+        段階的処理設計
+      品質評価能力
+        技術的正確性検証
+        実用性判断
+        ドメイン知識による妥当性評価
+      リスク管理
+        ハルシネーション対策
+        セキュリティリスク
+        ガバナンス構築
+      統合改善能力
+        複数AI出力の統合
+        人間知識による補完
+        継続的改善プロセス
+```
+
+```mermaid
+flowchart TD
+    subgraph "AI時代のエンジニア成長ロードマップ"
+        subgraph "従来のエンジニア (Pre-AI Era)"
+            Traditional1[技術的スキル中心<br/>・プログラミング言語習得<br/>・フレームワーク学習<br/>・実装詳細の最適化]
+            Traditional2[個別専門性重視<br/>・特定技術の深い知識<br/>・局所的な効率化<br/>・個人作業での生産性]
+            Traditional3[実装作業がメイン<br/>・「どうコードを書くか」<br/>・手作業での実装<br/>・詳細設計に時間投入]
+        end
+        
+        subgraph "AI活用エンジニア (Early AI Adoption)"
+            EarlyAI1[AI活用の基礎<br/>・プロンプトエンジニアリング<br/>・コード生成ツール活用<br/>・作業効率化の実現]
+            EarlyAI2[品質評価能力<br/>・AI出力の妥当性判断<br/>・技術的正確性検証<br/>・リスク識別と対策]
+            EarlyAI3[統合思考の始まり<br/>・AI出力と人間判断の統合<br/>・複数ツールの組み合わせ<br/>・プロセス改善への着手]
+        end
+        
+        subgraph "AI時代の高度エンジニア (Advanced AI Era)"
+            Advanced1[戦略的思考力<br/>・ビジネス価値と技術の連結<br/>・全体最適化の視点<br/>・長期的視野での設計]
+            Advanced2[メタ認知能力<br/>・思考プロセスの可視化<br/>・認知バイアスの回避<br/>・継続的な学習と改善]
+            Advanced3[統合マネジメント<br/>・AI・人間・プロセスの統合<br/>・組織レベルでの価値創造<br/>・ステークホルダー調整]
+        end
+        
+        subgraph "AI時代のリーダー (AI-Native Leadership)"
+            Leader1[組織変革推進<br/>・AI活用文化の醸成<br/>・新しい働き方の設計<br/>・デジタルトランスフォーメーション]
+            Leader2[価値創造戦略<br/>・技術とビジネスの融合<br/>・イノベーション創出<br/>・市場競争力の構築]
+            Leader3[未来適応力<br/>・技術進化への対応<br/>・継続的なスキル更新<br/>・組織学習の促進]
+        end
+        
+        Traditional1 --> Traditional2 --> Traditional3
+        Traditional3 --> EarlyAI1
+        EarlyAI1 --> EarlyAI2 --> EarlyAI3
+        EarlyAI3 --> Advanced1
+        Advanced1 --> Advanced2 --> Advanced3
+        Advanced3 --> Leader1
+        Leader1 --> Leader2 --> Leader3
+        
+        subgraph "重要なマインドセット変化"
+            Mindset1[🔄 実装→設計<br/>「どう作るか」から<br/>「何を・なぜ作るか」へ]
+            Mindset2[🌐 局所→全体<br/>個別最適化から<br/>システム全体価値へ]
+            Mindset3[🤝 個人→統合<br/>個人作業から<br/>AI協働・チーム統合へ]
+        end
+        
+        EarlyAI2 -.-> Mindset1
+        Advanced1 -.-> Mindset2
+        Advanced3 -.-> Mindset3
+        
+        subgraph "AI時代の核心能力"
+            Core1[判断力<br/>・AI出力の評価<br/>・リスク管理<br/>・戦略的選択]
+            Core2[統合力<br/>・多様なツール活用<br/>・知識の組み合わせ<br/>・価値の創造]
+            Core3[適応力<br/>・技術変化への対応<br/>・継続学習<br/>・柔軟な思考]
+        end
+        
+        Advanced2 --> Core1
+        Advanced2 --> Core2
+        Advanced2 --> Core3
+    end
+    
+    style Traditional1 fill:#ffebee
+    style EarlyAI1 fill:#fff3e0
+    style Advanced1 fill:#e8f5e8
+    style Leader1 fill:#e3f2fd
+    style Core1 fill:#f3e5f5
+    style Mindset1 fill:#ffe0b2
+```
+
 2024年12月  
 著者
