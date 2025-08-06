@@ -1,10 +1,12 @@
 ---
+layout: book
 title: "AI時代のプロフェッショナルITエンジニアの思考法"
 subtitle: "生成AIを活用した技術的意思決定とステークホルダーマネジメントの実践的フレームワーク"
 description: "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら人間にしかできない高度な判断力の向上を目指す実践的ガイド"
-author: "ITDO Inc."
+author: "株式会社アイティードゥ"
 version: "1.0.0"
-layout: book
+order: 1
+permalink: /
 ---
 
 # {{ page.title }}

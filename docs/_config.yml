@@ -1,28 +1,27 @@
 title: "AI時代のプロフェッショナルITエンジニアの思考法"
 subtitle: "生成AIを活用した技術的意思決定とステークホルダーマネジメントの実践的フレームワーク"
 description: "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら人間にしかできない高度な判断力の向上を目指す実践的ガイド"
-author: "ITDO Inc."
+author: "株式会社アイティードゥ"
 version: "1.0.0"
 lang: "ja"
 url: "https://itdojp.github.io"
 baseurl: "/ai-era-engineers-mind-book"
 
 # リポジトリ情報
-repository:
-  github: "https://github.com/itdojp/ai-era-engineers-mind-book"
-  name: "ai-era-engineers-mind-book"
+repository: "https://github.com/itdojp/ai-era-engineers-mind-book"
 
 # Jekyll設定
 markdown: kramdown
 highlighter: rouge
-# GitHub Pages標準テーマを使用しない
-# theme: minima
+permalink: pretty
 
 # プラグイン
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
 
 # コレクション設定
 collections:
