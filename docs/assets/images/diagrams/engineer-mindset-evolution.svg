@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="700" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: 'Noto Sans JP', sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .era-title { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .mindset-title { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: bold; fill: #2c3e50; }
+      .text-content { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; fill: #2c3e50; }
+      .small-text { font-family: 'Noto Sans JP', sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .traditional-box { fill: #95a5a6; stroke: #7f8c8d; stroke-width: 2; }
+      .digital-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .ai-box { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; }
+      .future-box { fill: #9b59b6; stroke: #8e44ad; stroke-width: 2; }
+      .component { fill: #fff; stroke: #95a5a6; stroke-width: 1; }
+      .evolution-arrow { stroke: #34495e; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .timeline-line { stroke: #34495e; stroke-width: 2; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#34495e"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" class="title" text-anchor="middle">エンジニアマインドセットの進化</text>
+
+  <!-- Timeline -->
+  <g id="timeline">
+    <line x1="100" y1="100" x2="800" y2="100" class="timeline-line"/>
+    
+    <!-- Era markers -->
+    <circle cx="150" cy="100" r="5" fill="#95a5a6"/>
+    <text x="150" y="85" class="small-text" text-anchor="middle">1990s-2000s</text>
+    <text x="150" y="120" class="small-text" text-anchor="middle">従来型</text>
+    
+    <circle cx="350" cy="100" r="5" fill="#3498db"/>
+    <text x="350" y="85" class="small-text" text-anchor="middle">2000s-2010s</text>
+    <text x="350" y="120" class="small-text" text-anchor="middle">デジタル化</text>
+    
+    <circle cx="550" cy="100" r="5" fill="#e74c3c"/>
+    <text x="550" y="85" class="small-text" text-anchor="middle">2010s-2020s</text>
+    <text x="550" y="120" class="small-text" text-anchor="middle">AI時代</text>
+    
+    <circle cx="750" cy="100" r="5" fill="#9b59b6"/>
+    <text x="750" y="85" class="small-text" text-anchor="middle">2020s-</text>
+    <text x="750" y="120" class="small-text" text-anchor="middle">未来型</text>
+  </g>
+
+  <!-- Traditional Era -->
+  <g id="traditional">
+    <rect x="50" y="150" width="200" height="160" class="traditional-box" rx="10"/>
+    <text x="150" y="175" class="era-title" text-anchor="middle">従来型エンジニア</text>
+    
+    <rect x="65" y="185" width="170" height="110" class="component" rx="3"/>
+    <text x="150" y="205" class="mindset-title" text-anchor="middle">技術専門性重視</text>
+    <text x="75" y="225" class="text-content">• 深い専門知識</text>
+    <text x="75" y="240" class="text-content">• 技術的完璧性</text>
+    <text x="75" y="255" class="text-content">• 個人での問題解決</text>
+    <text x="75" y="270" class="text-content">• 長期的品質重視</text>
+    <text x="75" y="285" class="small-text">キーワード: 職人気質、品質第一</text>
+  </g>
+
+  <!-- Digital Era -->
+  <g id="digital">
+    <rect x="270" y="150" width="200" height="160" class="digital-box" rx="10"/>
+    <text x="370" y="175" class="era-title" text-anchor="middle">デジタル時代</text>
+    
+    <rect x="285" y="185" width="170" height="110" class="component" rx="3"/>
+    <text x="370" y="205" class="mindset-title" text-anchor="middle">アジャイル・協働</text>
+    <text x="295" y="225" class="text-content">• 迅速な開発サイクル</text>
+    <text x="295" y="240" class="text-content">• チーム協働</text>
+    <text x="295" y="255" class="text-content">• ユーザー中心設計</text>
+    <text x="295" y="270" class="text-content">• 継続的改善</text>
+    <text x="295" y="285" class="small-text">キーワード: スピード、協調</text>
+  </g>
+
+  <!-- AI Era -->
+  <g id="ai-era">
+    <rect x="490" y="150" width="200" height="160" class="ai-box" rx="10"/>
+    <text x="590" y="175" class="era-title" text-anchor="middle">AI時代</text>
+    
+    <rect x="505" y="185" width="170" height="110" class="component" rx="3"/>
+    <text x="590" y="205" class="mindset-title" text-anchor="middle">AI協働・価値創造</text>
+    <text x="515" y="225" class="text-content">• AI活用・協働</text>
+    <text x="515" y="240" class="text-content">• 創造的問題解決</text>
+    <text x="515" y="255" class="text-content">• ビジネス価値重視</text>
+    <text x="515" y="270" class="text-content">• 倫理的判断力</text>
+    <text x="515" y="285" class="small-text">キーワード: 協創、価値創出</text>
+  </g>
+
+  <!-- Future Era -->
+  <g id="future">
+    <rect x="710" y="150" width="140" height="160" class="future-box" rx="10"/>
+    <text x="780" y="175" class="era-title" text-anchor="middle">未来型</text>
+    
+    <rect x="725" y="185" width="110" height="110" class="component" rx="3"/>
+    <text x="780" y="205" class="mindset-title" text-anchor="middle">統合思考</text>
+    <text x="735" y="225" class="text-content">• 人機一体化</text>
+    <text x="735" y="240" class="text-content">• 社会課題解決</text>
+    <text x="735" y="255" class="text-content">• 持続可能性</text>
+    <text x="735" y="270" class="text-content">• 全体最適</text>
+    <text x="735" y="285" class="small-text">統合的思考</text>
+  </g>
+
+  <!-- Evolution arrows -->
+  <path d="M 250 230 L 270 230" class="evolution-arrow"/>
+  <path d="M 470 230 L 490 230" class="evolution-arrow"/>
+  <path d="M 690 230 L 710 230" class="evolution-arrow"/>
+
+  <!-- Core Mindset Components -->
+  <g id="mindset-components">
+    <rect x="50" y="340" width="800" height="320" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+    <text x="450" y="365" class="mindset-title" text-anchor="middle">AI時代のプロフェッショナルエンジニアの思考法</text>
+    
+    <!-- Growth Mindset -->
+    <rect x="70" y="380" width="180" height="120" fill="#e6f3ff" stroke="#3498db" stroke-width="1" rx="3"/>
+    <text x="160" y="400" class="text-content" text-anchor="middle" font-weight="bold">成長マインドセット</text>
+    <text x="80" y="420" class="small-text">• 継続的学習姿勢</text>
+    <text x="80" y="435" class="small-text">• 失敗からの学び</text>
+    <text x="80" y="450" class="small-text">• 挑戦を機会と捉える</text>
+    <text x="80" y="465" class="small-text">• 他者との協働学習</text>
+    <text x="80" y="480" class="small-text">• フィードバック受容</text>
+    <text x="80" y="495" class="small-text">「まだできない」思考</text>
+    
+    <!-- Systems Thinking -->
+    <rect x="270" y="380" width="180" height="120" fill="#ffe6e6" stroke="#e74c3c" stroke-width="1" rx="3"/>
+    <text x="360" y="400" class="text-content" text-anchor="middle" font-weight="bold">システム思考</text>
+    <text x="280" y="420" class="small-text">• 全体俯瞰視点</text>
+    <text x="280" y="435" class="small-text">• 相互関係の理解</text>
+    <text x="280" y="450" class="small-text">• 長期的影響考慮</text>
+    <text x="280" y="465" class="small-text">• 複雑性への対応</text>
+    <text x="280" y="480" class="small-text">• 非線形思考</text>
+    <text x="280" y="495" class="small-text">部分最適から全体最適</text>
+    
+    <!-- Design Thinking -->
+    <rect x="470" y="380" width="180" height="120" fill="#e6ffe6" stroke="#2ecc71" stroke-width="1" rx="3"/>
+    <text x="560" y="400" class="text-content" text-anchor="middle" font-weight="bold">デザイン思考</text>
+    <text x="480" y="420" class="small-text">• ユーザー中心設計</text>
+    <text x="480" y="435" class="small-text">• 共感・観察</text>
+    <text x="480" y="450" class="small-text">• プロトタイプ思考</text>
+    <text x="480" y="465" class="small-text">• 反復改善</text>
+    <text x="480" y="480" class="small-text">• 創造的問題解決</text>
+    <text x="480" y="495" class="small-text">技術から価値へ</text>
+    
+    <!-- Ethical Leadership -->
+    <rect x="670" y="380" width="160" height="120" fill="#fff3cd" stroke="#f39c12" stroke-width="1" rx="3"/>
+    <text x="750" y="400" class="text-content" text-anchor="middle" font-weight="bold">倫理的リーダーシップ</text>
+    <text x="680" y="420" class="small-text">• 社会的責任感</text>
+    <text x="680" y="435" class="small-text">• 多様性の尊重</text>
+    <text x="680" y="450" class="small-text">• 透明性の確保</text>
+    <text x="680" y="465" class="small-text">• 持続可能性配慮</text>
+    <text x="680" y="480" class="small-text">• 他者の成長支援</text>
+    <text x="680" y="495" class="small-text">技術を善用する意志</text>
+
+    <!-- Meta-Skills -->
+    <rect x="70" y="520" width="760" height="110" fill="#f3e6ff" stroke="#9b59b6" stroke-width="1" rx="3"/>
+    <text x="450" y="540" class="text-content" text-anchor="middle" font-weight="bold">メタスキル（学び方を学ぶ）</text>
+    
+    <text x="90" y="565" class="text-content" font-weight="bold">学習戦略:</text>
+    <text x="90" y="580" class="small-text">• 効果的な情報収集・フィルタリング</text>
+    <text x="90" y="595" class="small-text">• 知識の体系化・構造化</text>
+    <text x="90" y="610" class="small-text">• 実践を通じた定着</text>
+    
+    <text x="340" y="565" class="text-content" font-weight="bold">自己認知:</text>
+    <text x="340" y="580" class="small-text">• 自分の思考パターンの理解</text>
+    <text x="340" y="595" class="small-text">• 強み・弱みの客観視</text>
+    <text x="340" y="610" class="small-text">• バイアスの自覚</text>
+    
+    <text x="580" y="565" class="text-content" font-weight="bold">適応力:</text>
+    <text x="580" y="580" class="small-text">• 変化への柔軟対応</text>
+    <text x="580" y="595" class="small-text">• 不確実性の受容</text>
+    <text x="580" y="610" class="small-text">• レジリエンス（回復力）</text>
+  </g>
+</svg>

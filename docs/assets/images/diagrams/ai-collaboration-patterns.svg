@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="700" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: 'Noto Sans JP', sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .pattern-title { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .component-title { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: bold; fill: #2c3e50; }
+      .text-content { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; fill: #2c3e50; }
+      .small-text { font-family: 'Noto Sans JP', sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .human-box { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; }
+      .ai-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .collab-box { fill: #2ecc71; stroke: #27ae60; stroke-width: 2; }
+      .creative-box { fill: #9b59b6; stroke: #8e44ad; stroke-width: 2; }
+      .component { fill: #fff; stroke: #95a5a6; stroke-width: 1; }
+      .flow-arrow { stroke: #34495e; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .collab-line { stroke: #f39c12; stroke-width: 3; stroke-dasharray: 5,3; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#34495e"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" class="title" text-anchor="middle">AI時代のエンジニア協働パターン</text>
+
+  <!-- Individual Pattern -->
+  <g id="individual">
+    <rect x="50" y="70" width="200" height="140" class="human-box" rx="10"/>
+    <text x="150" y="95" class="pattern-title" text-anchor="middle">個人作業パターン</text>
+    
+    <rect x="65" y="105" width="170" height="95" class="component" rx="3"/>
+    <text x="150" y="125" class="component-title" text-anchor="middle">従来の開発スタイル</text>
+    <text x="75" y="145" class="text-content">• 単独でのコーディング</text>
+    <text x="75" y="160" class="text-content">• 個人の知識・経験に依存</text>
+    <text x="75" y="175" class="text-content">• 時間をかけた問題解決</text>
+    <text x="75" y="190" class="small-text">限界: スケーラビリティの低さ</text>
+  </g>
+
+  <!-- AI Assistant Pattern -->
+  <g id="ai-assistant">
+    <rect x="270" y="70" width="200" height="140" class="ai-box" rx="10"/>
+    <text x="370" y="95" class="pattern-title" text-anchor="middle">AI支援パターン</text>
+    
+    <rect x="285" y="105" width="170" height="95" class="component" rx="3"/>
+    <text x="370" y="125" class="component-title" text-anchor="middle">効率化・自動化重視</text>
+    <text x="295" y="145" class="text-content">• コード生成支援</text>
+    <text x="295" y="160" class="text-content">• バグ検出・修正提案</text>
+    <text x="295" y="175" class="text-content">• ドキュメント自動生成</text>
+    <text x="295" y="190" class="small-text">効果: 作業時間の大幅短縮</text>
+  </g>
+
+  <!-- Collaborative Pattern -->
+  <g id="collaborative">
+    <rect x="490" y="70" width="200" height="140" class="collab-box" rx="10"/>
+    <text x="590" y="95" class="pattern-title" text-anchor="middle">人機協働パターン</text>
+    
+    <rect x="505" y="105" width="170" height="95" class="component" rx="3"/>
+    <text x="590" y="125" class="component-title" text-anchor="middle">相互補完型</text>
+    <text x="515" y="145" class="text-content">• 戦略は人間が決定</text>
+    <text x="515" y="160" class="text-content">• 実装はAIが支援</text>
+    <text x="515" y="175" class="text-content">• 継続的な相互学習</text>
+    <text x="515" y="190" class="small-text">特徴: 双方向フィードバック</text>
+  </g>
+
+  <!-- Creative Co-creation Pattern -->
+  <g id="creative">
+    <rect x="710" y="70" width="140" height="140" class="creative-box" rx="10"/>
+    <text x="780" y="95" class="pattern-title" text-anchor="middle">創造的</text>
+    <text x="780" y="115" class="pattern-title" text-anchor="middle">共創パターン</text>
+    
+    <rect x="725" y="125" width="110" height="75" class="component" rx="3"/>
+    <text x="780" y="145" class="component-title" text-anchor="middle">イノベーション</text>
+    <text x="780" y="160" class="component-title" text-anchor="middle">創出</text>
+    <text x="735" y="175" class="text-content">• 新しいアイデア</text>
+    <text x="735" y="190" class="small-text">人とAIの創造性融合</text>
+  </g>
+
+  <!-- Evolution Arrows -->
+  <path d="M 250 140 L 270 140" class="flow-arrow"/>
+  <path d="M 470 140 L 490 140" class="flow-arrow"/>
+  <path d="M 690 140 L 710 140" class="flow-arrow"/>
+
+  <!-- Collaboration Details -->
+  <g id="details">
+    <rect x="50" y="240" width="800" height="420" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+    <text x="450" y="265" class="component-title" text-anchor="middle">協働パターンの詳細分析</text>
+    
+    <!-- Human Strengths -->
+    <rect x="70" y="280" width="180" height="140" fill="#ffe6e6" stroke="#e74c3c" stroke-width="1" rx="3"/>
+    <text x="160" y="300" class="text-content" text-anchor="middle" font-weight="bold">人間の強み</text>
+    <text x="80" y="320" class="small-text">戦略的思考:</text>
+    <text x="80" y="335" class="small-text">• 全体最適の視点</text>
+    <text x="80" y="350" class="small-text">• 長期的計画</text>
+    <text x="80" y="365" class="small-text">• 価値判断</text>
+    <text x="80" y="385" class="small-text">創造性:</text>
+    <text x="80" y="400" class="small-text">• 新しいアプローチ</text>
+    <text x="80" y="415" class="small-text">• 直感的洞察</text>
+
+    <!-- AI Strengths -->
+    <rect x="270" y="280" width="180" height="140" fill="#e6f3ff" stroke="#3498db" stroke-width="1" rx="3"/>
+    <text x="360" y="300" class="text-content" text-anchor="middle" font-weight="bold">AIの強み</text>
+    <text x="280" y="320" class="small-text">処理能力:</text>
+    <text x="280" y="335" class="small-text">• 高速な情報処理</text>
+    <text x="280" y="350" class="small-text">• パターン認識</text>
+    <text x="280" y="365" class="small-text">• 反復作業の自動化</text>
+    <text x="280" y="385" class="small-text">記憶・学習:</text>
+    <text x="280" y="400" class="small-text">• 完全な記憶保持</text>
+    <text x="280" y="415" class="small-text">• 継続的学習</text>
+
+    <!-- Collaboration Flow -->
+    <rect x="470" y="280" width="180" height="140" fill="#e6ffe6" stroke="#2ecc71" stroke-width="1" rx="3"/>
+    <text x="560" y="300" class="text-content" text-anchor="middle" font-weight="bold">協働プロセス</text>
+    <text x="480" y="320" class="small-text">1. 問題定義 (人間)</text>
+    <text x="480" y="335" class="small-text">2. 情報収集 (AI)</text>
+    <text x="480" y="350" class="small-text">3. 分析・検討 (協働)</text>
+    <text x="480" y="365" class="small-text">4. 解決策生成 (協働)</text>
+    <text x="480" y="380" class="small-text">5. 実装 (AI支援)</text>
+    <text x="480" y="395" class="small-text">6. 評価・改善 (人間)</text>
+    <text x="480" y="410" class="small-text">7. 学習・最適化 (協働)</text>
+
+    <!-- Success Factors -->
+    <rect x="670" y="280" width="160" height="140" fill="#fff3cd" stroke="#f39c12" stroke-width="1" rx="3"/>
+    <text x="750" y="300" class="text-content" text-anchor="middle" font-weight="bold">成功要因</text>
+    <text x="680" y="320" class="small-text">相互理解:</text>
+    <text x="680" y="335" class="small-text">• 各々の限界認識</text>
+    <text x="680" y="350" class="small-text">• 強みの活用</text>
+    <text x="680" y="370" class="small-text">コミュニケーション:</text>
+    <text x="680" y="385" class="small-text">• 明確な指示</text>
+    <text x="680" y="400" class="small-text">• フィードバック</text>
+    <text x="680" y="415" class="small-text">• 継続的対話</text>
+
+    <!-- Collaboration Lines -->
+    <line x1="250" y1="350" x2="270" y2="350" class="collab-line"/>
+    <line x1="450" y1="350" x2="470" y2="350" class="collab-line"/>
+    <line x1="650" y1="350" x2="670" y2="350" class="collab-line"/>
+    
+    <!-- Practical Applications -->
+    <text x="450" y="450" class="component-title" text-anchor="middle">実践的応用例</text>
+    
+    <rect x="70" y="470" width="200" height="120" fill="#f3e6ff" stroke="#9b59b6" stroke-width="1" rx="3"/>
+    <text x="170" y="490" class="text-content" text-anchor="middle" font-weight="bold">システム設計</text>
+    <text x="80" y="510" class="small-text">人間: アーキテクチャ決定</text>
+    <text x="80" y="525" class="small-text">AI: 実装詳細生成</text>
+    <text x="80" y="540" class="small-text">協働: 最適化・改善</text>
+    <text x="80" y="560" class="small-text">例: マイクロサービス設計</text>
+    <text x="80" y="575" class="small-text">  クラウドネイティブ開発</text>
+
+    <rect x="290" y="470" width="200" height="120" fill="#e6f3ff" stroke="#3498db" stroke-width="1" rx="3"/>
+    <text x="390" y="490" class="text-content" text-anchor="middle" font-weight="bold">コード開発</text>
+    <text x="300" y="510" class="small-text">人間: ロジック設計</text>
+    <text x="300" y="525" class="small-text">AI: コード生成・最適化</text>
+    <text x="300" y="540" class="small-text">協働: レビュー・改善</text>
+    <text x="300" y="560" class="small-text">例: アルゴリズム実装</text>
+    <text x="300" y="575" class="small-text">  テストケース生成</text>
+
+    <rect x="510" y="470" width="200" height="120" fill="#ffe6e6" stroke="#e74c3c" stroke-width="1" rx="3"/>
+    <text x="610" y="490" class="text-content" text-anchor="middle" font-weight="bold">問題解決</text>
+    <text x="520" y="510" class="small-text">人間: 問題定義・優先順位</text>
+    <text x="520" y="525" class="small-text">AI: データ分析・パターン発見</text>
+    <text x="520" y="540" class="small-text">協働: 解決策評価・選択</text>
+    <text x="520" y="560" class="small-text">例: デバッグ・最適化</text>
+    <text x="520" y="575" class="small-text">  パフォーマンス改善</text>
+
+    <rect x="730" y="470" width="100" height="120" fill="#e6ffe6" stroke="#2ecc71" stroke-width="1" rx="3"/>
+    <text x="780" y="490" class="text-content" text-anchor="middle" font-weight="bold">学習・成長</text>
+    <text x="740" y="510" class="small-text">人間: 経験の蓄積</text>
+    <text x="740" y="525" class="small-text">AI: データ学習</text>
+    <text x="740" y="540" class="small-text">協働: 相互教育</text>
+    <text x="740" y="560" class="small-text">例: 技術習得</text>
+    <text x="740" y="575" class="small-text">  ベスト実践</text>
+
+    <!-- Future Vision -->
+    <text x="450" y="625" class="component-title" text-anchor="middle">未来の協働ビジョン</text>
+    <text x="80" y="645" class="text-content">• シームレスな人機インターフェース - 自然言語による直接的な協働</text>
+    <text x="80" y="660" class="text-content">• リアルタイム学習 - 作業しながら互いの能力を向上させる共進化システム</text>
+  </g>
+</svg>
