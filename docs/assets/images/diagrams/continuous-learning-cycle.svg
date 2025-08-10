@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="700" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: 'Noto Sans JP', sans-serif; font-size: 20px; font-weight: bold; fill: #2c3e50; }
+      .phase-title { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: bold; fill: #fff; }
+      .component-title { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: bold; fill: #2c3e50; }
+      .text-content { font-family: 'Noto Sans JP', sans-serif; font-size: 11px; fill: #2c3e50; }
+      .small-text { font-family: 'Noto Sans JP', sans-serif; font-size: 10px; fill: #7f8c8d; }
+      .observe-box { fill: #3498db; stroke: #2980b9; stroke-width: 2; }
+      .reflect-box { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; }
+      .plan-box { fill: #2ecc71; stroke: #27ae60; stroke-width: 2; }
+      .act-box { fill: #f39c12; stroke: #e67e22; stroke-width: 2; }
+      .component { fill: #fff; stroke: #95a5a6; stroke-width: 1; }
+      .cycle-arrow { stroke: #34495e; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .feedback-line { stroke: #9b59b6; stroke-width: 2; stroke-dasharray: 5,3; fill: none; }
+      .gradient { fill: url(#cycleGradient); }
+    </style>
+    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+      <polygon points="0 0, 12 3, 0 6" fill="#34495e"/>
+    </marker>
+    <radialGradient id="cycleGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ecf0f1;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#bdc3c7;stop-opacity:0.3"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="30" class="title" text-anchor="middle">AI時代の継続学習サイクル</text>
+
+  <!-- Central Circle -->
+  <circle cx="450" cy="200" r="120" class="gradient" stroke="#34495e" stroke-width="2"/>
+  <text x="450" y="190" class="component-title" text-anchor="middle">継続学習</text>
+  <text x="450" y="210" class="component-title" text-anchor="middle">サイクル</text>
+  <text x="450" y="230" class="small-text" text-anchor="middle">(OPAR Model)</text>
+
+  <!-- Observe Phase -->
+  <g id="observe">
+    <rect x="120" y="60" width="200" height="120" class="observe-box" rx="15"/>
+    <text x="220" y="85" class="phase-title" text-anchor="middle">観察 (Observe)</text>
+    
+    <rect x="135" y="95" width="170" height="75" class="component" rx="3"/>
+    <text x="220" y="115" class="component-title" text-anchor="middle">現状把握・情報収集</text>
+    <text x="145" y="135" class="text-content">• 技術トレンドの調査</text>
+    <text x="145" y="150" class="text-content">• 市場動向の分析</text>
+    <text x="145" y="165" class="small-text">ツール: GitHub Trending、技術ブログ</text>
+  </g>
+
+  <!-- Reflect Phase -->
+  <g id="reflect">
+    <rect x="580" y="60" width="200" height="120" class="reflect-box" rx="15"/>
+    <text x="680" y="85" class="phase-title" text-anchor="middle">省察 (Reflect)</text>
+    
+    <rect x="595" y="95" width="170" height="75" class="component" rx="3"/>
+    <text x="680" y="115" class="component-title" text-anchor="middle">振り返り・分析</text>
+    <text x="605" y="135" class="text-content">• 学習効果の検証</text>
+    <text x="605" y="150" class="text-content">• 知識の体系化</text>
+    <text x="605" y="165" class="small-text">手法: KPT法、学習ログ分析</text>
+  </g>
+
+  <!-- Plan Phase -->
+  <g id="plan">
+    <rect x="580" y="280" width="200" height="120" class="plan-box" rx="15"/>
+    <text x="680" y="305" class="phase-title" text-anchor="middle">計画 (Plan)</text>
+    
+    <rect x="595" y="315" width="170" height="75" class="component" rx="3"/>
+    <text x="680" y="335" class="component-title" text-anchor="middle">学習戦略の立案</text>
+    <text x="605" y="355" class="text-content">• 優先順位の決定</text>
+    <text x="605" y="370" class="text-content">• リソース配分計画</text>
+    <text x="605" y="385" class="small-text">フレームワーク: OKR、SMART目標</text>
+  </g>
+
+  <!-- Act Phase -->
+  <g id="act">
+    <rect x="120" y="280" width="200" height="120" class="act-box" rx="15"/>
+    <text x="220" y="305" class="phase-title" text-anchor="middle">実行 (Act)</text>
+    
+    <rect x="135" y="315" width="170" height="75" class="component" rx="3"/>
+    <text x="220" y="335" class="component-title" text-anchor="middle">実践的学習</text>
+    <text x="145" y="355" class="text-content">• プロジェクトへの適用</text>
+    <text x="145" y="370" class="text-content">• ハンズオン実践</text>
+    <text x="145" y="385" class="small-text">実行: PoC、サイドプロジェクト</text>
+  </g>
+
+  <!-- Cycle Arrows -->
+  <path d="M 320 110 Q 400 50 530 90" class="cycle-arrow"/>
+  <path d="M 680 180 Q 750 250 720 280" class="cycle-arrow"/>
+  <path d="M 580 350 Q 500 430 370 390" class="cycle-arrow"/>
+  <path d="M 220 280 Q 150 220 180 180" class="cycle-arrow"/>
+
+  <!-- Learning Methods -->
+  <g id="methods">
+    <rect x="50" y="430" width="800" height="240" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+    <text x="450" y="455" class="component-title" text-anchor="middle">AI時代の効果的学習手法</text>
+    
+    <!-- Individual Learning -->
+    <rect x="70" y="470" width="180" height="90" fill="#e6f3ff" stroke="#3498db" stroke-width="1" rx="3"/>
+    <text x="160" y="490" class="text-content" text-anchor="middle" font-weight="bold">個人学習</text>
+    <text x="80" y="510" class="small-text">• AI活用学習: ChatGPT, GitHub Copilot</text>
+    <text x="80" y="525" class="small-text">• オンライン教材: Coursera, Udemy</text>
+    <text x="80" y="540" class="small-text">• 技術書・論文読破</text>
+    <text x="80" y="555" class="small-text">特徴: 自分のペースで深く学習</text>
+
+    <!-- Collaborative Learning -->
+    <rect x="270" y="470" width="180" height="90" fill="#ffe6e6" stroke="#e74c3c" stroke-width="1" rx="3"/>
+    <text x="360" y="490" class="text-content" text-anchor="middle" font-weight="bold">協働学習</text>
+    <text x="280" y="510" class="small-text">• ペアプログラミング</text>
+    <text x="280" y="525" class="small-text">• コードレビュー参加</text>
+    <text x="280" y="540" class="small-text">• 技術勉強会・コミュニティ</text>
+    <text x="280" y="555" class="small-text">効果: 多様な視点、相互フィードバック</text>
+
+    <!-- Experiential Learning -->
+    <rect x="470" y="470" width="180" height="90" fill="#e6ffe6" stroke="#2ecc71" stroke-width="1" rx="3"/>
+    <text x="560" y="490" class="text-content" text-anchor="middle" font-weight="bold">体験学習</text>
+    <text x="480" y="510" class="small-text">• プロジェクト実践</text>
+    <text x="480" y="525" class="small-text">• PoC・プロトタイピング</text>
+    <text x="480" y="540" class="small-text">• 失敗からの学び</text>
+    <text x="480" y="555" class="small-text">価値: 理論と実践の架け橋</text>
+
+    <!-- Meta Learning -->
+    <rect x="670" y="470" width="160" height="90" fill="#fff3cd" stroke="#f39c12" stroke-width="1" rx="3"/>
+    <text x="750" y="490" class="text-content" text-anchor="middle" font-weight="bold">メタ学習</text>
+    <text x="680" y="510" class="small-text">• 学習方法の改善</text>
+    <text x="680" y="525" class="small-text">• 記憶定着技法</text>
+    <text x="680" y="540" class="small-text">• 時間管理最適化</text>
+    <text x="680" y="555" class="small-text">目標: 学習効率の最大化</text>
+
+    <!-- Learning Accelerators -->
+    <text x="80" y="585" class="component-title">学習加速要因:</text>
+    <text x="80" y="605" class="text-content">• AI活用: 個人化された学習体験、即座の質問対応、コード生成支援</text>
+    <text x="80" y="620" class="text-content">• コミュニティ: 知識共有、モチベーション維持、最新情報交換</text>
+    <text x="80" y="635" class="text-content">• 実践機会: リアルプロジェクト、オープンソース貢献、副業・フリーランス</text>
+
+    <!-- Learning Barriers -->
+    <text x="480" y="585" class="component-title">学習阻害要因の克服:</text>
+    <text x="480" y="605" class="text-content">• 時間不足 → マイクロラーニング、通勤時間活用</text>
+    <text x="480" y="620" class="text-content">• 情報過多 → 優先順位付け、フィルタリング技術</text>
+    <text x="480" y="635" class="text-content">• モチベーション低下 → 小さな成功体験、学習仲間との連携</text>
+
+    <!-- Success Metrics -->
+    <text x="80" y="660" class="component-title">学習成果の測定:</text>
+    <text x="80" y="680" class="small-text">定量的: コミット数、技術記事投稿、資格取得、プロジェクト完了率</text>
+    <text x="480" y="680" class="small-text">定性的: 問題解決能力向上、創造性発揮、チーム貢献度、技術的判断力</text>
+  </g>
+
+  <!-- Connection Lines -->
+  <line x1="160" y1="470" x2="160" y2="400" class="feedback-line"/>
+  <line x1="360" y1="470" x2="360" y2="400" class="feedback-line"/>
+  <line x1="560" y1="470" x2="560" y2="400" class="feedback-line"/>
+  <line x1="750" y1="470" x2="750" y2="400" class="feedback-line"/>
+</svg>
