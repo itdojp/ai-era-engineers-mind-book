@@ -109,3 +109,4 @@ Email: [knowledge@itdo.jp](mailto:knowledge@itdo.jp)
 ---
 
 [はじめにお読みください](src/introduction/preface/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+{% include page-navigation.html %}
