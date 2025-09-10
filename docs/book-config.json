@@ -8,7 +8,7 @@
       {
         "id": "preface",
         "title": "はじめに",
-        "path": "/introduction/preface.html",
+        "path": "/src/introduction/preface/",
         "description": "本書の目的とAI時代のエンジニア像"
       }
     ],
@@ -17,7 +17,7 @@
         "id": "1",
         "title": "エンジニアの思考OS",
         "subtitle": "基本的な認知フレームワーク",
-        "path": "/chapters/chapter1.html",
+        "path": "/src/chapter-1/",
         "description": "抽象化と具体化、トレードオフの定量化、技術的負債の評価、AI活用フレームワーク",
         "sections": [
           {
@@ -46,7 +46,7 @@
         "id": "2",
         "title": "要件定義の認知プロセス",
         "subtitle": "曖昧性との戦い",
-        "path": "/chapters/chapter2.html",
+        "path": "/src/chapter-2/",
         "description": "顧客言語と技術言語の変換、隠れた制約の発見、スコープクリープ制御、AI活用による高度化",
         "sections": [
           {
@@ -75,7 +75,7 @@
         "id": "3",
         "title": "アーキテクチャ設計の意思決定",
         "subtitle": "未来への投資",
-        "path": "/chapters/chapter3.html",
+        "path": "/src/chapter-3/",
         "description": "不確実性への対処、技術選定マトリクス、リスクリターン評価、AI組み込み設計",
         "sections": [
           {
@@ -104,7 +104,7 @@
         "id": "4",
         "title": "開発/構築フェーズの最適化思考",
         "subtitle": "チーム生産性の科学",
-        "path": "/chapters/chapter4.html",
+        "path": "/src/chapter-4/",
         "description": "レビュープロセス、技術的妥協点、チーム生産性モデル、AI支援品質保証",
         "sections": [
           {
@@ -133,7 +133,7 @@
         "id": "5",
         "title": "ステークホルダーマネジメント",
         "subtitle": "技術と経営の架け橋",
-        "path": "/chapters/chapter5.html",
+        "path": "/src/chapter-5/",
         "description": "経営層説明、予算獲得、リスクコミュニケーション、AI活用の経営提案",
         "sections": [
           {
@@ -162,7 +162,7 @@
         "id": "6",
         "title": "危機管理と問題解決",
         "subtitle": "火消しの科学",
-        "path": "/chapters/chapter6.html",
+        "path": "/src/chapter-6/",
         "description": "インシデント対応、根本原因分析、ポストモーテム、AI活用による高度化",
         "sections": [
           {
@@ -192,19 +192,19 @@
       {
         "id": "a",
         "title": "思考ツールテンプレート集",
-        "path": "/appendices/templates.html",
+        "path": "/src/appendices/templates/",
         "description": "実践的なツールとテンプレートの集合"
       },
       {
         "id": "b",
         "title": "ケーススタディ",
-        "path": "/appendices/case-studies.html",
+        "path": "/src/appendices/case-studies/",
         "description": "実際のプロジェクト事例とAI活用例"
       },
       {
         "id": "c",
         "title": "推奨読書リスト",
-        "path": "/appendices/reading-list.html",
+        "path": "/src/appendices/reading-list/",
         "description": "さらなる学習のための推奨書籍"
       }
     ]
