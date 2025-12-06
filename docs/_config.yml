@@ -41,27 +41,27 @@ defaults:
     values:
       layout: "book"
   - scope:
-      path: "src/chapter-1"
+      path: "chapters/chapter-01"
     values:
       layout: "book"
   - scope:
-      path: "src/chapter-2"
+      path: "chapters/chapter-02"
     values:
       layout: "book"
   - scope:
-      path: "src/chapter-3"
+      path: "chapters/chapter-03"
     values:
       layout: "book"
   - scope:
-      path: "src/chapter-4"
+      path: "chapters/chapter-04"
     values:
       layout: "book"
   - scope:
-      path: "src/chapter-5"
+      path: "chapters/chapter-05"
     values:
       layout: "book"
   - scope:
-      path: "src/chapter-6"
+      path: "chapters/chapter-06"
     values:
       layout: "book"
 
@@ -91,36 +91,35 @@ github:
 structure:
   introduction:
     - title: "まえがき"
-      path: "/src/introduction/preface/"
+      path: "/introduction/preface/"
   
   chapters:
     - id: 1
       title: "エンジニアの思考OS"
-      path: "/src/chapter-1/index/"
+      path: "/chapters/chapter-01/"
     - id: 2
       title: "要件定義の認知プロセス"
-      path: "/src/chapter-2/index/"
+      path: "/chapters/chapter-02/"
     - id: 3
       title: "アーキテクチャ設計の意思決定"
-      path: "/src/chapter-3/index/"
+      path: "/chapters/chapter-03/"
     - id: 4
       title: "開発/構築フェーズの最適化思考"
-      path: "/src/chapter-4/index/"
+      path: "/chapters/chapter-04/"
     - id: 5
       title: "ステークホルダーマネジメント"
-      path: "/src/chapter-5/index/"
+      path: "/chapters/chapter-05/"
     - id: 6
       title: "危機管理と問題解決"
-      path: "/src/chapter-6/index/"
+      path: "/chapters/chapter-06/"
   
   appendices:
     - id: "A"
       title: "思考ツールテンプレート集"
-      path: "/src/appendices/templates/"
+      path: "/appendices/templates/"
     - id: "B"
       title: "ケーススタディ"
-      path: "/src/appendices/case-studies/"
+      path: "/appendices/case-studies/"
     - id: "C"
       title: "推奨読書リスト"
-      path: "/src/appendices/reading-list/"
-
+      path: "/appendices/reading-list/"
