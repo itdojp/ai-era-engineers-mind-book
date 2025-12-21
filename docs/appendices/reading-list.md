@@ -1,5 +1,5 @@
 ---
-title: "付録C 推奨読書リスト"
+title: "付録C：推奨読書リスト"
 description: "AI時代のエンジニアが読むべき書籍・リソース一覧"
 layout: book
 ---

@@ -1,5 +1,5 @@
 ---
-title: "付録B ケーススタディ"
+title: "付録B：ケーススタディ"
 description: "実際のプロジェクトにおける思考プロセスの適用事例"
 layout: book
 ---

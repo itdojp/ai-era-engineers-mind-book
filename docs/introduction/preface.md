@@ -1,5 +1,5 @@
 ---
-title: はじめに
+title: まえがき
 layout: book
 ---
 
