@@ -92,6 +92,8 @@ structure:
   introduction:
     - title: "まえがき"
       path: "/introduction/preface/"
+    - title: "ライセンスFAQ"
+      path: "/introduction/license-faq/"
     - title: "AI協働の標準手順（SOP）"
       path: "/introduction/ai-collaboration-sop/"
     - title: "前作（論理思考ガイド）との接続"
@@ -127,3 +129,6 @@ structure:
     - id: "C"
       title: "推奨読書リスト"
       path: "/appendices/reading-list/"
+    - id: "D"
+      title: "更新履歴とメンテナンス方針"
+      path: "/appendices/update-notes/"

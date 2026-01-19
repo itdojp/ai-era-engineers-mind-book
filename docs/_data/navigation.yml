@@ -1,6 +1,8 @@
 introduction:
   - title: まえがき
     path: /introduction/preface/
+  - title: ライセンスFAQ
+    path: /introduction/license-faq/
   - title: AI協働の標準手順（SOP）
     path: /introduction/ai-collaboration-sop/
   - title: 前作（論理思考ガイド）との接続
@@ -27,3 +29,5 @@ appendices:
     path: /appendices/case-studies/
   - title: 付録C：推奨読書リスト
     path: /appendices/reading-list/
+  - title: 付録D：更新履歴とメンテナンス方針
+    path: /appendices/update-notes/

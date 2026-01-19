@@ -91,6 +91,7 @@ permalink: /
 - [思考ツールテンプレート集](appendices/templates/)
 - [ケーススタディ](appendices/case-studies/)
 - [推奨読書リスト](appendices/reading-list/)
+- [更新履歴とメンテナンス方針](appendices/update-notes/)
 
 ## 想定読者
 
@@ -116,6 +117,7 @@ permalink: /
 **🔓 教育・研究・個人学習での利用は自由** ですが、**💼 商用利用には事前許諾** が必要です。
 
 📋 [詳細なライセンス条件](https://github.com/itdojp/it-engineer-knowledge-architecture/blob/main/LICENSE.md)
+📌 [ライセンスFAQ](introduction/license-faq/)
 
 **お問い合わせ**  
 株式会社アイティードゥ（ITDO Inc.）  

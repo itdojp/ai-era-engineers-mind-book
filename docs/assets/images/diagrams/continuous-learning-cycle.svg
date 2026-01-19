@@ -43,7 +43,7 @@
     <text x="220" y="115" class="component-title" text-anchor="middle">現状把握・情報収集</text>
     <text x="145" y="135" class="text-content">• 技術トレンドの調査</text>
     <text x="145" y="150" class="text-content">• 市場動向の分析</text>
-    <text x="145" y="165" class="small-text">ツール: GitHub Trending、技術ブログ</text>
+    <text x="145" y="165" class="small-text">情報源: OSSトレンド、技術ブログ</text>
   </g>
 
   <!-- Reflect Phase -->
@@ -96,8 +96,8 @@
     <!-- Individual Learning -->
     <rect x="70" y="470" width="180" height="90" fill="#e6f3ff" stroke="#3498db" stroke-width="1" rx="3"/>
     <text x="160" y="490" class="text-content" text-anchor="middle" font-weight="bold">個人学習</text>
-    <text x="80" y="510" class="small-text">• AI活用学習: ChatGPT, GitHub Copilot</text>
-    <text x="80" y="525" class="small-text">• オンライン教材: Coursera, Udemy</text>
+    <text x="80" y="510" class="small-text">• AI活用学習: 対話型AI、コーディング支援AI</text>
+    <text x="80" y="525" class="small-text">• オンライン教材: 講座サイト、動画教材</text>
     <text x="80" y="540" class="small-text">• 技術書・論文読破</text>
     <text x="80" y="555" class="small-text">特徴: 自分のペースで深く学習</text>
 
