@@ -30,9 +30,12 @@ layout: book
 
 ### Unreleased
 
-- （マージされたPRを追記）
+- （なし）
 
 ### 1.0.0（2026-01-19）
 
 - AI協働SOPと前作接続ページを追加（[PR #83](https://github.com/itdojp/ai-era-engineers-mind-book/pull/83)）
-
+- LLM/生成AIアプリ設計の典型論点を第3章に追加（[PR #84](https://github.com/itdojp/ai-era-engineers-mind-book/pull/84)）
+- 第2/4/6章でSOP→成果物への落とし込みを追加（[PR #85](https://github.com/itdojp/ai-era-engineers-mind-book/pull/85)）
+- 付録テンプレ拡充＋ケーススタディ改善＋ルーブリックを追加（[PR #86](https://github.com/itdojp/ai-era-engineers-mind-book/pull/86)）
+- ライセンスFAQ＋更新履歴/陳腐化耐性を追加（[PR #87](https://github.com/itdojp/ai-era-engineers-mind-book/pull/87)）
