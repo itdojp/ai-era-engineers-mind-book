@@ -92,6 +92,10 @@ structure:
   introduction:
     - title: "まえがき"
       path: "/introduction/preface/"
+    - title: "AI協働の標準手順（SOP）"
+      path: "/introduction/ai-collaboration-sop/"
+    - title: "前作（論理思考ガイド）との接続"
+      path: "/introduction/bridge-logical-thinking-guide/"
   
   chapters:
     - id: 1

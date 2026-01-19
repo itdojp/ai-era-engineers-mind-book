@@ -1,0 +1,29 @@
+introduction:
+  - title: まえがき
+    path: /introduction/preface/
+  - title: AI協働の標準手順（SOP）
+    path: /introduction/ai-collaboration-sop/
+  - title: 前作（論理思考ガイド）との接続
+    path: /introduction/bridge-logical-thinking-guide/
+
+chapters:
+  - title: 第1章：エンジニアの思考OS
+    path: /chapters/chapter-01/
+  - title: 第2章：要件定義の認知プロセス
+    path: /chapters/chapter-02/
+  - title: 第3章：アーキテクチャ設計の意思決定
+    path: /chapters/chapter-03/
+  - title: 第4章：開発/構築フェーズの最適化思考
+    path: /chapters/chapter-04/
+  - title: 第5章：ステークホルダーマネジメント
+    path: /chapters/chapter-05/
+  - title: 第6章：危機管理と問題解決
+    path: /chapters/chapter-06/
+
+appendices:
+  - title: 付録A：思考ツールテンプレート集
+    path: /appendices/templates/
+  - title: 付録B：ケーススタディ
+    path: /appendices/case-studies/
+  - title: 付録C：推奨読書リスト
+    path: /appendices/reading-list/

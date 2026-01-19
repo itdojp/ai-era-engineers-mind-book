@@ -40,6 +40,8 @@ permalink: /
 
 ### はじめに
 - [まえがき](introduction/preface/) - AI時代における思考法の意義
+- [AI協働の標準手順（SOP）](introduction/ai-collaboration-sop/) - 章横断で使うAI協働の運用手順
+- [前作（論理思考ガイド）との接続](introduction/bridge-logical-thinking-guide/) - 汎用スキルとの対応表
 
 ### 本編
 
