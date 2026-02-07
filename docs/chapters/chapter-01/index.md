@@ -65,7 +65,7 @@ graph TD
             
             Architecture[🏗️ アーキテクチャレベル<br/><br/>【How - どのような構造で】<br/>・マイクロサービス構成<br/>・冗長化設計<br/>・ロードバランシング<br/>・データレプリケーション<br/><br/>【特徴】<br/>・システム全体構造<br/>・コンポーネント関係<br/>・非機能要件対応]
             
-            Implementation[⚙️ 実装構築レベル<br/><br/>【How to - 具体的にどう】<br/>・Java Spring Boot<br/>・PostgreSQL Cluster<br/>・Kubernetes deployment<br/>・AWS Load Balancer<br/><br/>【特徴】<br/>・技術詳細<br/>・具体的な設定<br/>・実装可能な形]
+            Implementation[⚙️ 実装構築レベル<br/>How to<br/>例: Spring Boot / PostgreSQL / Kubernetes / ALB]
         end
         
         subgraph "上位レベルへの抽象化プロセス"
@@ -101,7 +101,7 @@ graph TD
         HA1 --> HA2 --> HA3 --> HA4
         
         subgraph "AI時代の変換支援"
-            AISupport[🤖 AI活用のポイント<br/><br/>【AIが支援可能】<br/>・中間レベルの変換<br/>・パターンの提案<br/>・実装オプションの生成<br/><br/>【人間が判断必要】<br/>・ビジネス価値の評価<br/>・制約条件の優先順位<br/>・最終的な意思決定<br/><br/>【協働の形】<br/>・AIによる選択肢生成<br/>・人間による評価・選択<br/>・段階的な精緻化]
+            AISupport[🤖 AI活用のポイント<br/>AI: 選択肢生成・提案<br/>人: 価値判断・最終決定]
         end
         
         Abstract2 -.-> AISupport
@@ -114,6 +114,13 @@ graph TD
     style Implementation fill:#ffebee
     style AISupport fill:#f3e5f5
 ```
+
+**補足（図の詳細）**
+
+- 実装構築レベル（How to）例: Java Spring Boot / PostgreSQL Cluster / Kubernetes deployment / AWS Load Balancer
+- AIが支援可能: 中間レベルの変換、パターンの提案、実装オプションの生成
+- 人間が判断必要: ビジネス価値の評価、制約条件の優先順位、最終的な意思決定
+- 協働の形: AIによる選択肢生成 → 人間による評価・選択 → 段階的な精緻化
 
 #### 上位レベルへの抽象化：パターン認識と一般化
 
