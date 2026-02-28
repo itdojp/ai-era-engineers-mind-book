@@ -4,12 +4,12 @@
   "description": "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら、人間が責任を持って担うべき高度な判断力の向上を目指す実践的ガイド",
   "main": "index.md",
   "scripts": {
-    "start": "jekyll serve --livereload",
-    "build": "jekyll build",
+    "start": "cd docs && bundle exec jekyll serve --livereload",
+    "build": "cd docs && bundle exec jekyll build",
     "test": "npm run lint && npm run check-links",
     "lint": "markdownlint ./**/*.md",
     "check-links": "markdown-link-check ./**/*.md",
-    "deploy": "gh-pages -d _site"
+    "deploy": "gh-pages -d docs/_site"
   },
   "keywords": [
     "book",
