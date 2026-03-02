@@ -122,10 +122,10 @@ permalink: /
 
 ## ライセンス
 
-本書は **Creative Commons BY-NC-SA 4.0** ライセンスで公開されています。  
-**🔓 教育・研究・個人学習での利用は自由** ですが、**💼 商用利用には事前許諾** が必要です。
+本書は **Creative Commons BY-NC-SA 4.0** ライセンスで公開しています。  
+教育・研究・個人学習での利用は自由ですが、商用利用は別途契約（事前許諾）が必要です。
 
-📋 [詳細なライセンス条件](https://github.com/itdojp/it-engineer-knowledge-architecture/blob/main/LICENSE.md)
+[詳細なライセンス条件](https://github.com/itdojp/it-engineer-knowledge-architecture/blob/main/LICENSE.md)
 📌 [ライセンスFAQ](introduction/license-faq/)
 
 **お問い合わせ**  
