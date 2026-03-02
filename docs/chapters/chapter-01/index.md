@@ -366,11 +366,11 @@ graph TB
         Level1 --> Level2 --> Level3
         
         subgraph "AI協働のアンチパターン"
-            AntiPattern1[❌ 盲目的依存<br/>・AI出力をそのまま使用<br/>・検証プロセスの欠如<br/>・品質評価の軽視]
+            AntiPattern1[NG 盲目的依存<br/>・AI出力をそのまま使用<br/>・検証プロセスの欠如<br/>・品質評価の軽視]
             
-            AntiPattern2[❌ 曖昧な指示<br/>・期待した結果が得られない<br/>・指示能力の不足<br/>・制約条件の未明示]
+            AntiPattern2[NG 曖昧な指示<br/>・期待した結果が得られない<br/>・指示能力の不足<br/>・制約条件の未明示]
             
-            AntiPattern3[❌ 過度な複雑化<br/>・AI適用範囲の見誤り<br/>・人間判断領域の軽視<br/>・技術的負債の蓄積]
+            AntiPattern3[NG 過度な複雑化<br/>・AI適用範囲の見誤り<br/>・人間判断領域の軽視<br/>・技術的負債の蓄積]
         end
         
         Element4 --> AntiPattern1
