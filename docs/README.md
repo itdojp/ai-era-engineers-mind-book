@@ -100,7 +100,10 @@ ITエンジニアの技術力向上と組織の成長を支援する企業です
 
 ## 📄 ライセンス
 
-All Rights Reserved © 2024 ITDO Inc.
+本書は **Creative Commons BY-NC-SA 4.0** ライセンスで公開しています。  
+教育・研究・個人学習での利用は自由ですが、商用利用は別途契約（事前許諾）が必要です。
+
+- 詳細: https://github.com/itdojp/it-engineer-knowledge-architecture/blob/main/LICENSE.md
 
 ## 🤝 貢献
 
