@@ -208,6 +208,12 @@
         "title": "推奨読書リスト",
         "path": "/appendices/reading-list/",
         "description": "さらなる学習のための推奨書籍"
+      },
+      {
+        "id": "d",
+        "title": "更新履歴とメンテナンス方針",
+        "path": "/appendices/update-notes/",
+        "description": "更新履歴、版差、メンテナンス方針の確認導線"
       }
     ]
   },
