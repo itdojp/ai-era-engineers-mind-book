@@ -4,7 +4,7 @@
   "description": "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら、人間が責任を持って担うべき高度な判断力の向上を目指す実践的ガイド",
   "author": "ITDO Inc.",
   "version": "1.0.0",
-  "license": "CC BY-NC-SA 4.0",
+  "license": "CC-BY-NC-SA-4.0",
   "structure": {
     "introduction": [
       {
@@ -237,5 +237,6 @@
   "shared": {
     "version": "3.2.2",
     "lastSync": "2026-02-04T23:01:51.889Z"
-  }
+  },
+  "licenseLabel": "CC BY-NC-SA 4.0"
 }
