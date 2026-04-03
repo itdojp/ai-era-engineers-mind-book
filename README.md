@@ -2,9 +2,9 @@
 
 生成AIを活用した技術的意思決定とステークホルダーマネジメントの実践的フレームワークを整理した技術書です。
 
-- 公開ページ（GitHub Pages）: https://itdojp.github.io/ai-era-engineers-mind-book/
+- 公開ページ（GitHub Pages）: [AI時代のプロフェッショナルITエンジニアの思考法](https://itdojp.github.io/ai-era-engineers-mind-book/)
 - 目次（リポジトリ内）: `docs/index.md`
-- シリーズ: https://github.com/itdojp/it-engineer-knowledge-architecture
+- シリーズ: [ITエンジニア知識体系](https://github.com/itdojp/it-engineer-knowledge-architecture)
 
 ## この本でできるようになること（抜粋）
 
@@ -15,7 +15,7 @@
 
 ## フィードバック（誤り指摘・改善提案）
 
-誤字脱字、技術的な誤り、改善提案は Issues / Pull Request で受け付けます。手順は `CONTRIBUTING.md` を参照してください。
+誤字脱字、技術的な誤り、改善提案は Issues / PR で受け付けます。手順は `CONTRIBUTING.md` を参照してください。
 
 ## ライセンス
 
