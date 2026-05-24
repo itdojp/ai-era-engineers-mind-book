@@ -633,7 +633,188 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 - 変更を「差し替え」で終わらせず、eval、security、cost、rollback、approval まで確認している。
 - 影響を受ける成果物が明示されている。
 
-## A.15 付録Aの運用ルール
+
+## A.15 delivery / review / runbook templates
+
+第4章から参照する PRテンプレート、コードレビューチェックリスト、Runbookテンプレートは、AI支援開発を delivery pipeline へ接続するために使う。
+
+### A.15.1 AI利用ポリシー付き PRテンプレート
+
+```markdown
+# Pull request
+
+## Summary
+- 変更内容:
+- Related Issue / ADR:
+
+## Scope
+- 変更した範囲:
+- 変更していない範囲:
+
+## AI use policy
+- AI利用の有無:
+- AIに委任した作業:
+- 入力した情報の分類:
+- AI出力の採用 / 修正 / 却下:
+- 人間が最終判断した内容:
+
+## Verification
+| Check | Result | Evidence |
+| --- | --- | --- |
+| tests | | |
+| lint / static analysis | | |
+| security / privacy | | |
+| eval / regression | | |
+| docs / runbook | | |
+
+## Risk / approval / rollback
+- 主要リスク:
+- 必要な承認:
+- audit log:
+- rollback:
+```
+
+### A.15.2 コードレビュー / AIレビュー checklist
+
+- [ ] Issue、requirements brief、ADR、acceptance criteria と差分が対応している。
+- [ ] AI生成部分と人間が判断した部分が PR に記録されている。
+- [ ] security、privacy、compliance、approval、audit、rollback の観点が確認されている。
+- [ ] テスト、静的解析、eval、手動確認の証跡がある。
+- [ ] 生成コード、生成テスト、生成ドキュメントを、AI出力のまま採用していない。
+- [ ] runbook、release note、運用手順、問い合わせ先の更新要否を確認している。
+- [ ] rollback または manual takeover が説明できる。
+
+### A.15.3 Runbookテンプレート
+
+```markdown
+# Runbook
+
+## Purpose
+- 対象システム:
+- 対象業務:
+- 利用者:
+
+## Preconditions
+- 必要な権限:
+- 実行前承認:
+- 入力禁止情報:
+- 想定するリスク:
+
+## Procedure
+| Step | Action | Expected result | Evidence |
+| --- | --- | --- | --- |
+| 1 | | | |
+
+## Verification
+- 成功条件:
+- 失敗条件:
+- 監視指標:
+
+## Rollback / manual takeover
+- rollback 手順:
+- manual takeover 手順:
+- escalation:
+
+## Audit
+- 残すログ:
+- 承認者:
+- 保存先:
+```
+
+## A.16 AI incident operational templates
+
+第6章から参照する AI incident runbook、severity matrix、communication template は、AI固有インシデントの初動、説明、復旧、再発防止を標準化するために使う。
+
+### A.16.1 AI incident runbook
+
+```markdown
+# AI incident runbook
+
+## Scope
+- 対象システム:
+- 対象AI機能:
+- 対象 tool / connector / MCP:
+
+## Severity
+- severity matrix:
+- incident declaration 条件:
+- escalation 条件:
+
+## Roles
+- Incident Commander:
+- Technical Lead:
+- Security Lead:
+- Communication Lead:
+- Legal / Compliance:
+- Field Owner:
+
+## Detection
+- alerts:
+- metrics:
+- manual reports:
+- audit signals:
+
+## Containment
+- kill switch:
+- quarantine:
+- rollback:
+- manual takeover:
+- degrade gracefully:
+
+## Approval and audit
+- 実行前承認:
+- 事後監査:
+- 必須証跡:
+
+## Recovery and validation
+- 復旧条件:
+- eval / regression:
+- audit completeness:
+
+## Postmortem
+- 開催条件:
+- template:
+- action item tracking:
+```
+
+### A.16.2 severity matrix
+
+| Severity | AI固有の例 | 初動 | 通知先 |
+| --- | --- | --- | --- |
+| SEV-1 | 情報漏えい、重大な誤操作、広範な approval bypass | kill switch、quarantine、経営 escalation | 経営、Security、Legal、監査、顧客窓口 |
+| SEV-2 | 限定範囲の重大誤回答、provider outage、コスト急増 | 対象機能停止、manual takeover | 事業責任者、SRE、Security、現場責任者 |
+| SEV-3 | citation failure、retrieval failure、stale knowledge | 回答停止、再評価、FAQ更新 | EM、Tech Lead、Support |
+| SEV-4 | eval drift、軽微な latency / cost anomaly | backlog 化、定期レビュー | Owner、SRE |
+
+### A.16.3 communication template（社内 / 顧客 / 経営向け）
+
+```markdown
+# Internal update
+- Incident ID:
+- Severity:
+- Current state:
+- AI involvement:
+- Containment:
+- Next update:
+
+# Customer update
+- 発生している事象:
+- 影響範囲:
+- 実施済み対応:
+- お客様にお願いしたいこと:
+- 次回更新:
+- 問い合わせ先:
+
+# Executive brief
+- Decision needed:
+- Customer / business impact:
+- Legal / audit / contract impact:
+- Actions taken:
+- Options and recommendation:
+- Next update:
+```
+
+## A.17 付録Aの運用ルール
 
 テンプレートは、作った時点ではなく、使われて更新された時点で価値を持つ。次のルールで運用する。
 
