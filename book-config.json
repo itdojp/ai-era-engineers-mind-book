@@ -111,29 +111,54 @@
       {
         "id": "3",
         "title": "アーキテクチャ設計の意思決定",
-        "subtitle": "未来への投資",
+        "subtitle": "workflow / agent 時代の設計判断",
         "path": "/chapters/chapter-03/",
-        "description": "workflow / agent / RAG / tool 実行の設計判断、eval、threat model、approval、audit",
+        "description": "通常機能、RAG、workflow、agent、MCP / connector / function calling を、eval、threat model、approval、audit、rollback と接続して設計判断へ落とす章",
         "sections": [
           {
             "id": "1",
-            "title": "将来の不確実性への対処戦略",
-            "path": "/chapters/chapter3.html#section-3-1"
+            "title": "採用候補を5段階で比較する",
+            "path": "/chapters/chapter-03/#section-3-1"
           },
           {
             "id": "2",
-            "title": "技術選定マトリクスの構築",
-            "path": "/chapters/chapter3.html#section-3-2"
+            "title": "architecture decision matrix を作る",
+            "path": "/chapters/chapter-03/#section-3-2"
           },
           {
             "id": "3",
-            "title": "リスクとリターンの定量評価",
-            "path": "/chapters/chapter3.html#section-3-3"
+            "title": "schema-driven input / output と validation を設計する",
+            "path": "/chapters/chapter-03/#section-3-3"
           },
           {
             "id": "4",
-            "title": "AI時代のアーキテクチャ設計",
-            "path": "/chapters/chapter3.html#section-3-4"
+            "title": "tool 実行と MCP / connector / function calling を統制する",
+            "path": "/chapters/chapter-03/#section-3-4"
+          },
+          {
+            "id": "5",
+            "title": "threat model を設計へ組み込む",
+            "path": "/chapters/chapter-03/#section-3-5"
+          },
+          {
+            "id": "6",
+            "title": "eval harness と regression を設計する",
+            "path": "/chapters/chapter-03/#section-3-6"
+          },
+          {
+            "id": "7",
+            "title": "latency / cost / quality / reliability を予算化する",
+            "path": "/chapters/chapter-03/#section-3-7"
+          },
+          {
+            "id": "8",
+            "title": "vendor portability と exit strategy を決める",
+            "path": "/chapters/chapter-03/#section-3-8"
+          },
+          {
+            "id": "9",
+            "title": "AI system ADR と control point checklist に落とす",
+            "path": "/chapters/chapter-03/#section-3-9"
           }
         ]
       },
@@ -147,22 +172,22 @@
           {
             "id": "1",
             "title": "レビュープロセスにおける交渉術",
-            "path": "/chapters/chapter4.html#section-4-1"
+            "path": "/chapters/chapter-04/#section-4-1"
           },
           {
             "id": "2",
             "title": "技術的妥協点の見極め方",
-            "path": "/chapters/chapter4.html#section-4-2"
+            "path": "/chapters/chapter-04/#section-4-2"
           },
           {
             "id": "3",
             "title": "チーム生産性の数理モデル",
-            "path": "/chapters/chapter4.html#section-4-3"
+            "path": "/chapters/chapter-04/#section-4-3"
           },
           {
             "id": "4",
             "title": "AI支援開発における品質保証",
-            "path": "/chapters/chapter4.html#section-4-4"
+            "path": "/chapters/chapter-04/#section-4-4"
           }
         ]
       },
@@ -176,22 +201,22 @@
           {
             "id": "1",
             "title": "経営層への技術説明フレームワーク",
-            "path": "/chapters/chapter5.html#section-5-1"
+            "path": "/chapters/chapter-05/#section-5-1"
           },
           {
             "id": "2",
             "title": "予算獲得のためのROI提示手法",
-            "path": "/chapters/chapter5.html#section-5-2"
+            "path": "/chapters/chapter-05/#section-5-2"
           },
           {
             "id": "3",
             "title": "リスクコミュニケーション戦略",
-            "path": "/chapters/chapter5.html#section-5-3"
+            "path": "/chapters/chapter-05/#section-5-3"
           },
           {
             "id": "4",
             "title": "AI活用を前提とした経営コミュニケーション",
-            "path": "/chapters/chapter5.html#section-5-4"
+            "path": "/chapters/chapter-05/#section-5-4"
           }
         ]
       },
@@ -205,22 +230,22 @@
           {
             "id": "1",
             "title": "インシデント対応の優先順位付け",
-            "path": "/chapters/chapter6.html#section-6-1"
+            "path": "/chapters/chapter-06/#section-6-1"
           },
           {
             "id": "2",
             "title": "根本原因分析の思考プロセス",
-            "path": "/chapters/chapter6.html#section-6-2"
+            "path": "/chapters/chapter-06/#section-6-2"
           },
           {
             "id": "3",
             "title": "ポストモーテムの価値最大化",
-            "path": "/chapters/chapter6.html#section-6-3"
+            "path": "/chapters/chapter-06/#section-6-3"
           },
           {
             "id": "4",
             "title": "AIを活用したインシデント対応の高度化",
-            "path": "/chapters/chapter6.html#section-6-4"
+            "path": "/chapters/chapter-06/#section-6-4"
           }
         ]
       }
