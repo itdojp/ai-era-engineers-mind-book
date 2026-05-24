@@ -45,6 +45,7 @@ Issue #127 の各 PR では、次を確認する。
 
 ### Unreleased
 
+- 第3章を workflow / agent 時代の設計判断として全面リライトし、通常機能 / RAG / workflow / agent の使い分け、MCP / connector / function calling、schema-driven validation、threat model、eval harness、latency / cost / quality / reliability budget、vendor portability、exit strategy を接続した（2026-05-24）。
 - 第2章を AIを含む要求境界の設計として全面リライトし、requirements brief、acceptance criteria、data / permission boundary table、Human-in-the-loop / Human-on-the-loop / Full automation、KPI と guardrail metric、fallback / manual override を接続した（2026-05-24）。
 - 第1章を AIネイティブ環境における意思決定OSとして全面リライトし、context engineering、schema-first thinking、source hierarchy、delegate / review / own、decision rights を接続した（2026-05-24）。
 - Issue #127 の 2026年版リライトに向けて、トップページ、まえがき、AI協働SOP、更新方針の基礎契約を定義した（2026-05-24）。

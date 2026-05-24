@@ -111,29 +111,54 @@
       {
         "id": "3",
         "title": "アーキテクチャ設計の意思決定",
-        "subtitle": "未来への投資",
+        "subtitle": "workflow / agent 時代の設計判断",
         "path": "/chapters/chapter-03/",
-        "description": "workflow / agent / RAG / tool 実行の設計判断、eval、threat model、approval、audit",
+        "description": "通常機能、RAG、workflow、agent、MCP / connector / function calling を、eval、threat model、approval、audit、rollback と接続して設計判断へ落とす章",
         "sections": [
           {
             "id": "1",
-            "title": "将来の不確実性への対処戦略",
-            "path": "/chapters/chapter3.html#section-3-1"
+            "title": "採用候補を5段階で比較する",
+            "path": "/chapters/chapter-03/#section-3-1"
           },
           {
             "id": "2",
-            "title": "技術選定マトリクスの構築",
-            "path": "/chapters/chapter3.html#section-3-2"
+            "title": "architecture decision matrix を作る",
+            "path": "/chapters/chapter-03/#section-3-2"
           },
           {
             "id": "3",
-            "title": "リスクとリターンの定量評価",
-            "path": "/chapters/chapter3.html#section-3-3"
+            "title": "schema-driven input / output と validation を設計する",
+            "path": "/chapters/chapter-03/#section-3-3"
           },
           {
             "id": "4",
-            "title": "AI時代のアーキテクチャ設計",
-            "path": "/chapters/chapter3.html#section-3-4"
+            "title": "tool 実行と MCP / connector / function calling を統制する",
+            "path": "/chapters/chapter-03/#section-3-4"
+          },
+          {
+            "id": "5",
+            "title": "threat model を設計へ組み込む",
+            "path": "/chapters/chapter-03/#section-3-5"
+          },
+          {
+            "id": "6",
+            "title": "eval harness と regression を設計する",
+            "path": "/chapters/chapter-03/#section-3-6"
+          },
+          {
+            "id": "7",
+            "title": "latency / cost / quality / reliability を予算化する",
+            "path": "/chapters/chapter-03/#section-3-7"
+          },
+          {
+            "id": "8",
+            "title": "vendor portability と exit strategy を決める",
+            "path": "/chapters/chapter-03/#section-3-8"
+          },
+          {
+            "id": "9",
+            "title": "AI system ADR と control point checklist に落とす",
+            "path": "/chapters/chapter-03/#section-3-9"
           }
         ]
       },
