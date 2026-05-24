@@ -336,7 +336,7 @@
         "id": "b",
         "title": "ケーススタディ",
         "path": "/appendices/case-studies/",
-        "description": "実際のプロジェクト事例とAI活用例"
+        "description": "社内ナレッジアシスタント、GitHub agent-assisted delivery、障害調査 / 運用支援 copilot の成功例・失敗例・統制不備・成果物"
       },
       {
         "id": "c",

@@ -645,5 +645,5 @@ Issue 起点で作業を分け、agent に渡せるタスクと渡せないタ�
 ### 関連する付録・テンプレート
 
 - PRやレビュー項目を整備する場合は、[付録A：実務成果物テンプレート集](../../appendices/templates/) の PRテンプレート、コードレビューチェックリスト、Runbookテンプレートを参照してほしい。
-- 開発フェーズ最適化の実例は、[付録B：ケーススタディ](../../appendices/case-studies/) の開発／構築フェーズに関する事例が参考になる。
+- 開発フェーズ最適化の実例は、[付録B：ケーススタディ](../../appendices/case-studies/) の GitHub 上の agent-assisted delivery が参考になる。
 - 汎用スキル（問題設定/構造化/検証）の補完関係は、[前作（論理思考ガイド）との接続](../../introduction/bridge-logical-thinking-guide/) を参照してほしい。
