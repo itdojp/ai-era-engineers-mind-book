@@ -121,7 +121,7 @@ structure:
   
   appendices:
     - id: "A"
-      title: "思考ツールテンプレート集"
+      title: "実務成果物テンプレート集"
       path: "/appendices/templates/"
     - id: "B"
       title: "ケーススタディ"

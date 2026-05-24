@@ -31,7 +31,7 @@
 
 ### 付録
 
-- [思考ツールテンプレート集](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/templates/)
+- [実務成果物テンプレート集](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/templates/)
 - [ケーススタディ](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/case-studies/)
 - [推奨読書リスト](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/reading-list/)
 - [更新履歴とメンテナンス方針](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/update-notes/)

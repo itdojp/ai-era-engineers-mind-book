@@ -420,5 +420,5 @@ AIネイティブな思考OSは、問いを構造化し、出力 schema を決�
 ### 関連する付録・テンプレート
 
 - [AI協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/)
-- [付録A：思考ツールテンプレート集](../../appendices/templates/)
+- [付録A：実務成果物テンプレート集](../../appendices/templates/)
 - [付録D：更新履歴とメンテナンス方針](../../appendices/update-notes/)

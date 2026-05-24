@@ -95,7 +95,7 @@ Issue #127 の 2026年版リライトでは、各章の冒頭に「この章で�
 
 ### 付録
 
-- [思考ツールテンプレート集](appendices/templates/)
+- [実務成果物テンプレート集](appendices/templates/)
 - [ケーススタディ](appendices/case-studies/)
 - [推奨読書リスト](appendices/reading-list/)
 - [更新履歴とメンテナンス方針](appendices/update-notes/)
