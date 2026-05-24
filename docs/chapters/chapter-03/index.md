@@ -51,12 +51,12 @@ AIネイティブなアーキテクチャ設計では、「AIを入れるかど�
 
 | 失敗 | 何が起きるか | 防止策 |
 | --- | --- | --- |
-| AIを使うことが目的になる | 通常機能で十分な箇所が agent 化され、運用と監査が重くなる | まず通常機能、検索付き機能、RAG、workflow、agent を比較する |
-| RAG で権限境界を忘れる | 見えてはいけない文書が検索・引用される | data / permission boundary table と検索権限を一致させる |
-| tool 実行を直接許可する | 誤操作、削除、外部送信、コスト暴走が起きる | approval gate、least privilege、allowlist、audit trail を置く |
-| eval を後回しにする | PoC は動くが、品質劣化や回帰を検知できない | offline eval、trace-based evaluation、regression test を設計に含める |
-| provider outage を想定しない | モデル・検索・connector 障害で業務が止まる | fallback、degrade gracefully、manual takeover、exit strategy を決める |
-| ベンダー固有機能へ寄せすぎる | 移行不能、価格変更、仕様変更に弱くなる | abstraction boundary、vendor portability、exportable logs を設計する |
+| AIを使うことが目的になる | 通常機能で十分な箇所が agent 化され、運用と監査が重くなる | まず通常機能、検索付き機能、RAG、workflow、agent を比較する（§3.1） |
+| RAG で権限境界を忘れる | 見えてはいけない文書が検索・引用される | data / permission boundary table と検索権限を一致させる（§3.3、§3.5） |
+| tool 実行を直接許可する | 誤操作、削除、外部送信、コスト暴走が起きる | approval gate、least privilege、allowlist、audit trail を置く（§3.4、§3.5） |
+| eval を後回しにする | PoC は動くが、品質劣化や回帰を検知できない | offline eval、trace-based evaluation、regression test を設計に含める（§3.6） |
+| provider outage を想定しない | モデル・検索・connector 障害で業務が止まる | fallback、degrade gracefully、manual takeover、exit strategy を決める（§3.7、§3.8） |
+| ベンダー固有機能へ寄せすぎる | 移行不能、価格変更、仕様変更に弱くなる | abstraction boundary、vendor portability、exportable logs を設計する（§3.8） |
 
 ## 本章とAI協働の標準手順（SOP）
 
@@ -99,7 +99,7 @@ workflowで十分なら、自律度の高い agent は不要である。
 | 強み | 文書更新を反映しやすい。引用を残しやすい | 表現、分類、形式の安定化に使える | approval、audit、rollback を設計しやすい | 探索、調査、複数 tool 連携に強い |
 | 弱み | 検索品質と権限管理に依存する | 最新知識や権限管理の代替ではない | 例外が多いとフローが肥大化する | 評価、監査、停止条件が難しい |
 | 必須統制 | search permission、citation、retrieval eval | 学習データ管理、更新方針、評価データ | tool allowlist、approval gate、runbook | planning trace、tool sandbox、human override |
-| 向かない場面 | 文書が未整備、引用が不要 | 知識更新が主目的、データ権利が不明 | 判断基準が未定義 | 本番高リスク操作を自動化したいだけ |
+| 向かない場面 | 文書が未整備、引用が不要 | 知識更新・権限更新が主目的、データ権利が不明 | 判断基準が未定義 | 本番高リスク操作を自動化したいだけ |
 | 成果物 | RAG設計、eval plan、引用方針 | model change note、評価結果 | tool approval matrix、control checklist | AI system ADR、threat model、trace-based eval |
 
 fine-tuning は、RAG の代替ではない。
@@ -403,6 +403,9 @@ AIシステムでは、品質を上げるほど、検索回数、モデル呼び
 | reliability budget | どの障害を許容し、どう縮退するか | provider outage 時は検索のみへ縮退 |
 | review budget | 人間レビューに使える時間 | 高リスクカテゴリは全件レビュー、低リスクはサンプリング |
 | audit budget | どこまで記録するか | trace id、source、validation、approval は必須 |
+
+予算表の数値は、読者が分解粒度を理解するための例であり、推奨値や標準値ではない。
+実際の値は、利用者の待機許容、業務時間、SLO、監査要件、provider outage 時の縮退設計から逆算する。
 
 予算は、設計の制約である。
 「可能なら速く」「なるべく安く」「できるだけ正確に」は、設計判断にならない。
