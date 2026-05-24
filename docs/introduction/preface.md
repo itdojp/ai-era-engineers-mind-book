@@ -80,11 +80,11 @@ layout: book
 
 ## 本書の使い方
 
-1. まず [AI協働の標準手順（SOP）](./ai-collaboration-sop/) を確認し、AI出力を成果物へ変換する最小ゲートを把握する。
+1. まず [AI協働の標準手順（SOP）](https://itdojp.github.io/ai-era-engineers-mind-book/introduction/ai-collaboration-sop/) を確認し、AI出力を成果物へ変換する最小ゲートを把握する。
 2. 自分の役割に近い章から読み、章末の成果物を1つだけ実務に適用する。
 3. 成果物には、採用理由だけでなく、却下理由、検証結果、承認条件、ロールバック方針を残す。
 4. 実装詳細や個別運用に踏み込む場合は、シリーズ内の関連書籍へ移動する。
-5. モデル名、価格、UI、API細部など変動しやすい情報は、本文の判断原則と切り分けて [付録D](../appendices/update-notes/) で更新方針を確認する。
+5. モデル名、価格、UI、API細部など変動しやすい情報は、本文の判断原則と切り分けて [付録D](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/update-notes/) で更新方針を確認する。
 
 ## 2026年5月時点の前提
 
