@@ -1,7 +1,7 @@
 {
   "name": "ai時代のプロフェッショナルitエンジニアの思考法",
   "version": "1.0.0",
-  "description": "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら、人間が責任を持って担うべき高度な判断力の向上を目指す実践的ガイド",
+  "description": "AIネイティブな実務を前提に、意思決定・説明責任・運用統制を成果物として残すための実践書",
   "main": "index.md",
   "scripts": {
     "start": "cd docs && bundle exec jekyll serve --livereload",

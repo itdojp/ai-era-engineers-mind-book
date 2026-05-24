@@ -1,7 +1,7 @@
 {
   "title": "AI時代のプロフェッショナルITエンジニアの思考法",
-  "subtitle": "生成AIを活用した技術的意思決定とステークホルダーマネジメントの実践的フレームワーク",
-  "description": "ITエンジニア全般に共通する優れた思考プロセスを体系化し、生成AIを効果的に活用しながら、人間が責任を持って担うべき高度な判断力の向上を目指す実践的ガイド",
+  "subtitle": "AIネイティブな実務における意思決定・説明責任・運用統制の実践書",
+  "description": "AIネイティブな実務を前提に、シニアエンジニア、テックリード、アーキテクト、EM、SRE、DevOps リーダー、Security 担当者が、意思決定・説明責任・運用統制を成果物として残すための実践書",
   "author": "ITDO Inc.",
   "version": "1.0.0",
   "license": "CC-BY-NC-SA-4.0",
@@ -11,7 +11,7 @@
         "id": "preface",
         "title": "はじめに",
         "path": "/introduction/preface/",
-        "description": "本書の目的とAI時代のエンジニア像"
+        "description": "2026年版の位置づけ、対象読者、役割別の読み方"
       }
     ],
     "chapters": [
@@ -20,7 +20,7 @@
         "title": "エンジニアの思考OS",
         "subtitle": "基本的な認知フレームワーク",
         "path": "/chapters/chapter-01/",
-        "description": "抽象化と具体化、トレードオフの定量化、技術的負債の評価、AI活用フレームワーク",
+        "description": "AIネイティブ環境における意思決定OS、前提・根拠・検証責任、delegate / review / own",
         "sections": [
           {
             "id": "1",
@@ -49,7 +49,7 @@
         "title": "要件定義の認知プロセス",
         "subtitle": "曖昧性との戦い",
         "path": "/chapters/chapter-02/",
-        "description": "顧客言語と技術言語の変換、隠れた制約の発見、スコープクリープ制御、AI活用による高度化",
+        "description": "AIを含む業務・プロダクト・社内ツールの要求定義、受入条件、データ・権限境界",
         "sections": [
           {
             "id": "1",
@@ -78,7 +78,7 @@
         "title": "アーキテクチャ設計の意思決定",
         "subtitle": "未来への投資",
         "path": "/chapters/chapter-03/",
-        "description": "不確実性への対処、技術選定マトリクス、リスクリターン評価、AI組み込み設計",
+        "description": "workflow / agent / RAG / tool 実行の設計判断、eval、threat model、approval、audit",
         "sections": [
           {
             "id": "1",
@@ -107,7 +107,7 @@
         "title": "開発/構築フェーズの最適化思考",
         "subtitle": "チーム生産性の科学",
         "path": "/chapters/chapter-04/",
-        "description": "レビュープロセス、技術的妥協点、チーム生産性モデル、AI支援品質保証",
+        "description": "AI-native SDLC、agent-assisted delivery、PRレビュー、検証、release readiness",
         "sections": [
           {
             "id": "1",
@@ -136,7 +136,7 @@
         "title": "ステークホルダーマネジメント",
         "subtitle": "技術と経営の架け橋",
         "path": "/chapters/chapter-05/",
-        "description": "経営層説明、予算獲得、リスクコミュニケーション、AI活用の経営提案",
+        "description": "AI投資、統制、法務・セキュリティ・監査調整、ROI / TCO / control cost の説明",
         "sections": [
           {
             "id": "1",
@@ -165,7 +165,7 @@
         "title": "危機管理と問題解決",
         "subtitle": "火消しの科学",
         "path": "/chapters/chapter-06/",
-        "description": "インシデント対応、根本原因分析、ポストモーテム、AI活用による高度化",
+        "description": "AI固有インシデント、誤動作、権限逸脱、fallback、kill switch、rollback、postmortem",
         "sections": [
           {
             "id": "1",
@@ -213,7 +213,7 @@
         "id": "d",
         "title": "更新履歴とメンテナンス方針",
         "path": "/appendices/update-notes/",
-        "description": "更新履歴、版差、メンテナンス方針の確認導線"
+        "description": "変動要素の隔離方針、2026年版リライト方針、更新履歴"
       }
     ]
   },
