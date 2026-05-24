@@ -113,7 +113,7 @@ Issue #127 の付録Cでは、次のカテゴリを優先する。
 | evals / agent evaluation | OpenAI Evals guide、OpenAI Agent evals guide、NIST AI RMF Measure | eval spec、eval dataset design sheet、verification record |
 | MCP / tool integration | Model Context Protocol documentation、OWASP LLM Top 10、MITRE ATLAS | AI system ADR、tool approval matrix、audit trail design |
 | AI-assisted software delivery | GitHub Copilot coding agent best practices、Responsible use of Copilot coding agent、Accelerate | agent task brief、PRテンプレート、review checklist、delivery metrics dashboard |
-| incident / reliability / governance | Google SRE、NIST AI RMF、NIST GenAI Profile、CISA Roadmap for AI | AI incident runbook、severity matrix、postmortem、risk register |
+| incident / reliability / governance | Google SRE、NIST AI RMF、NIST AI RMF Generative AI Profile、CISA Roadmap for AI | AI incident runbook、severity matrix、postmortem、risk register |
 | documentation / evidence / traceability | Diátaxis、付録A、engineering documentation 系のシリーズ内書籍 | ADR、decision log、verification record、update notes |
 
 ## C.5 シリーズ内の関連書籍
@@ -148,7 +148,7 @@ Issue #127 の付録Cでは、次のカテゴリを優先する。
 ### Tech Lead / Architect
 
 1. 第3章を読み、architecture decision matrix と AI system ADR を作る。
-2. NIST AI RMF、NIST GenAI Profile、ISO/IEC 42001 を読み、governanceと設計判断を接続する。
+2. NIST AI RMF、NIST AI RMF Generative AI Profile、ISO/IEC 42001 を読み、governanceと設計判断を接続する。
 3. MCP documentation と MITRE ATLAS を読み、tool権限とthreat modelを更新する。
 4. "Designing Data-Intensive Applications" と "Building Evolutionary Architectures" でデータ・評価・変化耐性を補強する。
 5. AgentOps Book と AI Testing Strategy Book へ進む。
@@ -165,14 +165,14 @@ Issue #127 の付録Cでは、次のカテゴリを優先する。
 
 1. 第6章を読み、AI incident runbook、severity matrix、communication templateを作る。
 2. Google SRE の Emergency Response と Postmortem Culture を読み、incident運用を補強する。
-3. NIST AI RMF、NIST GenAI Profile、MITRE ATLAS を読み、AI固有incidentの分類を整える。
+3. NIST AI RMF、NIST AI RMF Generative AI Profile、MITRE ATLAS を読み、AI固有incidentの分類を整える。
 4. MCP documentation を読み、read-only tool、approval gate、audit trailを設計する。
 5. Incident Response Basics Book と GitHub AgentOps Book で運用詳細を補う。
 
 ### Security / Privacy / Compliance
 
 1. OWASP LLM Top 10、MITRE ATLAS、Guidelines for Secure AI System Development を読む。
-2. NIST AI RMF、NIST GenAI Profile、ISO/IEC 42001 を読み、governance、risk、auditの言葉に変換する。
+2. NIST AI RMF、NIST AI RMF Generative AI Profile、ISO/IEC 42001 を読み、governance、risk、auditの言葉に変換する。
 3. 第2章の data / permission boundary table と第3章の threat model をレビューする。
 4. 第6章の postmortem と incident timeline に、approval bypass、MCP authorization failure、data exfiltration を含める。
 5. Security Privacy Literacy Book と Evidence-Based Engineering Book で説明責任を補強する。
