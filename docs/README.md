@@ -32,7 +32,7 @@
 ### 付録
 
 - [実務成果物テンプレート集](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/templates/)
-- [ケーススタディ](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/case-studies/) - 社内ナレッジアシスタント、agent-assisted delivery、障害調査支援の実例
+- [ケーススタディ](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/case-studies/) - 社内ナレッジアシスタント、agent-assisted delivery、障害調査 / 運用支援 copilot の実例
 - [推奨読書リスト](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/reading-list/)
 - [更新履歴とメンテナンス方針](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/update-notes/)
 
