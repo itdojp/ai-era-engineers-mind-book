@@ -532,4 +532,5 @@ AIを含む業務・プロダクト・社内ツールでは、要求が曖昧な
 - 要件から設計判断へ進む場合は、[第3章：アーキテクチャ設計の意思決定](../chapter-03/) で AI system ADR、threat model、eval plan に接続する。
 - 成果物テンプレートは、[付録A：実務成果物テンプレート集](../../appendices/templates/) を参照する。
 - 要求境界を実例で確認する場合は、[付録B：ケーススタディ](../../appendices/case-studies/) の社内ナレッジアシスタントを参照する。
+- 変化しやすい価格、UI、API細部、モデル名を要件へ固定しすぎない基準は、[付録D：更新履歴とメンテナンス方針](../../appendices/update-notes/) を参照する。
 - AI協働の成果物連鎖は、[AI協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/) を参照する。

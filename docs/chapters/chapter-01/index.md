@@ -421,4 +421,4 @@ AIネイティブな思考OSは、問いを構造化し、出力 schema を決�
 
 - [AI協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/)
 - [付録A：実務成果物テンプレート集](../../appendices/templates/)
-- [付録D：更新履歴とメンテナンス方針](../../appendices/update-notes/)
+- [付録D：更新履歴とメンテナンス方針](../../appendices/update-notes/) - モデル名、価格、UI、API細部など変化しやすい情報を、判断原則から切り分けて更新する基準を確認する。
