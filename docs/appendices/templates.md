@@ -18,8 +18,8 @@ layout: book
 | 第2章 | 要求境界、受入条件、データ分類、自動化境界 | AI system PRD / requirements brief、data classification sheet |
 | 第3章 | workflow / agent / RAG / tool の設計判断 | AI system ADR、threat model、tool approval matrix |
 | 第4章 | delivery、PR、検証、release readiness | verification record、eval spec、model / tool change impact checklist |
-| 第5章 | 投資判断、統制、契約、退出戦略 | vendor selection matrix、executive memo、cost / reliability dashboard |
-| 第6章 | AI incident、rollback、postmortem、communication | AI incident postmortem、operational guardrail、incident timeline |
+| 第5章 | 投資判断、統制、契約、退出戦略 | 1ページ提案メモ、risk register、ROI / TCO / control cost 表、executive memo、vendor selection matrix |
+| 第6章 | AI incident、rollback、postmortem、communication | AI incident runbook、severity matrix、communication template、operational guardrail checklist、incident timeline template、AI incident postmortem |
 
 テンプレートは、単独で使うよりも、Issue、ADR、PR、Eval、Runbook、Postmortem の流れでつなげて使う。例えば AI system ADR の `Decision` は、eval spec の `Acceptance metrics` と、tool approval matrix の `Approval gate` へ接続する。
 
@@ -516,10 +516,74 @@ Executive memo は、経営層へ AI投資、統制、リスク受容、撤退�
 - Review date:
 ```
 
+### A.11.1 1ページ提案メモ
+
+```markdown
+# 1ページ提案メモ
+
+## 提案
+- 対象業務:
+- 提案内容:
+- 今回決めたいこと:
+
+## 背景と問題
+- 現行課題:
+- 影響を受ける利用者:
+- 放置した場合のリスク:
+
+## 期待効果
+- productivity benefit:
+- risk reduction:
+- 測定方法:
+
+## 費用と統制
+- 初期費用:
+- 継続費用:
+- verification cost:
+- control cost:
+- training / rollback cost:
+
+## 主要リスク
+- 契約 / データ越境:
+- security / privacy:
+- audit / approval:
+- vendor concentration:
+- 現場負荷:
+
+## 判断案
+- 推奨:
+- 代替案:
+- 進める条件:
+- 止める条件:
+- 次の decision date:
+```
+
+### A.11.2 risk register
+
+| ID | Risk | Cause | Impact | Owner | Mitigation | Evidence | Decision |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| R-01 | | | | | | | |
+
+### A.11.3 ROI / TCO / control cost 表
+
+| 区分 | 項目 | 見積もる内容 | Evidence | Owner |
+| --- | --- | --- | --- | --- |
+| Benefit | productivity benefit | | | |
+| Benefit | risk reduction | | | |
+| Cost | service / license | | | |
+| Cost | implementation | | | |
+| Cost | verification cost | | | |
+| Cost | control cost | | | |
+| Cost | training cost | | | |
+| Cost | fallback / rollback | | | |
+| Risk | incident exposure | | | |
+| Risk | vendor concentration | | | |
+
 ### A.11 レビュー観点
 
 - benefit と verification / control cost が同じ密度で書かれている。
 - 承認条件、撤退条件、次回レビューが明確である。
+- risk register と ROI / TCO / control cost 表が executive memo の判断条件へ接続している。
 
 ## A.12 cost / reliability dashboard sample
 
@@ -674,7 +738,7 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 - rollback:
 ```
 
-### A.15.2 コードレビュー / AIレビュー checklist
+### A.15.2 コードレビューチェックリスト / AIレビュー checklist
 
 - [ ] Issue、requirements brief、ADR、acceptance criteria と差分が対応している。
 - [ ] AI生成部分と人間が判断した部分が PR に記録されている。
@@ -813,6 +877,23 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 - Options and recommendation:
 - Next update:
 ```
+
+### A.16.4 operational guardrail checklist
+
+- [ ] prompt injection を想定した eval / regression がある。
+- [ ] retrieval failure、stale knowledge、citation failure を検知する check がある。
+- [ ] tool 実行は least privilege で、destructive / external 操作には approval gate がある。
+- [ ] MCP / connector の scope と token が定期レビューされている。
+- [ ] kill switch、quarantine、rollback、manual takeover の手順が最新である。
+- [ ] provider outage 時の fallback と degrade gracefully が定義されている。
+- [ ] token / cost anomaly の alert、上限、停止条件がある。
+- [ ] audit completeness を確認する項目が release readiness に入っている。
+
+### A.16.5 incident timeline template
+
+| Time | Event | Type: fact / hypothesis / decision / action / result | Evidence ID | Owner |
+| --- | --- | --- | --- | --- |
+| | | | | |
 
 ## A.17 付録Aの運用ルール
 
