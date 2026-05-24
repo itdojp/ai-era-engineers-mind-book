@@ -530,5 +530,5 @@ AIを含む業務・プロダクト・社内ツールでは、要求が曖昧な
 
 - 問い、根拠、判断責任の整理は、[第1章：エンジニアの思考OS](../chapter-01/) を参照する。
 - 要件から設計判断へ進む場合は、[第3章：アーキテクチャ設計の意思決定](../chapter-03/) で AI system ADR、threat model、eval plan に接続する。
-- 成果物テンプレートは、[付録A：思考ツールテンプレート集](../../appendices/templates/) を参照する。
+- 成果物テンプレートは、[付録A：実務成果物テンプレート集](../../appendices/templates/) を参照する。
 - AI協働の成果物連鎖は、[AI協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/) を参照する。

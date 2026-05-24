@@ -328,9 +328,9 @@
     "appendices": [
       {
         "id": "a",
-        "title": "思考ツールテンプレート集",
+        "title": "実務成果物テンプレート集",
         "path": "/appendices/templates/",
-        "description": "実践的なツールとテンプレートの集合"
+        "description": "AI system PRD、ADR、eval、脅威分析、承認、ベンダー選定、インシデント、経営説明、検証記録のテンプレート集"
       },
       {
         "id": "b",

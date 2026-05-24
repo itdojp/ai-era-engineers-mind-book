@@ -1,299 +1,647 @@
 ---
-title: "付録A：思考ツールテンプレート集"
-description: "本書で紹介した思考ツールの実践的テンプレート集"
+title: "付録A：実務成果物テンプレート集"
+description: "AIネイティブな要求定義、ADR、eval、脅威分析、承認、ベンダー選定、インシデント、経営説明、検証記録の実務テンプレート集"
 layout: book
 ---
 
-# 付録A：思考ツールテンプレート集
+# 付録A：実務成果物テンプレート集
 
-本書で紹介した各種思考ツールのテンプレートを提供します。これらを活用して、日常業務での思考プロセスを体系化してください。
+本付録は、本書で扱った思考法、意思決定、説明責任、運用統制を、現場でそのまま使える成果物へ落とすためのテンプレート集である。AIを使うかどうかに関係なく、実務では「何を決めたか」「どの根拠で判断したか」「誰が承認したか」「どの条件なら止めるか」を記録できなければならない。
 
-特にAIを併用する場合は、「アイデアが出た」だけで終わらず、要件定義書・ADR・PR・Runbook・インシデント記録などの成果物に反映し、検証と記録を残すことが重要です。
+テンプレートは完成文書ではない。各組織の規程、契約、データ分類、監査要件、業務リスクに合わせて調整する。特にモデル名、価格、UI手順、API細部など変化しやすい情報は本文へ固定せず、参照先、版、確認日、owner を記録する。
 
-## A.1 要件定義テンプレート
+## A.1 使い方と成果物の対応
 
-### ステークホルダー分析マトリクス
+| 章 | 主な判断 | 使うテンプレート |
+| --- | --- | --- |
+| 第1章 | 問い、根拠、不確実性、delegate / review / own | verification record、model / tool change impact checklist |
+| 第2章 | 要求境界、受入条件、データ分類、自動化境界 | AI system PRD / requirements brief、data classification sheet |
+| 第3章 | workflow / agent / RAG / tool の設計判断 | AI system ADR、threat model、tool approval matrix |
+| 第4章 | delivery、PR、検証、release readiness | verification record、eval spec、model / tool change impact checklist |
+| 第5章 | 投資判断、統制、契約、退出戦略 | vendor selection matrix、executive memo、cost / reliability dashboard |
+| 第6章 | AI incident、rollback、postmortem、communication | AI incident postmortem、operational guardrail、incident timeline |
 
-```text
-| ステークホルダー | 影響度 | 関心度 | 主要関心事 | 対応策 |
-|------------------|--------|--------|------------|--------|
-| 経営層           | 高     | 中     |            |        |
-| 現場責任者       | 中     | 高     |            |        |
-| エンドユーザー   | 高     | 高     |            |        |
-| IT部門           | 中     | 高     |            |        |
-```
+テンプレートは、単独で使うよりも、Issue、ADR、PR、Eval、Runbook、Postmortem の流れでつなげて使う。例えば AI system ADR の `Decision` は、eval spec の `Acceptance metrics` と、tool approval matrix の `Approval gate` へ接続する。
 
-### 要件確認チェックリスト
+## A.2 AI system PRD / requirements brief
 
-- [ ] 機能要件は明確に定義されているか？
-- [ ] 非機能要件（性能、可用性、セキュリティ）は明記されているか？
-- [ ] 制約条件はすべて洗い出されているか？
-- [ ] 前提条件は関係者で合意されているか？
-- [ ] 優先順位は明確になっているか？
-
-### 受入基準テンプレート
-
-```text
-| 対象（機能/仕様） | 受入基準（Given/When/Then） | 優先度 | 備考 |
-|------------------|-----------------------------|--------|------|
-|                  |                             |        |      |
-```
-
-### 前提・未確定事項ログ（Assumption/Question Log）
-
-```text
-| 項目 | 種別（前提/質問/決定） | 状態（未確認/確認済/却下） | 根拠 | 次アクション |
-|------|-------------------------|----------------------------|------|-------------|
-|      |                         |                            |      |             |
-```
-
-## A.2 設計・技術選定テンプレート
-
-### 技術評価マトリクス
-
-```text
-| 評価軸             | 重み | 技術A | 技術B | 技術C |
-|--------------------|------|-------|-------|-------|
-| パフォーマンス     | 0.25 |       |       |       |
-| スケーラビリティ   | 0.20 |       |       |       |
-| 保守性             | 0.20 |       |       |       |
-| コスト             | 0.15 |       |       |       |
-| エコシステム       | 0.20 |       |       |       |
-| **総合得点**       |      |       |       |       |
-```
-
-### リスク評価テンプレート
-
-```text
-| リスク項目 | 発生確率 | 影響度 | リスク値 | 対策 |
-|------------|----------|--------|----------|------|
-|            | 1-5      | 1-5    | 確率×影響 |      |
-```
-
-### ADR（Architecture Decision Record）テンプレート
+AI system PRD / requirements brief は、AIを含む業務機能や社内ツールの要求境界を定義する文書である。解決策を先に固定せず、問題、利用者、データ、権限、受入条件、失敗時挙動を明示する。
 
 ```markdown
-# ADR-0001: タイトル（例：検索拡張生成の採用）
+# AI system PRD / requirements brief
 
-- **状態**: 提案 / 採用 / 廃止
-- **日付**:
-- **意思決定者**:
+## 1. Problem statement
+- 対象業務:
+- 利用者:
+- 現行課題:
+- AIを使わない場合の代替案:
+- 非目標:
 
-## コンテキスト
-- 背景（課題・制約・前提）
-- 現状の問題
+## 2. Users and stakeholders
+| Role | 利用目的 | Decision right | Concern | Evidence needed |
+| --- | --- | --- | --- | --- |
+| | | | | |
 
-## 決定
-- 採用する方針（何を、なぜ）
+## 3. Scope
+- 対象に含めること:
+- 対象外:
+- 対象データ:
+- 対象外データ / 利用禁止情報:
 
-## 代替案
-- 代替案A（採用しない理由）
-- 代替案B（採用しない理由）
+## 4. Automation boundary
+| 業務イベント | Human-in-the-loop | Human-on-the-loop | Full automation | 理由 |
+| --- | --- | --- | --- | --- |
+| | | | | |
 
-## トレードオフ
-- 得られる効果
-- 失うもの（リスク・運用負荷・コスト）
-
-## 影響範囲
-- 設計/実装への影響
-- 運用/セキュリティへの影響
-
-## 検証計画
-- 受入条件（何が満たされれば成功か）
-- 評価方法（テスト/計測/レビュー）
-```
-
-## A.3 レビューテンプレート
-
-### コードレビューチェックリスト
-
-**必須項目 (MUST)**
-- [ ] セキュリティ脆弱性はないか？
-- [ ] 明確なバグは存在しないか？
-- [ ] パフォーマンス上の重大な問題はないか？
-
-**推奨項目 (SHOULD)**
-- [ ] コードの可読性は適切か？
-- [ ] 適切なエラーハンドリングが実装されているか？
-- [ ] テストは十分にカバーされているか？
-
-**提案項目 (COULD)**
-- [ ] より良い実装方法があるか？
-- [ ] 将来の拡張性を考慮しているか？
-
-### PRテンプレート（AI利用の記録を含む）
-
-```markdown
-### 変更概要
-
-### 変更理由（背景/チケット）
-
-### AI利用（有無・範囲）
-- 生成した成果物：
-- 入力した情報の種類（機密/個人情報を含まないこと）：
-- AI出力の扱い（採用/却下/編集）：
-
-### 検証
-- 自動テスト：
-- 静的解析：
-- 手動確認：
-- セキュリティ観点（入力/権限/ログ）：
-
-### リスクとロールバック
-
-### 関連リンク（ADR/Runbook等）
-```
-
-## A.4 問題解決テンプレート
-
-### 根本原因分析（5 Whys）
-
-```text
-問題: _______________
-
-なぜ1: _______________
-なぜ2: _______________
-なぜ3: _______________
-なぜ4: _______________
-なぜ5: _______________
-
-根本原因: _______________
-対策: _______________
-```
-
-### インシデント対応テンプレート
-
-```markdown
-# インシデント対応記録
-
-## 基本情報
-- **発生日時**: 
-- **検出日時**: 
-- **解決日時**: 
-- **担当者**: 
-- **重要度**: P1/P2/P3/P4
-
-## 現象
-### 症状
-- 
-
-### 影響範囲
-- 
-
-## 対応記録
-### タイムライン
-- HH:MM - 
-
-### 実施した対策
-1. 
-
-## 根本原因
-- 
-
-## 恒久対策
-- [ ] 短期対策（期限：）
-- [ ] 長期対策（期限：）
-
-## 学習事項
-### 良かった点
-- 
-
-### 改善点
-- 
-```
-
-### Runbookテンプレート（運用手順）
-
-```markdown
-# Runbook: タイトル
-
-## 目的
-
-## 前提（対象システム/権限/注意事項）
-
-## 手順（Step-by-step）
-1.
-
-## 検証（成功条件）
-
-## ロールバック
-
-## 承認ゲート（例）
-- 観測・読み取り系:
-- 変更系:
-- Runbook外:
-
-## 監査ログ（残す情報）
-- 実施者/承認者
-- 実行内容（コマンド/設定変更）
-- 実行結果（影響/復旧確認）
-- 参照したログ/メトリクス
-```
-
-## A.5 AI活用テンプレート
-
-### プロンプトエンジニアリングテンプレート
-
-```markdown
-## Context
-[背景情報・制約条件]
-
-## Task
-[具体的なタスク]
-
-## Requirements
-[要求事項・制約]
-
-## Format
-[出力形式の指定]
-
-## Examples
-[期待する出力例]
-```
-
-### AI出力評価チェックリスト
-
-- [ ] 要求に正確に答えているか？
-- [ ] 情報の正確性は確認済みか？
-- [ ] セキュリティ上の問題はないか？
-- [ ] ビジネス要件を満たしているか？
-- [ ] 実装可能な内容か？
-
-### AI活用判断メモ
-
-AIを使った判断や成果物をPR、ADR、Runbookなどに反映する前に、次のメモを残す。
-
-```markdown
-## AI活用判断メモ
-
-- 対象タスク:
-- 利用目的:
-- 入力した情報の種類:
-- AIに委任した作業（Delegate）:
-- 人間が検証した内容（Review）:
-  - 一次情報:
-  - テスト/再現手順:
-  - レビュー結果:
-- 人間が最終責任を持つ判断（Own）:
-- 承認条件:
-- ロールバック/代替手順:
-- 監査ログ・判断ログの保存先:
-- 採用しなかった提案と理由:
-```
-
-このメモは、AI利用の有無を記録するだけでなく、AI出力をどの証跡で検証し、誰の判断で実務に反映したかを説明するために使う。
-
-## A.6 SOP運用ルーブリック（例）
-
-SOPに沿ってAIを活用できているかを、自己点検やレビュー時に確認するための簡易ルーブリックである。
-
-| 観点 | 不十分 | 最低限 | 良い |
+## 5. Acceptance criteria
+| 観点 | 条件 | 測定方法 | Owner |
 | --- | --- | --- | --- |
-| タスク定義 | 目的や制約が曖昧 | 目的・制約・判断点が書けている | 意思決定点と成功条件まで明確 |
-| 情報分類 | 入力情報の扱いが不明 | 入力可否の区別がある | 匿名化/最小開示の方針まで整理 |
-| 入力設計 | 依頼が抽象的 | 出力形式・禁止事項がある | 根拠資料や評価基準まで含む |
-| 検証 | 出力を採用しがち | 人間レビュー/一次情報確認がある | テスト・計測・再現確認まで実施 |
-| 反映/記録 | 成果物に残らない | 成果物に反映される | 判断理由とログが追跡可能 |
-| 責任境界 | AI任せか人間判断かが曖昧 | 委任・検証・最終判断を区別している | 承認条件、ロールバック、説明先まで明確 |
+| Quality | | | |
+| Reproducibility | | | |
+| Explainability | | | |
+| Fail-safe | | | |
+| Security / privacy | | | |
+| Approval / audit | | | |
+| Rollback | | | |
 
-これらのテンプレートを活用して、より体系的で効率的な思考プロセスを実践してください。
+## 6. Metrics
+- KPI:
+- Guardrail metric:
+- manual takeover rate:
+- verification cost:
+- audit completeness:
+
+## 7. Risks and assumptions
+| ID | Assumption / Risk | Evidence | Owner | Decision needed |
+| --- | --- | --- | --- | --- |
+| | | | | |
+
+## 8. Approval and next decision
+- Decision owner:
+- Reviewers:
+- 次の判断日:
+- 止める条件:
+```
+
+### A.2 レビュー観点
+
+- 問題設定が「AIを使うこと」ではなく、業務上の判断や制約から始まっている。
+- data classification、permission boundary、fallback、manual override がある。
+- `精度が高い` のような評価不能な要件を、測定可能な acceptance criteria へ変換している。
+
+## A.3 AI system ADR
+
+AI system ADR は、AIシステムに関する設計判断を記録する。RAG、fine-tuning、workflow、agent、MCP / connector / function calling、managed service、self-hosted / hybrid の判断を、採用理由と撤退条件まで含めて残す。
+
+```markdown
+# AI system ADR: <decision title>
+
+- Status: proposed / accepted / superseded / deprecated
+- Date:
+- Decision owner:
+- Reviewers: Architect / Security / SRE / Legal / Compliance
+- Related Issue / PR:
+
+## Context
+- 解決したい問題:
+- 既存システム制約:
+- データ分類:
+- 利用者と権限:
+- latency / cost / quality / reliability budget:
+
+## Options considered
+| Option | Description | Benefits | Risks | Cost | Operability |
+| --- | --- | --- | --- | --- | --- |
+| Normal feature | | | | | |
+| Search / RAG | | | | | |
+| Workflow | | | | | |
+| Agent | | | | | |
+
+## Decision
+- 採用する方式:
+- 採用理由:
+- 採用しない方式と理由:
+
+## Control points
+| Control | Design | Evidence |
+| --- | --- | --- |
+| schema validation | | |
+| approval gate | | |
+| least privilege | | |
+| audit trail | | |
+| isolation | | |
+| output validation | | |
+| fallback / rollback | | |
+
+## Evaluation plan
+- offline eval:
+- trace-based evaluation:
+- regression test:
+- acceptance threshold:
+
+## Exit strategy
+- vendor portability:
+- export するデータ / 設定 / eval:
+- provider outage 時の degrade gracefully:
+- 乗り換え判断条件:
+
+## Consequences
+- Positive:
+- Negative:
+- Operational burden:
+- Follow-up actions:
+```
+
+### A.3 レビュー観点
+
+- `AIを使うから` ではなく、通常機能、検索、RAG、workflow、agent の比較で判断している。
+- approval、audit、rollback、exit strategy が設計判断の一部になっている。
+
+## A.4 eval spec
+
+Eval spec は、AI機能の品質と安全性を、受入条件と regression の形で確認する文書である。平均スコアだけでなく、失敗時影響、guardrail metric、manual takeover を含める。
+
+```markdown
+# Eval spec
+
+## Purpose
+- 評価対象:
+- 評価目的:
+- 本番判断との関係:
+
+## Evaluation scope
+| Scenario | User goal | Expected behavior | Prohibited behavior |
+| --- | --- | --- | --- |
+| | | | |
+
+## Dataset
+- データソース:
+- データ分類:
+- 個人情報 / 機密情報の扱い:
+- version:
+- owner:
+
+## Metrics
+| Metric | Definition | Threshold | Guardrail / KPI | Owner |
+| --- | --- | --- | --- | --- |
+| answer quality | | | | |
+| citation coverage | | | | |
+| hallucination rate proxy | | | | |
+| tool error rate | | | | |
+| latency distribution | | | | |
+| token / cost anomaly | | | | |
+| manual takeover rate | | | | |
+| audit completeness | | | | |
+
+## Failure review
+| Failure class | Severity | Required response | Regression item |
+| --- | --- | --- | --- |
+| prompt injection | | | |
+| citation failure | | | |
+| retrieval failure | | | |
+| approval bypass | | | |
+| data leakage | | | |
+
+## Acceptance decision
+- Pass / Conditional pass / Fail:
+- 条件:
+- 承認者:
+- 次回 eval:
+```
+
+### A.4 レビュー観点
+
+- metric の定義、閾値、owner が明確である。
+- `quality` だけでなく security、privacy、approval、audit、rollback を評価している。
+
+## A.5 eval dataset design sheet
+
+Eval dataset design sheet は、評価データセットの設計と更新ルールを記録する。データセットは、モデルやプロンプトの変更と同じくらい重要な構成要素である。
+
+```markdown
+# Eval dataset design sheet
+
+## Dataset identity
+- Name:
+- Version:
+- Owner:
+- Last reviewed:
+- Related eval spec:
+
+## Coverage plan
+| Category | Example | Required count | Source | Risk covered |
+| --- | --- | --- | --- | --- |
+| normal case | | | | |
+| edge case | | | | |
+| adversarial / prompt injection | | | | |
+| stale knowledge | | | | |
+| citation required | | | | |
+| tool approval required | | | | |
+| fallback / manual takeover | | | | |
+
+## Data governance
+- Data classification:
+- Masking / anonymization:
+- Data retention:
+- Data residency:
+- Access control:
+
+## Expected outputs
+| Input ID | Expected output | Required citation | Prohibited output | Review owner |
+| --- | --- | --- | --- | --- |
+| | | | | |
+
+## Change rule
+- 追加条件:
+- 削除条件:
+- drift review:
+- approval:
+```
+
+### A.5 レビュー観点
+
+- 成功例だけでなく、失敗例、攻撃例、古い知識、引用必須例が入っている。
+- データ分類と access control が dataset の設計に含まれている。
+
+## A.6 threat model
+
+Threat model は、AIシステムの攻撃面と統制点を整理する。prompt injection、tool misuse、data exfiltration、MCP authorization failure、approval bypass を明示的に扱う。
+
+```markdown
+# Threat model
+
+## System overview
+- 対象システム:
+- Trust boundaries:
+- Data flows:
+- External dependencies:
+
+## Assets
+| Asset | Classification | Owner | Protection requirement |
+| --- | --- | --- | --- |
+| prompts / instructions | | | |
+| retrieved documents | | | |
+| user data | | | |
+| tool credentials | | | |
+| audit logs | | | |
+
+## Threats
+| Threat | Attack path | Impact | Existing control | Gap |
+| --- | --- | --- | --- | --- |
+| prompt injection | | | | |
+| tool misuse | | | | |
+| data exfiltration | | | | |
+| privilege escalation | | | | |
+| MCP authorization failure | | | | |
+| approval bypass | | | | |
+| stale knowledge | | | | |
+| cost anomaly | | | | |
+
+## Mitigations
+| Control | Implementation | Evidence | Owner |
+| --- | --- | --- | --- |
+| least privilege | | | |
+| schema validation | | | |
+| output validation | | | |
+| approval gate | | | |
+| audit trail | | | |
+| rate limit / cost alert | | | |
+| kill switch / rollback | | | |
+
+## Residual risk
+- Accepted risks:
+- Escalation:
+- Review date:
+```
+
+### A.6 レビュー観点
+
+- 攻撃者だけでなく、誤設定、運用逸脱、承認漏れも threat として扱っている。
+- residual risk に owner と review date がある。
+
+## A.7 tool approval matrix
+
+Tool approval matrix は、agent や workflow が利用する tool、connector、MCP server の権限と承認条件を定義する。
+
+```markdown
+# Tool approval matrix
+
+| Tool / connector | Capability | Data access | Risk level | Default permission | Approval gate | Audit log | Rollback / disable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| search docs | read | public / internal | low | allowed | none | query log | disable connector |
+| read ticket | read | internal | medium | allowed with scope | owner approval | access log | revoke token |
+| create PR | write | repository | medium | approval required | maintainer approval | PR / commit log | revert PR |
+| send customer message | external write | customer data | high | disabled by default | Communication + Legal | message log | recall / correction |
+| change production config | write | production | critical | disabled by default | Incident Commander + SRE | change log | rollback plan |
+
+## Review
+- Owner:
+- Last access review:
+- Exceptions:
+- Expiration:
+```
+
+### A.7 レビュー観点
+
+- read と write、internal と external、reversible と irreversible を分けている。
+- high / critical 操作は default deny で、approval と audit が必須になっている。
+
+## A.8 data classification sheet
+
+Data classification sheet は、AIへ投入する情報、retrieval 対象、ログ、出力の扱いを整理する。要求定義、ADR、incident response の共通入力になる。
+
+```markdown
+# Data classification sheet
+
+| Data item | Classification | Allowed use | Prohibited use | Masking | Retention | Residency | Owner |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| public docs | public | retrieval / citation | none | none | standard | any allowed | |
+| internal docs | internal | retrieval with access control | external AI training | metadata mask | | | |
+| customer data | confidential | limited processing | prompt sharing / vendor training | required | | | |
+| personal data | restricted | approved workflow only | ad hoc prompt input | required | | | |
+| secrets / tokens | prohibited | none | any AI input | not applicable | none | not applicable | Security |
+| audit logs | controlled | incident review | external sharing without approval | partial | policy based | | Compliance |
+
+## Approval
+- Data owner:
+- Security reviewer:
+- Legal / privacy reviewer:
+- Exception path:
+```
+
+### A.8 レビュー観点
+
+- `利用可能` と `投入禁止` が曖昧でない。
+- data residency、retention、masking、owner が含まれている。
+
+## A.9 vendor selection matrix
+
+Vendor selection matrix は、AIサービスや partner を選ぶときに、機能比較だけでなく、契約、データ越境、監査、退出戦略を比較するための表である。
+
+```markdown
+# Vendor selection matrix
+
+| Criteria | Weight | Vendor A | Vendor B | Vendor C | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| functional fit | | | | | demo / pilot |
+| security controls | | | | | security report |
+| data residency | | | | | contract / DPA |
+| audit log | | | | | docs / sample export |
+| SLA / support | | | | | contract |
+| cost / pricing risk | | | | | estimate |
+| vendor concentration risk | | | | | exit strategy |
+| portability / export | | | | | export test |
+| contract / liability | | | | | legal review |
+| responsible use support | | | | | policy / admin controls |
+
+## Decision
+- Recommended option:
+- Conditions:
+- Exit strategy:
+- Renewal review date:
+```
+
+### A.9 レビュー観点
+
+- 価格や機能だけでなく、データ、契約、監査、退出が比較されている。
+- vendor concentration risk と portability が採点対象になっている。
+
+## A.10 AI incident postmortem
+
+AI incident postmortem は、第6章の incident response を組織学習へ接続するためのテンプレートである。
+
+```markdown
+# AI incident postmortem
+
+## Summary
+- Incident ID:
+- Severity:
+- 発生日 / 検知時刻 / 復旧時刻:
+- 影響範囲:
+- 現在状態:
+
+## Customer / business impact
+- 顧客影響:
+- 業務影響:
+- 法務 / 監査 / 契約影響:
+- コスト影響:
+
+## Timeline
+| Time | Event | Type: fact / hypothesis / decision / action / result | Evidence ID |
+| --- | --- | --- | --- |
+| | | | |
+
+## AI involvement
+- prompt / input:
+- retrieval / citation:
+- model / provider:
+- tool / MCP / connector:
+- approval / audit:
+- human review:
+
+## Root causes and contributing factors
+- 直接原因:
+- 技術的寄与要因:
+- 運用上の寄与要因:
+- 組織・教育・契約上の寄与要因:
+
+## Containment and recovery
+- kill switch:
+- quarantine:
+- rollback:
+- manual takeover:
+- escalation:
+
+## Corrective actions
+| Action | Type | Owner | Due date | Evidence of completion |
+| --- | --- | --- | --- | --- |
+| | guardrail / eval / approval / audit / training / contract | | | |
+```
+
+### A.10 レビュー観点
+
+- blame ではなく、system、process、approval、training、contract の改善へ落ちている。
+- action item に owner、期限、完了証跡がある。
+
+## A.11 executive memo template
+
+Executive memo は、経営層へ AI投資、統制、リスク受容、撤退条件を説明するための1〜2ページ文書である。
+
+```markdown
+# Executive memo
+
+## Decision requested
+- 採用 / pilot / 本番移行 / 予算 / 契約 / 撤退:
+- Decision date:
+
+## Recommendation
+- 推奨案:
+- 代替案:
+- 採用しない案と理由:
+
+## Business case
+| Item | Estimate | Evidence | Owner |
+| --- | --- | --- | --- |
+| productivity benefit | | | |
+| risk reduction | | | |
+| implementation cost | | | |
+| verification cost | | | |
+| control cost | | | |
+| training cost | | | |
+| fallback / rollback cost | | | |
+
+## Governance
+- security:
+- privacy:
+- compliance:
+- approval:
+- audit:
+- rollback:
+
+## Risks and conditions
+| Risk | Mitigation | Decision condition | Owner |
+| --- | --- | --- | --- |
+| | | | |
+
+## Exit strategy
+- 退出条件:
+- export 対象:
+- 移行費用:
+- 代替案:
+
+## Final decision log
+- Decision:
+- Approver:
+- Conditions:
+- Review date:
+```
+
+### A.11 レビュー観点
+
+- benefit と verification / control cost が同じ密度で書かれている。
+- 承認条件、撤退条件、次回レビューが明確である。
+
+## A.12 cost / reliability dashboard sample
+
+Cost / reliability dashboard は、AIシステムを運用する owner が、品質、コスト、信頼性、統制を継続監視するためのサンプルである。
+
+| Area | Metric | Target / Threshold | Signal | Action | Owner |
+| --- | --- | --- | --- | --- | --- |
+| Cost | token / cost anomaly | 予算80%でalert | 急増 / retry storm | rate limit、kill switch 検討 | Owner / CFO |
+| Reliability | latency distribution | P95 がSLO内 | provider degradation | fallback / degrade gracefully | SRE |
+| Quality | citation coverage | 重要回答は100% | citation failure | 回答停止、eval更新 | Tech Lead |
+| Safety | approval rejection rate | 急増時alert | risky automation | workflow quarantine | Security |
+| Tool | tool error rate | 通常比2倍でalert | MCP / connector failure | Human-in-the-loop へ切替 | SRE |
+| Operations | manual takeover rate | pilot想定内 | 自動化範囲の不適合 | 対象業務縮小、training | Field Owner |
+| Audit | audit completeness | 必須項目100% | 証跡不足 | release停止、監査対応 | Compliance |
+| Value | productivity benefit | baseline 比改善 | 効果不足 | scope見直し、撤退判断 | EM / Product |
+
+### A.12 レビュー観点
+
+- dashboard が生産性だけに偏っていない。
+- alert から action、owner までつながっている。
+
+## A.13 verification record template
+
+Verification record は、AI出力、生成コード、設計判断、運用変更を、どの根拠で検証したかを残す記録である。
+
+```markdown
+# Verification record
+
+## Target
+- 対象成果物:
+- Related Issue / PR / ADR:
+- AI利用の有無:
+
+## Inputs reviewed
+| Input | Source hierarchy | Version / date | Reviewer |
+| --- | --- | --- | --- |
+| primary docs | | | |
+| measured logs | | | |
+| AI summary | | | |
+
+## Checks performed
+| Check | Command / Method | Result | Evidence |
+| --- | --- | --- | --- |
+| unit / integration test | | | |
+| eval / regression | | | |
+| static analysis | | | |
+| security review | | | |
+| privacy / data boundary | | | |
+| approval / audit | | | |
+| rollback / fallback | | | |
+
+## Findings
+- Accepted:
+- Rejected:
+- Open issues:
+
+## Decision
+- Ship / hold / rollback / rework:
+- Decision owner:
+- Date:
+```
+
+### A.13 レビュー観点
+
+- AI要約を一次情報として扱っていない。
+- 検証コマンド、結果、証跡、判断者が分かる。
+
+## A.14 model / tool change impact checklist
+
+Model / tool change impact checklist は、モデル、provider、prompt、retrieval index、tool、connector、MCP server、権限を変更する前に使う。
+
+```markdown
+# Model / tool change impact checklist
+
+## Change summary
+- 変更対象:
+- 変更理由:
+- 影響する workflow / agent / tool:
+- Rollback target:
+
+## Impact areas
+- [ ] requirements brief への影響を確認した。
+- [ ] AI system ADR の decision / trade-off を更新した。
+- [ ] eval spec と eval dataset を更新または再実行した。
+- [ ] threat model の差分を確認した。
+- [ ] tool approval matrix の権限と approval gate を確認した。
+- [ ] data classification sheet のデータ利用条件を確認した。
+- [ ] cost / reliability dashboard の閾値を確認した。
+- [ ] AI incident runbook の kill switch / rollback を確認した。
+- [ ] communication template と support FAQ の更新要否を確認した。
+- [ ] Legal / Security / Compliance review の要否を判断した。
+
+## Required evidence
+| Evidence | Required | Result | Link |
+| --- | --- | --- | --- |
+| eval result | yes / no | | |
+| security review | yes / no | | |
+| cost estimate | yes / no | | |
+| rollback test | yes / no | | |
+| approval log | yes / no | | |
+
+## Decision
+- Approve / reject / defer:
+- Conditions:
+- Approver:
+- Review date:
+```
+
+### A.14 レビュー観点
+
+- 変更を「差し替え」で終わらせず、eval、security、cost、rollback、approval まで確認している。
+- 影響を受ける成果物が明示されている。
+
+## A.15 付録Aの運用ルール
+
+テンプレートは、作った時点ではなく、使われて更新された時点で価値を持つ。次のルールで運用する。
+
+- 新しいAI機能を提案する場合は、AI system PRD / requirements brief から開始する。
+- 設計選択を含む場合は、AI system ADR、threat model、tool approval matrix を更新する。
+- 品質や安全性を主張する場合は、eval spec と verification record を残す。
+- 外部サービスや partner を使う場合は、vendor selection matrix と executive memo に契約・退出条件を入れる。
+- 本番運用に入る場合は、cost / reliability dashboard と model / tool change impact checklist を使う。
+- incident が起きた場合は、AI incident postmortem を作り、再発防止を各テンプレートへ反映する。
+
+テンプレートを埋めること自体を目的にしない。意思決定、承認、監査、rollback、説明責任に必要な証跡を残すことが目的である。

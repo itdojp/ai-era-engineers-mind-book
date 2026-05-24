@@ -23,7 +23,7 @@ chapters:
     path: /chapters/chapter-06/
 
 appendices:
-  - title: 付録A：思考ツールテンプレート集
+  - title: 付録A：実務成果物テンプレート集
     path: /appendices/templates/
   - title: 付録B：ケーススタディ
     path: /appendices/case-studies/
