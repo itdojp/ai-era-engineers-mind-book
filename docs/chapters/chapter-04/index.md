@@ -1,373 +1,626 @@
 ---
-title: "第4章：開発/構築フェーズの最適化思考 - チーム生産性の科学"
-subtitle: "チーム生産性の科学"
-description: "レビュープロセスにおける交渉術、技術的妥協点の見極め方、チーム生産性の数理モデル、AI支援開発における品質保証"
+title: "第4章：開発/構築フェーズの最適化思考 - AI-native SDLC / Agent-assisted delivery"
+subtitle: "AI-native SDLC / Agent-assisted delivery"
+description: "Issue 起点の実装計画、agent-assisted delivery、AIレビュー、検証責任、release readiness、team working agreement を、PR と delivery pipeline へ落とす章"
 layout: book
 chapter: 4
 ---
 
-# 第4章：開発/構築フェーズの最適化思考 - チーム生産性の科学
+# 第4章：開発/構築フェーズの最適化思考 - AI-native SDLC / Agent-assisted delivery
 
-優れたアーキテクチャ設計も、実装フェーズでの判断ミスにより価値を失う可能性がある。本章では、開発・構築フェーズにおいて、品質と効率性を両立させながらプロジェクトを成功に導くための思考法を探求する。
+AI支援開発の価値は、生成されたコード量ではなく、要求からリリースまでの意思決定、検証、レビュー、説明責任が速く正確になることで測る。
+AIが実装案、テスト案、レビュー観点、ドキュメント草案を出せても、最終的な品質、セキュリティ、運用責任はチームが負う。
+そのため、開発・構築フェーズでは、AIを「個人の生産性ツール」としてではなく、Issue、Plan、PR、CI、Review、Release、Runbook を接続する delivery system の一部として設計する。
 
-本章の目的は、開発・構築フェーズの判断を「品質」「速度」「学習」の観点で最適化し、改善を継続できる形にすることである。
+本章では、第2章の requirements brief と acceptance criteria、第3章の AI system ADR、tool approval matrix、eval plan を受け取り、AI-native SDLC / Agent-assisted delivery として実装へ落とす方法を扱う。
+重要なのは、prompt engineering の巧拙ではない。
+作業分割、入力境界、検証責任、レビューゲート、release readiness、rollback、監査証跡を、チームの標準作業として固定することである。
 
-> **この章の学習目標**
-> - 開発プロセス全体を俯瞰し、ボトルネックやムダがどこにあるかを構造的に捉えられるようになること。
-> - レビューやテスト、自動化などの活動を「コスト」ではなく「リスク削減・学習投資」として捉え直し、適切なバランスを検討できるようになること。
-> - 生成AIを含むツール導入時に、個人最適ではなくチーム生産性や品質へのインパクトを踏まえた運用設計を考えられるようになること。
+## この章で扱う判断
+
+本章で扱う判断は、次の7つである。
+
+1. Issue 起点で、実装計画、非目標、受入条件、検証方法をどこまで明文化するか。
+2. coding agent、IDE agent、CI上の agent、人間レビューへ、どのタスクを渡し、どのタスクを渡さないか。
+3. trunk-based / PR-based 運用の中で、AI利用記録、review checklist、approval gate をどう置くか。
+4. 生成コード、生成テスト、生成ドキュメントの検証責任を誰が持つか。
+5. AIレビュー、自動テスト、静的解析、セキュリティ検査、人間レビューをどう重ねるか。
+6. lead time、failed change / recovery、review rework、escaped defects、verification cost、documentation freshness をどう測るか。
+7. skill degradation を防ぎ、team working agreement、handoff / escalation rule、release readiness checklist として運用に残すか。
+
+## 誰向けか
+
+- **IC / Senior Engineer**: AI支援を使いながら、PRに検証証跡と説明責任を残したい人。
+- **Tech Lead**: 作業分割、レビュー境界、agent に渡せるタスク、渡せないタスクをチーム標準にしたい人。
+- **DevOps / SRE**: CI上の agent、静的解析、セキュリティ検査、release readiness、rollback を delivery pipeline に組み込みたい人。
+- **EM**: 生産性向上と verification cost、review rework、skill degradation のバランスを管理したい人。
+- **Security / Compliance**: AIに投入する情報、生成コードの検査、承認者、監査ログ、policy exception を確認したい人。
+
+## 章末に残るもの
+
+この章を読み終えた時点で、次の成果物を作れる状態を目指す。
+
+- AI利用ポリシー付き PR テンプレ
+- review checklist
+- release readiness checklist
+- team working agreement
+- verification checklist
+- handoff / escalation rule
+- agent task brief
+- delivery metrics dashboard
+
+## よくある失敗
+
+| 失敗 | 何が起きるか | 防止策 |
+| --- | --- | --- |
+| AI生成コード行数比率を追う | 大量の差分を人が読めず、review rework と escaped defects が増える | lead time、verification cost、escaped defects で測る（§4.7） |
+| Issue が曖昧なまま agent に渡す | agent が不要な実装や広すぎる変更を作る | Issue、acceptance criteria、非目標、停止条件を agent task brief に書く（§4.1、§4.2） |
+| prompt engineering だけを改善する | 成果物、検証、承認、rollback に接続しない | prompt を入力設計の一部として扱い、PR と verification record に接続する（§4.3、§4.4） |
+| 人間レビューが形骸化する | AIレビューを通過したことを正しさと誤認する | AIレビュー、人間レビュー、CI、security scan の責任分界を分ける（§4.5） |
+| 速くなったが確認コストで相殺される | 実装時間は減るが、検証、手戻り、承認待ちが増える | verification cost と approval throughput を同時に測る（§4.4、§4.7） |
+| ドキュメント生成を放置する | 実装と runbook、release note、運用手順がずれる | documentation freshness を delivery pipeline のゲートにする（§4.6） |
+| skill degradation が進む | チームが設計・デバッグ・レビュー能力を失う | 学習設計、レビュー当番、採用・却下理由の共有を team working agreement に入れる（§4.8） |
 
 ## 本章とAI協働の標準手順（SOP）
 
-本章は、[AI協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/) のうち、主に次の工程に対応する。
-
-- 入力設計（レビュー観点、テスト方針、出力形式を構造化する）
-- 生成（草案、テストケース案、改善案を複数出す）
-- 評価（品質基準、リスク、再現性の観点で絞り込む）
-- 検証（テスト、静的解析、レビューで裏付ける）
-- 反映（PR等の成果物に落とす）
-- 記録（AI使用有無、検証結果、判断理由を残す）
-
-## 4.1 レビュープロセスにおける交渉術
-
-### コードレビューの目的と効果
-
-#### 品質向上のメカニズム
-
-コードレビューは単なるバグ発見ツールではなく、チーム全体の技術力向上とナレッジシェアリングの機会である。
-
-**主要効果**：
-- **欠陥除去効率**: 目安として、テスト前に多くの欠陥を検出・除去できる（数値は要確認）
-- **知識伝播**: チーム内でのベストプラクティス共有
-- **コード品質標準化**: 一貫性のあるコードベース維持
-- **メンタリング**: 経験者から初心者への技術移転
-
-#### レビュー効率の最適化
-
-**サイズ制限の法則**：
-```text
-最適レビューサイズ = 200〜400 行
-レビュー効率 = 欠陥発見数 / レビュー時間
-```
-
-**時間配分の原則**：
-- 準備時間: 実レビュー時間の0.5〜1倍
-- レビュー速度: 300〜500 行/時間
-- フォローアップ: レビュー時間の20〜30%
-
-※ 本節の割合・行数などの数値はモデルケースである。対象コード、チーム成熟度、ツール支援の有無などで変動するため、自組織の計測値で調整してほしい。
-
-### 建設的フィードバックの技術
-
-#### 心理的安全性の確保
-
-**コミュニケーションプロトコル**：
-
-**Good Examples**：
-- "この実装だと、X の場合にパフォーマンス問題が起きそうです。Y のアプローチはいかがでしょうか？"
-- "セキュリティの観点から、Z の検証が必要かもしれません。"
-
-**Avoid Examples**：
-- "この書き方は間違っています"
-- "なぜこんな実装をしたのですか？"
-
-#### 優先順位付けフレームワーク
-
-**MUST/SHOULD/COULDランキング**：
-
-**MUST（必須）**：
-- セキュリティ脆弱性
-- 明確なバグ
-- 重大なパフォーマンス問題
-
-**SHOULD（推奨）**：
-- 可読性改善
-- 保守性向上
-- 軽微なパフォーマンス改善
-
-**COULD（提案）**：
-- スタイル統一
-- リファクタリング機会
-- 将来の拡張性
-
-### レビュー文化の構築
-
-#### メトリクス駆動改善
-
-**追跡すべき指標**：
-```text
-- レビューカバレッジ率 = レビュー済みPR数 / 全PR数
-- 平均レビュー時間 = 総レビュー時間 / PR数
-- 欠陥発見率 = レビューで発見した問題数 / 総問題数
-- リワーク率 = 修正された行数 / 追加された行数
-```
-
-#### 自動化との連携
-
-**Pre-commitフック活用**：
-- コードフォーマット
-- 静的解析
-- 単体テスト実行
-- セキュリティスキャン
-
-## 4.2 技術的妥協点の見極め方
-
-### 品質 vs 納期のトレードオフ
-
-#### 技術的負債の戦略的管理
-
-**負債の分類**：
-
-**意図的・短期的負債**：
-- 市場投入時期優先
-- 明確な返済計画
-- 影響範囲限定
-
-**意図的・長期的負債**：
-- アーキテクチャ選択
-- 技術スタック決定
-- プラットフォーム依存
-
-**非意図的負債**：
-- 設計不備
-- 実装ミス
-- 要件理解不足
-
-#### 妥協判断のフレームワーク
-
-**RICE分析の応用**：
-```text
-優先度 = (Reach × Impact × Confidence) / Effort
-
-Reach: 影響を受けるユーザー数
-Impact: ビジネスインパクト (1〜3)
-Confidence: 見積もり確信度 (0〜100%)
-Effort: 必要工数 (人月)
-```
-
-### パフォーマンス最適化戦略
-
-#### 80/20ルールの適用
-
-**パフォーマンスボトルネック分析**：
-1. **計測**: プロファイリングツールでの実測
-2. **分析**: 20%のコードが80%の処理時間を占める箇所特定
-3. **最適化**: 高インパクト箇所への集中投資
-4. **検証**: 改善効果の定量測定
-
-#### パフォーマンス予算管理
-
-**予算設定例**：
-```text
-- ページロード時間: < 3秒 (モバイル4G)
-- APIレスポンス: < 200ms (95パーセンタイル)
-- メモリ使用量: < 512MB (ピーク時)
-- CPU使用率: < 70% (平均)
-```
-
-### セキュリティとユーザビリティの両立
-
-#### リスクベースアプローチ
-
-**脅威モデリング**：
-1. **資産識別**: 保護すべきデータ・機能
-2. **脅威分析**: STRIDE モデル適用
-3. **脆弱性評価**: CVSS スコア算定
-4. **対策優先順位**: リスク値順の対応
-
-**セキュリティ投資配分**：
-```text
-高リスク対応: 60%
-中リスク対応: 30%
-低リスク対応: 10%
-```
-
-## 4.3 チーム生産性の数理モデル
-
-### Brook's Lawの現代的解釈
-
-#### コミュニケーションコストの定式化
-
-**チーム間通信コスト**：
-```text
-Communication Cost = n(n-1)/2
-
-n: チームメンバー数
-```
-
-**最適チームサイズ**：
-- 新規開発: 5〜7名 (2 Pizza Team)
-- 保守運用: 3〜5名
-- R&D: 2〜3名
-
-#### 並列化効率の計算
-
-**Amdahl's Law適用**：
-```text
-Speedup = 1 / ((1-P) + P/N)
-
-P: 並列化可能な処理の割合
-N: 並列度（チームメンバー数）
-```
-
-### 認知負荷理論の応用
-
-#### メンタルモデルの共有
-
-**共有理解の指標**：
-- **ドメイン知識**: ビジネスロジック理解度
-- **技術スタック**: 使用技術の習熟度
-- **コードベース**: 既存実装の把握度
-- **運用知識**: 本番環境の理解度
-
-#### フロー状態の最適化
-
-**集中時間確保戦略**：
-- **Deep Work Time**: 3〜4時間の連続作業時間
-- **Maker's Schedule**: 会議の時間帯集約
-- **Interruption Management**: 緊急度に応じた対応ルール
-
-### DevOpsにおける自動化投資
-
-#### 自動化ROI計算
-
-```text
-ROI = (時間節約 × 時給 × 頻度 × 期間 - 自動化コスト) / 自動化コスト
-
-例）
-- 手動テスト: 2時間/回 × 10回/月 × ¥5,000/時間 = ¥100,000/月
-- 自動化コスト: ¥500,000（一時）
-- ROI = (¥100,000 × 12 - ¥500,000) / ¥500,000 = 140%
-```
-
-#### CI/CDパイプライン最適化
-
-**Build Time最適化**：
-- **並列化**: テスト並列実行
-- **キャッシュ**: 依存関係キャッシュ
-- **増分ビルド**: 変更差分のみビルド
-- **ステージ分割**: 高速フィードバックサイクル
-
-## 4.4 AI支援開発における品質保証
-
-### コード生成AIの効果的活用
-
-#### プロンプトエンジニアリング戦略
-
-**効果的なプロンプト設計**：
-
-```text
-## Context
-[プロジェクトの背景・制約条件]
-
-## Requirements
-[具体的な要求仕様]
-
-## Constraints
-[技術制約・品質要求]
-
-## Examples
-[期待する出力例]
-```
-
-#### AI生成コードの品質管理
-
-**検証チェックリスト**：
-- [ ] 機能要件充足
-- [ ] エラーハンドリング
-- [ ] パフォーマンス考慮
-- [ ] セキュリティ配慮
-- [ ] テスタビリティ
-- [ ] 保守性・可読性
-
-### SOP適用例：AI支援開発をPRで安全に回す
-
-コード生成AIを導入すると「実装の速度」は上がりやすい一方で、検証と記録が弱いと品質事故につながりやすい。SOPの観点では、少なくとも次を標準ゲートとして固定する。
-
-- 検証：自動テスト/静的解析/レビューで裏付ける
-- 記録：AIの使用範囲と採用判断の根拠をPRに残す
-
-#### PR本文に残す項目（例）
+本章は、[AI協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/) のうち、特に次の工程に対応する。
+
+- Issue化: 目的、受入条件、非目標、作業境界、影響範囲を明文化する。
+- Plan作成: agent に渡すタスク、渡さないタスク、人間レビュー、escalation、停止条件を決める。
+- 入力設計: agent task brief、根拠資料、禁止情報、出力 schema、検証コマンドを定義する。
+- 生成・探索: 実装案、テスト案、レビュー観点、ドキュメント草案を候補として出す。
+- 評価設計: verification checklist、security scan、static analysis、manual review を決める。
+- 反映: PR、AI利用記録、review checklist、release readiness、handoff note へ落とす。
+- レビュー・承認: approval、audit、rollback、policy exception、説明先を確認する。
+
+本章の目的は、AIに実装させることではない。
+AIを使う場合でも使わない場合でも、delivery pipeline が品質、セキュリティ、監査、復旧性を失わないようにすることである。
+
+## 4.1 Issue 起点で実装計画を作る {#section-4-1}
+
+AI-native SDLC では、実装前の Issue が重要になる。
+Issue が曖昧なまま coding agent に渡されると、agent は「もっともらしい広い変更」を作りやすい。
+広い変更はレビューを遅くし、検証対象を増やし、rollback を難しくする。
+
+Issue は、依頼文ではなく、delivery unit である。
+少なくとも、問題、受入条件、非目標、検証、影響範囲、承認条件を含める。
+
+### 4.1.1 Issue に書く最小項目
+
+| 項目 | 書くこと | AI利用時の注意 |
+| --- | --- | --- |
+| Problem | どの利用者・業務イベントの問題か | 解決策を先に固定しない |
+| Scope | 変更するファイル、画面、API、ドキュメント | agent に触らせない範囲も明記する |
+| Acceptance criteria | 何が満たされれば完了か | 品質、再現性、説明可能性、rollback を含める |
+| Non-goals | 今回やらないこと | 過剰実装を防ぐ |
+| Evidence | 参照する一次情報、既存仕様、実測 | AI要約だけを根拠にしない |
+| Verification | 実行するテスト、静的解析、手動確認 | agent へ検証コマンドを渡す |
+| Approval | 誰がレビューし、誰が承認するか | security / compliance / ops を必要時に含める |
+| Rollback | 戻し方、停止条件、影響範囲 | release readiness へ接続する |
+
+Issue には、AIへ渡してよい情報と渡してはいけない情報も書く。
+機密、個人情報、顧客データ、契約情報、アクセス token、production log は、入力前に分類する。
+
+### 4.1.2 作業分割の粒度
+
+AI支援開発では、作業を小さくするほどレビューしやすい。
+ただし、小さすぎる PR は依存関係と承認待ちを増やす。
+作業分割は、次の単位で判断する。
+
+| 分割軸 | 良い単位 | 避ける単位 |
+| --- | --- | --- |
+| ユーザー価値 | 1つの受入条件を満たす | 複数の目的をまとめる |
+| 影響範囲 | 変更箇所が説明できる | unrelated refactor を混ぜる |
+| 検証 | 1つの検証計画で確認できる | テスト不能な変更を含める |
+| rollback | 単独で戻せる | schema / API / UI / docs を無秩序に混ぜる |
+| レビュー | reviewer が責任を持てる | 複数専門領域を1人に押し込む |
+
+### 4.1.3 agent task brief
+
+agent に渡す前に、Issue から agent task brief を作る。
+これは prompt ではなく、作業契約である。
 
 ```markdown
-### 変更概要
+## Agent task brief
 
-### AI利用（有無・範囲）
-- 生成した成果物：
-- 入力した情報の種類（機密/個人情報を含まないこと）：
-- AI出力の扱い（採用/却下/編集）：
+### Objective
+- 何を達成するか:
 
-### 検証
-- 自動テスト：
-- 静的解析：
-- 手動確認：
-- セキュリティ観点（入力/権限/ログ）：
+### Scope
+- 変更してよい範囲:
+- 変更してはいけない範囲:
 
-### リスクとロールバック
+### Inputs
+- 参照する一次情報:
+- 入力禁止情報:
 
-### 関連リンク（チケット/ADR/Runbook）
+### Acceptance criteria
+- 機能:
+- 品質:
+- セキュリティ:
+- ドキュメント:
+
+### Verification
+- 実行するテスト:
+- 静的解析:
+- 手動確認:
+
+### Stop conditions
+- 判断不能な場合:
+- 仕様矛盾がある場合:
+- 権限・データ境界が不明な場合:
+
+### Handoff
+- 人間に確認してほしい点:
+- 想定リスク:
 ```
 
-#### 運用上の注意
+Stop conditions がない task brief は、agent に任せるには広すぎる。
+不明点が出たら、agent は推測で進めるのではなく、open question として返すべきである。
 
-- 「提案」と「実行」を分離し、マージ前に人間レビューを必須にする。
-- リリース手順や設定変更など影響が大きい変更は、レビューに加えて承認者を増やす（例：二重承認）。
+## 4.2 agent に渡せるタスク / 渡せないタスクを分ける {#section-4-2}
 
-### AI支援テスト戦略
+agent-assisted delivery では、AIに任せる範囲を決めることが、品質保証の第一歩である。
+「AIにできるか」ではなく、「AIに渡しても、検証と責任を人間が持てるか」で判断する。
 
-#### 自動テスト生成
+### 4.2.1 タスク委任の判断表
 
-**テストパターン生成AI活用**：
-- **境界値テスト**: エッジケース自動生成
-- **プロパティベーステスト**: 不変条件検証
-- **ファズテスト**: 異常入力パターン生成
-- **パフォーマンステスト**: 負荷シナリオ自動作成
+| タスク | 渡せる条件 | 渡さない条件 | 必須ゲート |
+| --- | --- | --- | --- |
+| 小規模リファクタ | テストがあり、意図が明確 | 振る舞い変更が混ざる | 差分レビュー、unit test |
+| テスト生成 | 仕様、境界値、期待結果が明確 | 期待値をAIが推測する | 人間による期待値確認 |
+| ドキュメント草案 | 事実ソースがある | 未確認仕様を断定する | source check、review |
+| バグ修正案 | 再現手順と失敗テストがある | 根本原因が不明 | failing test → fix → passing test |
+| 依存更新 | changelog、互換性、rollback が明確 | 破壊的変更の影響が不明 | lockfile diff、integration test |
+| 本番設定変更 | 変更手順と rollback がある | 承認者、監査ログ、停止条件がない | approval、runbook、audit |
+| セキュリティ修正 | 脆弱性情報と検証手順がある | exploit 詳細や秘密情報を外部AIへ渡す | security reviewer、秘匿情報確認 |
 
-#### 品質メトリクス
+### 4.2.2 agent の種類と役割分担
 
-**AI支援開発KPI**：
+| 種類 | 得意なこと | 注意点 | 人間が持つ責任 |
+| --- | --- | --- | --- |
+| coding agent | 複数ファイルの実装、機械的修正、テスト追加 | 範囲が広いと余計な変更を混ぜる | scope、acceptance、final review |
+| IDE agent | 局所的な補完、説明、リファクタ候補 | 文脈が局所に偏る | 周辺影響、設計整合性 |
+| CI上の agent | 失敗ログの要約、修正候補、flake 分析 | 失敗原因を断定しやすい | root cause、再実行判断 |
+| review agent | 差分の観点出し、規約違反検出 | 重要設計判断を見落とす | approve / request changes |
+| documentation agent | release note、runbook、FAQ草案 | 実装とずれた説明を作る | source verification |
+
+AIが「提案」したことと、AIが「実行」したことは分けて記録する。
+外部 connector、CI secret、deployment 権限、production data に触れる作業は、least privilege と approval gate がない限り agent に渡さない。
+
+### 4.2.3 渡してはいけないタスク
+
+次のタスクは、原則として agent に単独で任せない。
+
+- 要件の確定、優先順位の決定、利用者への約束。
+- 重大なアーキテクチャ変更の採否。
+- 本番データ、個人情報、契約情報、秘密情報を含む分析。
+- 権限変更、課金設定、削除、外部送信、公開設定の変更。
+- 法務、セキュリティ、監査への例外申請の判断。
+- rollback 不可能または影響範囲が不明な変更。
+
+これらは、AIに観点出しや候補生成をさせることはできる。
+しかし、意思決定、承認、実行、説明責任は人間と組織が持つ。
+
+## 4.3 trunk-based / PR-based 運用で AI 利用を制御する {#section-4-3}
+
+AI支援は、ブランチ戦略とレビュー運用に合わせて設計する。
+trunk-based でも PR-based でも、AI利用記録、検証結果、承認条件、rollback を残す点は同じである。
+違いは、どのタイミングでゲートを置くかである。
+
+### 4.3.1 運用パターンの比較
+
+| 運用 | AI利用パターン | 向く場面 | 主なゲート | 注意点 |
+| --- | --- | --- | --- | --- |
+| PR-based | agent が branch を作り、PR でレビューする | 変更差分を明確にしたい | PR template、review checklist、CI | PR が大きくなりやすい |
+| trunk-based | 小さな変更を短時間で統合する | feature flag と自動テストが強い | pre-merge CI、feature flag、rollback | 承認が遅いと流れが止まる |
+| pair with IDE agent | 人間が編集し、AIが局所支援する | 高文脈・高判断タスク | human review、local test | AI利用記録が残りにくい |
+| CI repair agent | CI失敗を解析し修正候補を出す | flake、lint、依存問題 | root cause note、再実行基準 | 「通すだけ」の修正に注意 |
+| docs pipeline | 変更差分から docs / release note を生成する | ドキュメント鮮度を保ちたい | source check、docs review | 実装と説明のずれに注意 |
+
+### 4.3.2 PR に残す AI 利用記録
+
+AI利用記録は、監査のためだけではない。
+reviewer が「どこを重点的に検証すべきか」を判断するための入力である。
+
+```markdown
+## AI利用
+
+- 利用範囲:
+  - 実装案 / テスト案 / レビュー観点 / ドキュメント草案 / ログ要約
+- 入力した情報:
+  - public docs / repository code / masked logs / synthetic data
+- 入力しなかった情報:
+  - secrets / production personal data / contract data / customer confidential data
+- 採用判断:
+  - 採用した出力:
+  - 却下した出力:
+  - 人間が修正した点:
+- 検証責任者:
+- 追加 review が必要な領域:
+```
+
+### 4.3.3 approval / audit / rollback の配置
+
+PR本文には、少なくとも次を含める。
+
+| 観点 | PRに残す内容 | gate |
+| --- | --- | --- |
+| approval | 変更種別、承認者、例外承認の有無 | CODEOWNERS、reviewer、security approval |
+| audit | AI利用範囲、検証結果、採用・却下理由 | PR comment、review thread、CI log |
+| rollback | revert 方法、feature flag、schema rollback、運用連絡先 | release readiness checklist |
+| privacy | 入力データ分類、匿名化・マスキング、禁止情報確認 | data classification check |
+| compliance | 規約、契約、監査要求への影響 | policy check、evidence link |
+
+AI利用の有無にかかわらず、PR は「変更を説明できる単位」であるべきである。
+AIが生成したから詳しく書くのではなく、AIを使った場合は不確実性が増えるため、より明確に書く。
+
+## 4.4 生成コードの検証責任を設計する {#section-4-4}
+
+生成コードは、見た目が整っていても正しいとは限らない。
+AIはエラーハンドリング、境界条件、権限チェック、既存仕様、運用上の制約を省略することがある。
+したがって、生成コードの検証責任は、生成した人ではなく、マージを承認するチームが持つ。
+
+### 4.4.1 verification ladder
+
+検証は、速いものから深いものへ段階化する。
+全PRで全項目を重くするのではなく、変更リスクに応じて階段を上げる。
+
+| レベル | 検証 | 使う場面 | 証跡 |
+| --- | --- | --- | --- |
+| L1 | format、lint、type check | すべての変更 | CI log |
+| L2 | unit test、snapshot、contract test | ロジック変更 | test result |
+| L3 | integration test、migration dry-run | 外部I/O、DB、API | test report |
+| L4 | security scan、dependency scan、secret scan | 入力、権限、依存、外部通信 | scan result |
+| L5 | manual scenario、access review、rollback drill | 高リスク、本番影響 | verification record |
+| L6 | staged rollout、monitoring、post-release check | 利用者影響が大きい | release readiness、runbook |
+
+### 4.4.2 テスト生成と期待値の責任
+
+AIはテストケースを増やすのに役立つ。
+しかし、期待値をAIに決めさせると、誤った仕様をテストで固定するリスクがある。
+テスト生成では、次を分ける。
+
+| 項目 | AIに任せやすい | 人間が確認する |
+| --- | --- | --- |
+| ケース列挙 | 境界値、異常系、組み合わせ | 重要度、抜け漏れ、業務意味 |
+| テストコード草案 | setup、assertion 構造、mock | 期待値、fixture、外部副作用 |
+| regression test | 既存バグの再現コード | 根本原因との対応 |
+| property-based test | 不変条件候補 | 仕様として妥当か |
+| performance test | 負荷シナリオ案 | 実測環境、SLO、閾値 |
+
+### 4.4.3 静的解析とセキュリティ検査
+
+静的解析とセキュリティ検査は、AI支援開発でより重要になる。
+AIは、既存チームの暗黙規約や脅威モデルを知らないためである。
+
+最低限、次を確認する。
+
+- secret scan: token、鍵、認証情報、接続文字列が混入していないか。
+- dependency scan: 依存追加の脆弱性、ライセンス、供給網リスク。
+- SAST: injection、unsafe deserialization、path traversal、SSRF など。
+- permission check: 新しい権限、scope、role、policy exception。
+- logging check: 個人情報、機密情報、token をログへ出していないか。
+- data boundary check: AIに渡した入力と、実装が扱うデータ分類が一致しているか。
+
+### 4.4.4 「速くなったが確認コストで相殺」の構造
+
+AI導入後に、実装時間だけを見ると成功に見えることがある。
+しかし、review rework、追加テスト、仕様確認、セキュリティレビュー、ドキュメント修正が増えると、全体の lead time は短くならない。
+
+| 速度向上に見えるもの | 隠れた確認コスト | 観測する指標 |
+| --- | --- | --- |
+| 実装草案が速い | 仕様不一致の修正 | review rework |
+| テストが増える | 期待値確認と保守 | verification cost |
+| PRが大きくなる | reviewer の認知負荷 | review latency |
+| docs が自動生成される | 事実確認と同期 | documentation freshness |
+| CI修正が速い | root cause 不明のまま通す | failed change / recovery |
+
+最適化対象は、typing speed ではなく、validated delivery speed である。
+
+## 4.5 AIレビューと人間レビューを重ねる {#section-4-5}
+
+AIレビューは、差分の抜け漏れ、規約違反、テスト不足、潜在バグの観点出しに有効である。
+しかし、AIレビューは承認者ではない。
+人間レビューは、要求、設計、運用、責任境界の判断を担う。
+
+### 4.5.1 review checklist
+
+| 観点 | AIレビューに期待すること | 人間レビューで判断すること |
+| --- | --- | --- |
+| 仕様整合 | acceptance criteria の未充足候補を挙げる | 仕様解釈が正しいか |
+| 差分品質 | 複雑な分岐、重複、未使用コードを検出する | 変更粒度が適切か |
+| テスト | テスト不足、境界値不足を指摘する | 期待値が業務上正しいか |
+| セキュリティ | 典型的な脆弱性や秘密情報混入を検出する | 脅威モデルと権限境界が妥当か |
+| 運用 | log、metric、rollback 漏れを指摘する | SLO、runbook、当番体制に合うか |
+| ドキュメント | 変更に対する docs 不足を指摘する | 説明が読者・利用者に十分か |
+
+### 4.5.2 人間レビューが形骸化する兆候
+
+次の兆候があれば、review working agreement を見直す。
+
+- 「AIレビュー済みなのでよい」として、人間が差分を読まない。
+- reviewer が大きすぎる PR を短時間で approve する。
+- テストが増えているが、期待値の根拠を誰も説明できない。
+- セキュリティや運用観点が「CIが通った」で終わっている。
+- review comment が表記や style に偏り、設計判断に触れていない。
+- AIが出した修正を、根拠確認なしに再度 AI に直させている。
+
+### 4.5.3 review rework を減らす
+
+review rework は、レビューで見つかった問題の修正量である。
+AI支援開発では、初回差分が大きくなりやすいため、review rework が増えることがある。
+減らすには、PR前に次を実施する。
+
+1. Issue と acceptance criteria を再確認する。
+2. agent の出力から、不要な変更と関連しない refactor を削る。
+3. 自動テスト、静的解析、security scan を通す。
+4. PR本文に、AI利用範囲、採用・却下理由、検証結果を書く。
+5. reviewer が重点的に見る点を明示する。
+
+レビューは、品質保証であると同時に、チームの学習機会である。
+AIにレビュー観点を出させても、人間が判断理由を残さなければ、学習は蓄積されない。
+
+## 4.6 ドキュメント生成を delivery pipeline に組み込む {#section-4-6}
+
+AIは、README、API説明、release note、runbook、FAQ、migration note の草案作成に有効である。
+ただし、ドキュメントは生成しただけでは価値にならない。
+実装、設定、運用手順、制約、rollback と同期している必要がある。
+
+### 4.6.1 documentation freshness
+
+ドキュメント鮮度は、変更後に必要な説明が更新されているかを表す。
+AI支援開発では、ドキュメント草案を delivery pipeline に含め、PRで確認する。
+
+| 変更 | 更新対象 | 確認すること |
+| --- | --- | --- |
+| UI / API 変更 | README、API docs、操作手順 | 実際の挙動と一致するか |
+| 設定変更 | runbook、環境変数一覧、rollback 手順 | production と staging で差がないか |
+| 権限変更 | data classification、approval、audit log | 承認者と監査項目が更新されたか |
+| リリース変更 | release note、migration note | 利用者影響と戻し方が書かれたか |
+| 障害対応変更 | incident runbook、postmortem template | escalation と manual takeover が明確か |
+
+### 4.6.2 docs-as-code のゲート
+
+ドキュメント生成を pipeline に入れる場合、次をゲートにする。
+
+- 事実ソース: 実装、設定、ADR、Issue、Runbook から生成しているか。
+- 差分追跡: どの変更に対応する docs 更新かが PR で分かるか。
+- 読者: 利用者、運用者、reviewer、承認者のどれ向けかが明確か。
+- 陳腐化対策: モデル名、価格、UI、API細部など変化しやすい情報を本文に固定しすぎていないか。
+- 公開範囲: 機密情報、内部URL、顧客名、token、未公開仕様を含まないか。
+
+### 4.6.3 handoff note
+
+AI支援で作られた変更は、handoff note を残すと保守しやすい。
+
+```markdown
+## Handoff note
+
+- 変更の目的:
+- 主要な設計判断:
+- AIが支援した範囲:
+- 人間が確認した範囲:
+- 未解決の open question:
+- 運用時に見る metric / log:
+- rollback 手順:
+- escalation 先:
+```
+
+handoff note は、将来の自分、当番、reviewer、監査担当への説明である。
+
+## 4.7 delivery metrics で改善を測る {#section-4-7}
+
+AI支援開発の指標は、AI利用率や生成コード行数比率だけでは不十分である。
+生成量は増えても、検証コスト、手戻り、事故、承認待ち、学習劣化が増えれば、delivery system は改善していない。
+
+### 4.7.1 採用する指標
+
+| 指標 | 見ること | 悪化した時の問い |
+| --- | --- | --- |
+| lead time | Issue から release までの時間 | 待ち時間、レビュー、CI、承認のどこが詰まっているか |
+| failed change / recovery | 失敗変更率と復旧時間 | 検証不足か、rollback 不足か |
+| review rework | レビュー後の修正量 | Issue、task brief、事前検証が不足していないか |
+| escaped defects | リリース後に漏れた欠陥 | acceptance criteria、test、manual scenario が弱くないか |
+| verification cost | 検証にかかった時間と人手 | 自動化すべきか、PRを小さくすべきか |
+| documentation freshness | docs と実装の同期度 | docs 更新を PR gate に入れているか |
+| onboarding speed | 新メンバーが変更に参加できるまでの時間 | handoff note と working agreement が機能しているか |
+| rollback readiness | 戻せる状態で release できたか | feature flag、backup、runbook があるか |
+| approval throughput | 承認待ちの流れ | decision rights と承認者が明確か |
+
+### 4.7.2 metric dashboard の例
+
 ```text
-- AI利用率 = AI生成コード行数 / 総コード行数
-- 品質維持度 = (AI使用後欠陥密度) / (AI使用前欠陥密度)
-- 生産性向上率 = (AI使用後開発速度) / (AI使用前開発速度)
-- 学習効果 = エンジニアスキル向上測定
+Delivery metrics dashboard
+
+Period: YYYY-MM
+Team / Service:
+
+Flow
+- Lead time median / p85:
+- PR review latency:
+- Approval throughput:
+
+Quality
+- Failed change rate:
+- Escaped defects:
+- Review rework:
+
+Verification
+- Verification cost per PR:
+- CI failure root causes:
+- Security scan findings:
+
+Operations
+- Rollback readiness:
+- Recovery time:
+- Documentation freshness:
+
+Learning
+- Onboarding speed:
+- Pair review sessions:
+- AI output rejection reasons:
 ```
 
-### 人間-AI協調開発モデル
+この dashboard は、AI導入の成果を誇示するためではなく、次に改善するボトルネックを見つけるために使う。
+数値はチームの成熟度、プロダクトリスク、規制要件によって変わるため、標準値として扱わない。
 
-#### 役割分担の最適化
+### 4.7.3 AI生成コード行数比率を主指標にしない
 
-**人間が担う領域**：
-- 要件定義・設計判断
-- アーキテクチャ決定
-- 品質基準設定
-- ビジネス価値評価
+AI生成コード行数比率は、補助指標としても扱いに注意が必要である。
+次の理由で主指標にしない。
 
-**AIが支援する領域**：
-- コード実装・テスト生成
-- ドキュメント作成・翻訳
-- バグ検出・修正提案
-- パフォーマンス最適化
+- 生成行数が増えても、価値が増えるとは限らない。
+- 大きな差分は review cost を増やす。
+- 削るべきコードや重複コードも増えうる。
+- テスト、ドキュメント、監査、rollback のコストを見落とす。
+- 人間が理解していないコードを増やすと skill degradation が進む。
 
-#### 継続的学習システム
+測るべきものは、生成量ではなく、検証済みの価値である。
 
-**フィードバックループ**：
-1. **AI提案**: コード・設計案生成
-2. **人間評価**: 品質・適切性判断
-3. **実装・検証**: 実際のシステムへの適用
-4. **結果分析**: 効果測定・問題点抽出
-5. **モデル改善**: AIシステムの学習・調整
+## 4.8 skill degradation を防ぐ学習設計を入れる {#section-4-8}
+
+AI支援が進むと、実装の手数は減る一方で、設計、デバッグ、レビュー、運用判断の経験が減ることがある。
+これを skill degradation と呼ぶ。
+スキル劣化は個人の問題ではなく、チーム設計の問題である。
+
+### 4.8.1 team working agreement
+
+AI利用をチームで運用する場合、team working agreement を作る。
+
+| 項目 | 合意すること |
+| --- | --- |
+| AI利用範囲 | どの作業でAI利用を推奨、任意、禁止にするか |
+| 入力禁止情報 | secrets、個人情報、顧客情報、契約情報、未公開仕様の扱い |
+| review rule | AI生成差分の読み方、重点確認、承認条件 |
+| verification rule | 最低限のテスト、静的解析、security scan、手動確認 |
+| learning rule | 採用・却下理由、失敗例、良い task brief を共有する方法 |
+| escalation | 判断不能、権限不明、仕様矛盾、事故兆候の連絡先 |
+| rollback | release 前の戻し方確認、feature flag、manual takeover |
+
+### 4.8.2 学習を残す仕組み
+
+skill degradation を防ぐには、AIを使わない時間を作るだけでは足りない。
+AIを使った判断の理由をチームの知識へ変える必要がある。
+
+有効な仕組みは次である。
+
+- AI出力を採用した理由と却下した理由を PR に残す。
+- 週次で「良い task brief」「悪い task brief」「reviewで見落とした点」を共有する。
+- junior と senior の pair review で、AI出力の妥当性を説明する。
+- 障害や手戻りが起きたら、AI利用範囲と検証不足を postmortem に含める。
+- 重要領域では、AIなしで設計・デバッグする訓練を残す。
+- reviewer を固定せず、セキュリティ、運用、ドメイン知識の観点をローテーションする。
+
+### 4.8.3 handoff / escalation rule
+
+agent-assisted delivery では、作業を引き継ぐ時点が多い。
+agent から人へ、開発者から reviewer へ、開発チームから運用へ、運用から incident commander へ、情報が渡る。
+そのため、handoff / escalation rule を明文化する。
+
+| 状況 | handoff する内容 | escalation 先 |
+| --- | --- | --- |
+| 仕様が矛盾する | 該当 Issue、根拠、未解決質問 | Product Owner、Tech Lead |
+| セキュリティ判断が必要 | データ分類、権限、脅威、scan result | Security、Compliance |
+| CIが不安定 | 失敗ログ、再現性、変更範囲 | DevOps、SRE |
+| rollback 不明 | 影響範囲、戻し方候補、停止条件 | SRE、Release Manager |
+| AI出力が信用できない | 根拠不明点、検証不能点、却下理由 | Tech Lead、Reviewer |
+
+エスカレーションは失敗ではない。
+AIが不確実な領域を広げるほど、早い escalation は品質と速度を守る。
+
+## 4.9 章末成果物を作る {#section-4-9}
+
+この章の最後に、実務へ持ち帰る成果物を最小セットとしてまとめる。
+各チームは、自組織の規制、開発プロセス、ツールに合わせて調整してよい。
+ただし、AI利用範囲、検証責任、承認、監査、rollback は省略しない。
+
+### 4.9.1 AI利用ポリシー付き PR テンプレ
+
+```markdown
+## Summary
+
+## Issue / Plan
+- Issue:
+- Acceptance criteria:
+- Non-goals:
+
+## AI use policy
+- AIを使った範囲:
+- AIに入力した情報:
+- 入力しなかった情報:
+- 採用した出力:
+- 却下した出力:
+- 人間が修正した判断:
+
+## Verification
+- Tests:
+- Static analysis:
+- Security scan:
+- Manual check:
+- Documentation check:
+
+## Risk / Approval / Rollback
+- Risk:
+- Approval:
+- Audit log:
+- Rollback:
+- Escalation:
+```
+
+### 4.9.2 review checklist
+
+| 観点 | チェック |
+| --- | --- |
+| Scope | Issue と関係ない変更が混ざっていないか |
+| Acceptance | 受入条件を満たす証跡があるか |
+| AI use | 入力情報、採用・却下理由、検証責任が書かれているか |
+| Tests | 期待値を人間が確認しているか |
+| Security | secrets、権限、入力検証、外部通信、ログが確認されているか |
+| Privacy | 個人情報、顧客情報、契約情報が混入していないか |
+| Compliance | 承認、監査、policy exception が必要か |
+| Operations | metric、alert、runbook、rollback があるか |
+| Docs | README、API docs、release note、runbook が必要に応じて更新されているか |
+| Learning | 判断理由、却下理由、handoff note が残っているか |
+
+### 4.9.3 release readiness checklist
+
+- [ ] 変更範囲と利用者影響が説明できる。
+- [ ] 必要な自動テスト、静的解析、security scan が通っている。
+- [ ] 手動確認が必要なシナリオを確認した。
+- [ ] feature flag、段階リリース、rollback のいずれかを用意した。
+- [ ] monitoring、alert、log、audit trail が確認できる。
+- [ ] documentation freshness を確認した。
+- [ ] approval が必要な関係者から承認を得た。
+- [ ] support / operations への handoff note がある。
+- [ ] リリース後に見る metric と責任者が決まっている。
+
+### 4.9.4 verification checklist
+
+- [ ] Issue、acceptance criteria、non-goals を確認した。
+- [ ] AIに入力した情報が data classification に合っている。
+- [ ] 生成コードの期待値を人間が確認した。
+- [ ] AI生成テストが誤った仕様を固定していない。
+- [ ] 静的解析、secret scan、dependency scan を確認した。
+- [ ] セキュリティ、privacy、compliance、approval、audit、rollback の観点を確認した。
+- [ ] 変更が失敗した時の fallback、manual takeover、rollback を説明できる。
+- [ ] reviewer が重点確認点を理解している。
 
 ## まとめ
 
-開発・構築フェーズの最適化は、技術的なベストプラクティスの適用だけでなく、チーム心理学、経済学、認知科学の知見を統合したアプローチが必要である。AI時代においては、人間とAIの協調によって生産性を向上させながら、品質を維持する新しいワークフローの確立が重要となる。
+AI-native SDLC / Agent-assisted delivery は、AIに実装を丸投げする運用ではない。
+Issue 起点で作業を分け、agent に渡せるタスクと渡せないタスクを明確にし、PR、CI、review、release readiness、runbook へ検証責任を接続する運用である。
 
-**要点**：
-- ボトルネックとムダを可視化し、レビュー/テスト/自動化を「リスク削減・学習投資」として位置づける。
-- AI支援は「案の生成」を強化する一方、品質基準・リスク判断・最終承認は人が担う前提で運用設計する。
-- 計測とフィードバック（指標・レビュー・振り返り）を回し、チームとして継続改善できる形に落とす。
+本章で扱った要点は、次の通りである。
 
-次章では、開発されたシステムを組織に導入し、ステークホルダーとの関係を管理する思考法について探求する。
+- AI利用は、prompt engineering ではなく delivery system の設計として扱う。
+- coding agent、IDE agent、CI上の agent、review agent には、それぞれ得意領域と禁止領域がある。
+- 生成コード、生成テスト、生成ドキュメントは、検証責任と監査証跡があって初めて成果物になる。
+- AIレビューは有効だが、承認者ではない。人間レビューは要求、設計、運用、説明責任を判断する。
+- AI生成コード行数比率ではなく、lead time、failed change / recovery、review rework、escaped defects、verification cost、documentation freshness、rollback readiness を見る。
+- skill degradation を防ぐには、AI出力の採用・却下理由をチームの学習へ変換する必要がある。
+
+次章では、AIを含む投資判断、統制、法務・セキュリティ・監査調整を、ステークホルダーと合意する方法を扱う。
 
 次に読む： [第5章：ステークホルダーマネジメント](../chapter-05/) / [目次（トップ）](../../)
 
@@ -377,18 +630,20 @@ ROI = (時間節約 × 時給 × 頻度 × 期間 - 自動化コスト) / 自動
 
 ### この章のまとめ
 
-- 開発・構築フェーズにおけるボトルネックやムダを可視化し、生産性と品質の両立を目指す思考プロセスを整理した。
-- 人間とAIの役割分担、人間-AI協調開発モデル、継続的学習システムなど、開発ワークフローにAIを組み込むための具体的な枠組みを示した。
-- 技術的な最適化だけでなく、チーム心理や経済的観点を含めた「開発の最適化思考」の重要性を強調した。
+- Issue 起点の実装計画、agent task brief、作業分割により、agent-assisted delivery の範囲を制御する方法を整理した。
+- PR-based / trunk-based 運用に AI利用記録、review checklist、verification checklist、release readiness を組み込む方法を示した。
+- delivery metrics と team working agreement により、生産性、品質、検証コスト、学習劣化を同時に扱う考え方を示した。
 
 ### この章を読み終えたら確認したいこと
 
-- [ ] 自チームの開発プロセスを簡単なフローで表現し、「どこにAIを組み込めそうか」「どこは人間中心で維持すべきか」を整理できているか。
-- [ ] 人間-AI協調の観点から、レビュー、テスト、ドキュメント作成などの活動について、新しい役割分担案を 1 つ以上考えられるか。
-- [ ] 開発プロセス改善のアイデアを、「生産性・品質・学習」の3軸で評価する視点を持てているか。
+- [ ] 自チームの Issue / PR テンプレートに、AI利用範囲、検証責任、rollback、approval、audit を書ける欄があるか。
+- [ ] agent に渡せるタスクと渡せないタスクを、チームで説明できるか。
+- [ ] 生成コード、生成テスト、生成ドキュメントの検証責任者が明確か。
+- [ ] lead time だけでなく、review rework、escaped defects、verification cost、documentation freshness を見ているか。
+- [ ] skill degradation を防ぐために、採用・却下理由、review観点、失敗例を共有しているか。
 
 ### 関連する付録・テンプレート
 
-- 開発プロセスの分析や改善案の検討には、[付録A：思考ツールテンプレート集](../../appendices/templates.md) に含まれる各種マトリクスやチェックリストを活用するとよい。
+- PRやレビュー項目を整備する場合は、[付録A：思考ツールテンプレート集](../../appendices/templates.md) の PRテンプレート、コードレビューチェックリスト、Runbookテンプレートを参照してほしい。
 - 開発フェーズ最適化の実例は、[付録B：ケーススタディ](../../appendices/case-studies.md) の開発／構築フェーズに関する事例が参考になる。
 - 汎用スキル（問題設定/構造化/検証）の補完関係は、[前作（論理思考ガイド）との接続](../../introduction/bridge-logical-thinking-guide/) を参照してほしい。
