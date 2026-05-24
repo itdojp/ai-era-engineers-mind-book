@@ -62,29 +62,49 @@
       {
         "id": "2",
         "title": "要件定義の認知プロセス",
-        "subtitle": "曖昧性との戦い",
+        "subtitle": "AIを含む要求境界の設計",
         "path": "/chapters/chapter-02/",
-        "description": "AIを含む業務・プロダクト・社内ツールの要求定義、受入条件、データ・権限境界",
+        "description": "AIを含む業務・プロダクト・社内ツールの要求を、評価可能な受入条件、データ分類、権限、fallback、承認境界へ落とす章",
         "sections": [
           {
             "id": "1",
-            "title": "顧客の言語と技術の言語の変換機構",
-            "path": "/chapters/chapter2.html#section-2-1"
+            "title": "問題設定と要求境界を分ける",
+            "path": "/chapters/chapter-02/#section-2-1"
           },
           {
             "id": "2",
-            "title": "隠れた制約条件の発見手法",
-            "path": "/chapters/chapter2.html#section-2-2"
+            "title": "requirements brief を作る",
+            "path": "/chapters/chapter-02/#section-2-2"
           },
           {
             "id": "3",
-            "title": "スコープクリープの予防的制御",
-            "path": "/chapters/chapter2.html#section-2-3"
+            "title": "data / permission boundary table を作る",
+            "path": "/chapters/chapter-02/#section-2-3"
           },
           {
             "id": "4",
-            "title": "AIを活用した要件定義の高度化",
-            "path": "/chapters/chapter2.html#section-2-4"
+            "title": "Human-in-the-loop / Human-on-the-loop / Full automation を切り分ける",
+            "path": "/chapters/chapter-02/#section-2-4"
+          },
+          {
+            "id": "5",
+            "title": "acceptance criteria を評価可能にする",
+            "path": "/chapters/chapter-02/#section-2-5"
+          },
+          {
+            "id": "6",
+            "title": "KPI と guardrail metric を分離する",
+            "path": "/chapters/chapter-02/#section-2-6"
+          },
+          {
+            "id": "7",
+            "title": "fallback / manual override / rollback を要求に含める",
+            "path": "/chapters/chapter-02/#section-2-7"
+          },
+          {
+            "id": "8",
+            "title": "成果物として合意する",
+            "path": "/chapters/chapter-02/#section-2-8"
           }
         ]
       },
