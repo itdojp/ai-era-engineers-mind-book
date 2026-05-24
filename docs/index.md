@@ -98,7 +98,7 @@ Issue #127 の 2026年版リライトでは、各章の冒頭に「この章で�
 - [実務成果物テンプレート集](appendices/templates/)
 - [ケーススタディ](appendices/case-studies/) - 社内ナレッジアシスタント、agent-assisted delivery、障害調査 / 運用支援 copilot の実例
 - [推奨読書リスト](appendices/reading-list/) - 書籍、標準 / ガイド、公式ドキュメント、シリーズ内関連書籍、役割別おすすめ順
-- [更新履歴とメンテナンス方針](appendices/update-notes/)
+- [更新履歴とメンテナンス方針](appendices/update-notes/) - 変動情報の隔離、レビュー観点、差分記録、陳腐化対応、最終監査の基準
 
 ## シリーズ内の関連書籍
 
@@ -123,7 +123,7 @@ Issue #127 の 2026年版リライトでは、各章の冒頭に「この章で�
 
 - 公開ページ: [https://itdojp.github.io/ai-era-engineers-mind-book/](https://itdojp.github.io/ai-era-engineers-mind-book/)
 - リポジトリ: [https://github.com/itdojp/ai-era-engineers-mind-book](https://github.com/itdojp/ai-era-engineers-mind-book)
-- 2026年版リライトの方針と差分管理は [付録D：更新履歴とメンテナンス方針](appendices/update-notes/) を参照する。
+- 2026年版リライトの方針、変動情報の扱い、差分記録、最終監査は [付録D：更新履歴とメンテナンス方針](appendices/update-notes/) を参照する。
 
 ## 著者について
 

@@ -34,7 +34,7 @@
 - [実務成果物テンプレート集](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/templates/)
 - [ケーススタディ](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/case-studies/) - 社内ナレッジアシスタント、agent-assisted delivery、障害調査 / 運用支援 copilot の実例
 - [推奨読書リスト](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/reading-list/) - 書籍、標準 / ガイド、公式ドキュメント、シリーズ内関連書籍、役割別おすすめ順
-- [更新履歴とメンテナンス方針](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/update-notes/)
+- [更新履歴とメンテナンス方針](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/update-notes/) - 変動情報の隔離、レビュー観点、差分記録、陳腐化対応、最終監査の基準
 
 ## 想定読者
 
