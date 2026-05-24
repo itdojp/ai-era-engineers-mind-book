@@ -165,29 +165,54 @@
       {
         "id": "4",
         "title": "開発/構築フェーズの最適化思考",
-        "subtitle": "チーム生産性の科学",
+        "subtitle": "AI-native SDLC / Agent-assisted delivery",
         "path": "/chapters/chapter-04/",
-        "description": "AI-native SDLC、agent-assisted delivery、PRレビュー、検証、release readiness",
+        "description": "Issue 起点の実装計画、agent-assisted delivery、AIレビュー、検証責任、release readiness、team working agreement を、PR と delivery pipeline へ落とす章",
         "sections": [
           {
             "id": "1",
-            "title": "レビュープロセスにおける交渉術",
+            "title": "Issue 起点で実装計画を作る",
             "path": "/chapters/chapter-04/#section-4-1"
           },
           {
             "id": "2",
-            "title": "技術的妥協点の見極め方",
+            "title": "agent に渡せるタスク / 渡せないタスクを分ける",
             "path": "/chapters/chapter-04/#section-4-2"
           },
           {
             "id": "3",
-            "title": "チーム生産性の数理モデル",
+            "title": "trunk-based / PR-based 運用で AI 利用を制御する",
             "path": "/chapters/chapter-04/#section-4-3"
           },
           {
             "id": "4",
-            "title": "AI支援開発における品質保証",
+            "title": "生成コードの検証責任を設計する",
             "path": "/chapters/chapter-04/#section-4-4"
+          },
+          {
+            "id": "5",
+            "title": "AIレビューと人間レビューを重ねる",
+            "path": "/chapters/chapter-04/#section-4-5"
+          },
+          {
+            "id": "6",
+            "title": "ドキュメント生成を delivery pipeline に組み込む",
+            "path": "/chapters/chapter-04/#section-4-6"
+          },
+          {
+            "id": "7",
+            "title": "delivery metrics で改善を測る",
+            "path": "/chapters/chapter-04/#section-4-7"
+          },
+          {
+            "id": "8",
+            "title": "skill degradation を防ぐ学習設計を入れる",
+            "path": "/chapters/chapter-04/#section-4-8"
+          },
+          {
+            "id": "9",
+            "title": "章末成果物を作る",
+            "path": "/chapters/chapter-04/#section-4-9"
           }
         ]
       },
