@@ -495,7 +495,7 @@ Current status: 未確認
 AIを含む業務・プロダクト・社内ツールでは、要求が曖昧なままでも、AIがもっともらしい画面や回答を作れてしまう。
 だからこそ、requirements brief、acceptance criteria、assumption & open question log、data / permission boundary table、stakeholder alignment checklist を成果物として残す必要がある。
 
-**要点**:
+**要点**：
 
 - 問題設定、非目標、要求境界を分け、解決策先行の要件定義を避ける。
 - データ分類、アクセス権、利用禁止情報、approval、audit を要件段階で定義する。
@@ -506,7 +506,7 @@ AIを含む業務・プロダクト・社内ツールでは、要求が曖昧な
 
 次章では、これらの要求境界をもとに、通常機能、検索付き機能、workflow、agent の選択、AI system ADR、threat model、eval plan へ進む。
 
-次に読む: [第3章：アーキテクチャ設計の意思決定](../chapter-03/) / [目次（トップ）](../../)
+次に読む： [第3章：アーキテクチャ設計の意思決定](../chapter-03/) / [目次（トップ）](../../)
 
 ---
 
