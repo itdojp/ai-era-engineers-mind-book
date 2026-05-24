@@ -219,29 +219,54 @@
       {
         "id": "5",
         "title": "ステークホルダーマネジメント",
-        "subtitle": "技術と経営の架け橋",
+        "subtitle": "AI投資・統制・説明責任の合意形成",
         "path": "/chapters/chapter-05/",
-        "description": "AI投資、統制、法務・セキュリティ・監査調整、ROI / TCO / control cost の説明",
+        "description": "CFO、法務、セキュリティ、監査、現場責任者の関心を整理し、AI投資、ROI / TCO / control cost、vendor concentration、契約、データ越境、退出戦略を意思決定メモへ落とす章",
         "sections": [
           {
             "id": "1",
-            "title": "経営層への技術説明フレームワーク",
+            "title": "ステークホルダーの関心を分ける",
             "path": "/chapters/chapter-05/#section-5-1"
           },
           {
             "id": "2",
-            "title": "予算獲得のためのROI提示手法",
+            "title": "productivity benefit と verification cost を同じ表で示す",
             "path": "/chapters/chapter-05/#section-5-2"
           },
           {
             "id": "3",
-            "title": "リスクコミュニケーション戦略",
+            "title": "buy / build / partner を意思決定する",
             "path": "/chapters/chapter-05/#section-5-3"
           },
           {
             "id": "4",
-            "title": "AI活用を前提とした経営コミュニケーション",
+            "title": "PoC 止まりを避ける採算設計を作る",
             "path": "/chapters/chapter-05/#section-5-4"
+          },
+          {
+            "id": "5",
+            "title": "法務・セキュリティ・監査と合意する",
+            "path": "/chapters/chapter-05/#section-5-5"
+          },
+          {
+            "id": "6",
+            "title": "vendor concentration と exit strategy を説明する",
+            "path": "/chapters/chapter-05/#section-5-6"
+          },
+          {
+            "id": "7",
+            "title": "AI literacy / responsible use を組織設計に入れる",
+            "path": "/chapters/chapter-05/#section-5-7"
+          },
+          {
+            "id": "8",
+            "title": "稟議・合意形成で通る資料を作る",
+            "path": "/chapters/chapter-05/#section-5-8"
+          },
+          {
+            "id": "9",
+            "title": "章末成果物を作る",
+            "path": "/chapters/chapter-05/#section-5-9"
           }
         ]
       },
