@@ -273,29 +273,54 @@
       {
         "id": "6",
         "title": "危機管理と問題解決",
-        "subtitle": "火消しの科学",
+        "subtitle": "AI固有インシデントへの運用統制",
         "path": "/chapters/chapter-06/",
-        "description": "AI固有インシデント、誤動作、権限逸脱、fallback、kill switch、rollback、postmortem",
+        "description": "prompt injection、誤操作、権限逸脱、provider outage、コスト暴走、retrieval / citation failure、approval bypass を、kill switch、quarantine、rollback、escalation、postmortem へ接続する章",
         "sections": [
           {
             "id": "1",
-            "title": "インシデント対応の優先順位付け",
+            "title": "AI incident の severity と初動を決める",
             "path": "/chapters/chapter-06/#section-6-1"
           },
           {
             "id": "2",
-            "title": "根本原因分析の思考プロセス",
+            "title": "AI固有の障害モードを分類する",
             "path": "/chapters/chapter-06/#section-6-2"
           },
           {
             "id": "3",
-            "title": "ポストモーテムの価値最大化",
+            "title": "kill switch / quarantine / rollback / escalation を設計する",
             "path": "/chapters/chapter-06/#section-6-3"
           },
           {
             "id": "4",
-            "title": "AIを活用したインシデント対応の高度化",
+            "title": "実行前承認と事後監査を両立する",
             "path": "/chapters/chapter-06/#section-6-4"
+          },
+          {
+            "id": "5",
+            "title": "AI incident metrics を観測する",
+            "path": "/chapters/chapter-06/#section-6-5"
+          },
+          {
+            "id": "6",
+            "title": "根本原因分析と postmortem を運用する",
+            "path": "/chapters/chapter-06/#section-6-6"
+          },
+          {
+            "id": "7",
+            "title": "communication template を使い分ける",
+            "path": "/chapters/chapter-06/#section-6-7"
+          },
+          {
+            "id": "8",
+            "title": "operational guardrail と訓練を継続する",
+            "path": "/chapters/chapter-06/#section-6-8"
+          },
+          {
+            "id": "9",
+            "title": "章末成果物を作る",
+            "path": "/chapters/chapter-06/#section-6-9"
           }
         ]
       }

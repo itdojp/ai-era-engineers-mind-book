@@ -45,6 +45,7 @@ Issue #127 の各 PR では、次を確認する。
 
 ### Unreleased
 
+- 第6章を AI固有インシデントへの運用統制として全面リライトし、prompt injection、誤った外部操作、権限逸脱 / 情報漏えい、モデル / プロバイダ障害、コスト暴走、retrieval / citation failure、MCP authorization failure、approval bypass、kill switch / quarantine / rollback / escalation、実行前承認と事後監査、AI incident runbook、postmortem template を接続した（2026-05-24）。
 - 第5章を AI投資・統制・説明責任の合意形成として全面リライトし、CFO / 法務 / セキュリティ / 監査 / 現場責任者の関心、productivity benefit と verification cost、buy / build / partner、PoC 採算設計、vendor concentration、契約 / データ越境 / 退出戦略、AI literacy / responsible use、稟議資料を接続した（2026-05-24）。
 - 第4章を AI-native SDLC / Agent-assisted delivery として全面リライトし、Issue 起点の実装計画、agent に渡せるタスク / 渡せないタスク、coding agent / IDE agent / CI上の agent、AIレビュー、テスト生成、静的解析、セキュリティ検査、trunk-based / PR-based 運用、documentation freshness、delivery metrics、skill degradation、release readiness を接続した（2026-05-24）。
 - 第3章を workflow / agent 時代の設計判断として全面リライトし、通常機能 / RAG / workflow / agent の使い分け、MCP / connector / function calling、schema-driven validation、threat model、eval harness、latency / cost / quality / reliability budget、vendor portability、exit strategy を接続した（2026-05-24）。
