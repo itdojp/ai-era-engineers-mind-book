@@ -25,32 +25,32 @@
           {
             "id": "1",
             "title": "問いと context engineering",
-            "path": "/chapters/chapter-01/"
+            "path": "/chapters/chapter-01/#section-1-1"
           },
           {
             "id": "2",
             "title": "structured output / schema-first thinking",
-            "path": "/chapters/chapter-01/"
+            "path": "/chapters/chapter-01/#section-1-2"
           },
           {
             "id": "3",
             "title": "source hierarchy と不確実性の扱い",
-            "path": "/chapters/chapter-01/"
+            "path": "/chapters/chapter-01/#section-1-3"
           },
           {
             "id": "4",
             "title": "delegate / review / own",
-            "path": "/chapters/chapter-01/"
+            "path": "/chapters/chapter-01/#section-1-4"
           },
           {
             "id": "5",
             "title": "decision rights と escalation",
-            "path": "/chapters/chapter-01/"
+            "path": "/chapters/chapter-01/#section-1-5"
           },
           {
             "id": "6",
             "title": "調査 → 判断 → 検証の最小ループ",
-            "path": "/chapters/chapter-01/"
+            "path": "/chapters/chapter-01/#section-1-6"
           }
         ]
       },
