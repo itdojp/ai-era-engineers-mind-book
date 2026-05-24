@@ -646,4 +646,5 @@ AIは、incident response を支援できる。しかし、何を止め、何を
 
 - [付録A：実務成果物テンプレート集](../../appendices/templates/) - AI incident runbook、postmortem、severity matrix、communication template の雛形として利用する。
 - [付録B：ケーススタディ](../../appendices/case-studies/) - 社内ナレッジアシスタント、agent-assisted delivery、障害調査支援を incident response の観点で読み直す。
+- [付録C：推奨読書リスト](../../appendices/reading-list/) - OWASP LLM Top 10、MITRE ATLAS、Google SRE など、security / incident / reliability の参照元を確認する。
 - [付録D：更新履歴とメンテナンス方針](../../appendices/update-notes/) - モデル、provider、API、UI、価格、契約条件の変化を本文に固定しすぎない方針を確認する。

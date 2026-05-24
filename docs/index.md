@@ -97,7 +97,7 @@ Issue #127 の 2026年版リライトでは、各章の冒頭に「この章で�
 
 - [実務成果物テンプレート集](appendices/templates/)
 - [ケーススタディ](appendices/case-studies/) - 社内ナレッジアシスタント、agent-assisted delivery、障害調査 / 運用支援 copilot の実例
-- [推奨読書リスト](appendices/reading-list/)
+- [推奨読書リスト](appendices/reading-list/) - 書籍、標準 / ガイド、公式ドキュメント、シリーズ内関連書籍、役割別おすすめ順
 - [更新履歴とメンテナンス方針](appendices/update-notes/)
 
 ## シリーズ内の関連書籍
