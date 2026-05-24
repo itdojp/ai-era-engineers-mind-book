@@ -45,6 +45,7 @@ Issue #127 の各 PR では、次を確認する。
 
 ### Unreleased
 
+- 付録Cを推奨読書リストとして現代化し、古典的な書籍を残しつつ、NIST AI RMF、NIST AI RMF Generative AI Profile、ISO/IEC 42001、OWASP LLM Top 10、MITRE ATLAS、MCP、OpenAI Evals、GitHub Copilot、Google SRE、Diátaxis、シリーズ内関連書籍、役割別おすすめ順へ再編した（2026-05-24）。
 - 付録Bを2026年の実務ケーススタディとして全面刷新し、社内ナレッジアシスタント、GitHub 上の agent-assisted delivery、障害調査 / 運用支援 copilot について、成功例、失敗例、統制不備、現実的な測定指標、残す成果物、章・付録導線を整理した（2026-05-24）。
 - 付録Aを実務成果物テンプレート集として全面刷新し、AI system PRD / requirements brief、AI system ADR、eval spec、eval dataset design sheet、threat model、tool approval matrix、data classification sheet、vendor selection matrix、AI incident postmortem、executive memo、cost / reliability dashboard、verification record、model / tool change impact checklist を追加した（2026-05-24）。
 - 第6章を AI固有インシデントへの運用統制として全面リライトし、prompt injection、誤った外部操作、権限逸脱 / 情報漏えい、モデル / プロバイダ障害、コスト暴走、retrieval / citation failure、MCP authorization failure、approval bypass、kill switch / quarantine / rollback / escalation、実行前承認と事後監査、AI incident runbook、postmortem template を接続した（2026-05-24）。

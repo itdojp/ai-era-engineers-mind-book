@@ -575,4 +575,5 @@ Date:
 - AI支援開発と PR での検証責任は、[第4章：開発/構築フェーズの最適化思考](../chapter-04/) を参照する。
 - AI固有インシデント、fallback、rollback、postmortem は、[第6章：危機管理と問題解決](../chapter-06/) を参照する。
 - 成果物テンプレートは、[付録A：実務成果物テンプレート集](../../appendices/templates/) を参照する。
+- 標準 / ガイド / 公式ドキュメントの読み方は、[付録C：推奨読書リスト](../../appendices/reading-list/) を参照する。
 - RAG、workflow、agent、tool approval の実例は、[付録B：ケーススタディ](../../appendices/case-studies/) を参照する。

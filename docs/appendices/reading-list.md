@@ -1,219 +1,218 @@
 ---
 title: "付録C：推奨読書リスト"
-description: "AI時代のエンジニアが読むべき書籍・リソース一覧"
+description: "AIネイティブ実務に必要な書籍、標準、公式ドキュメント、シリーズ内関連書籍、役割別学習順"
 layout: book
 ---
 
 # 付録C：推奨読書リスト
 
-本書で扱った各分野を深く学ぶための推奨書籍とリソースを紹介します。レベル別に整理しているので、自身の経験に応じて選択してください。
+この付録は、AI時代のプロフェッショナルITエンジニアが継続的に参照するための読書・公式ドキュメントリストである。
+古典的な思考法・設計・組織論は残しつつ、2026年時点の実務で重要な **公式ドキュメント / 標準 / セキュリティ / 評価 / 運用** に寄せて再編する。
 
-## C.1 思考法・問題解決
+本文で扱う判断原則は比較的長く使える。一方で、モデル名、API、UI、価格、個別ツールの制限は変わりやすい。
+そのため、本付録では「変わりにくい書籍」と「最新版を確認すべき公式情報」を分けて扱う。
 
-### 基礎レベル
-1. **「考える技術・書く技術」** - バーバラ・ミント
-   - ピラミッド原理の決定版
-   - 論理的思考の基盤構築
+## C.0 読み方
 
-2. **「イシューからはじめよ」** - 安宅和人
-   - 問題設定の重要性
-   - 生産性の高い思考法
+| 種別 | 読む目的 | 更新時の扱い |
+| --- | --- | --- |
+| 書籍 | 思考法、設計原則、組織運営など長く使える土台を作る | 版や翻訳状況を確認し、本文の原則と接続する |
+| 標準 / ガイド | governance、risk、security、audit、management system の判断軸を得る | 必ず公式ページで最新版を確認する |
+| 公式ドキュメント | MCP、eval、agent、Copilotなど実装・運用に直結する仕様を確認する | UI/API/制限は本文へ固定せず、公式リンクへ逃がす |
+| シリーズ内関連書籍 | 本書で扱わない実装詳細、運用詳細、文書化詳細へ進む | 重複を避け、役割別に読む順番を決める |
 
-3. **「仮説思考」** - 内田和成
-   - 不確実性下での意思決定
-   - 仮説検証のフレームワーク
+読む順番は、最初から網羅しようとしない。
+まず担当する意思決定に必要な1カテゴリを選び、成果物へ落とす。
+たとえば、AI社内ツールの要件定義なら、NIST AI RMF、OWASP LLM Top 10、付録Aの requirements brief / threat model / eval spec を組み合わせる。
 
-### 中級レベル
-4. **「システム思考」** - ピーター・センゲ
-   - 複雑系における思考法
-   - 組織学習の理論
+## C.1 書籍：残すべき古典と実務基盤
 
-5. **「ファスト&スロー」** - ダニエル・カーネマン
-   - 認知バイアスの理解
-   - 意思決定の科学
+### C.1.1 思考法・意思決定
 
-6. **「アルゴリズム思考術」** - ブライアン・クリスチャン
-   - コンピュータサイエンスの日常応用
-   - 最適化の考え方
+| 書籍 | 主な用途 | 本書との接続 |
+| --- | --- | --- |
+| 「考える技術・書く技術」バーバラ・ミント | 論点を構造化し、経営層・監査・関係者へ説明する | 第1章の問い、source hierarchy、判断メモ |
+| 「イシューからはじめよ」安宅和人 | 解くべき問題を選び、AIで高速化する前に論点を絞る | 第2章の問題設定、非目標、open question |
+| 「仮説思考」内田和成 | 不確実性下で仮説を置き、検証計画へ落とす | 第1章の前提 / 仮説ログ、調査 → 判断 → 検証 |
+| 「ファスト&スロー」ダニエル・カーネマン | 認知バイアスと判断ミスを理解する | AIの文章品質を正しさと誤認しないための補助線 |
+| "Thinking in Systems" Donella H. Meadows | 複雑な組織・技術・運用の相互作用を捉える | 第3章の設計トレードオフ、第6章のインシデント連鎖 |
 
-### 上級レベル
-7. **「Thinking in Systems」** - ドネラ・メドウズ
-   - システム思考の実践
-   - 英語版だが必読書
+### C.1.2 ソフトウェア設計・アーキテクチャ
 
-## C.2 ソフトウェア設計・アーキテクチャ
+| 書籍 | 主な用途 | 本書との接続 |
+| --- | --- | --- |
+| 「リーダブルコード」Dustin Boswell / Trevor Foucher | 人間がレビューできるコードと説明の基礎 | 第4章のレビュー責任、AI生成コード検証 |
+| "Clean Code" Robert C. Martin | 保守可能性、可読性、技術的負債の基礎 | AI支援で差分が増える場合の品質基準 |
+| 「ドメイン駆動設計」Eric Evans | 業務概念と設計を接続する | 第2章の要求境界、第3章のADR |
+| "Designing Data-Intensive Applications" Martin Kleppmann | データ、分散システム、信頼性の設計 | RAG、ログ、trace、監査データ設計 |
+| "Building Evolutionary Architectures" Neal Ford 他 | 変化に強いアーキテクチャとfitness function | eval、regression、architecture decision matrix |
+| 「ソフトウェアアーキテクチャの基礎」Mark Richards / Neal Ford | アーキテクチャ特性とトレードオフ分析 | 第3章のlatency / cost / quality / reliability budget |
 
-### 基礎レベル
-8. **「リーダブルコード」** - ダスティン・ボズウェル
-   - コード品質の基礎
-   - 実践的な改善手法
+### C.1.3 Delivery・組織・マネジメント
 
-9. **「Clean Code」** - ロバート・C・マーチン
-   - プロフェッショナルコードの書き方
-   - 技術的負債の管理
+| 書籍 | 主な用途 | 本書との接続 |
+| --- | --- | --- |
+| "Accelerate" Nicole Forsgren 他 | delivery performance と組織能力を測る | 第4章のlead time、failed change、recovery、verification cost |
+| "Team Topologies" Matthew Skelton / Manuel Pais | チーム境界、認知負荷、platform設計 | AI利用のteam working agreement、approval throughput |
+| "The Manager's Path" Camille Fournier | IC、Tech Lead、EMの責任遷移を理解する | 第5章のステークホルダー合意、decision rights |
+| "High Output Management" Andrew S. Grove | マネジメントの基礎、レバレッジ、会議設計 | AI投資、統制、説明責任の運用リズム |
+| "Team Geek" Brian W. Fitzpatrick / Ben Collins-Sussman | HRT、レビュー文化、チーム協働 | AI reviewを人間レビューの代替にしない文化 |
+| "The Mythical Man-Month" Frederick P. Brooks Jr. | 複雑なソフトウェア開発の古典的制約 | AI導入で人月制約が消えたと誤認しないための補助線 |
 
-### 中級レベル
-10. **「ドメイン駆動設計」** - エリック・エヴァンス
-    - 複雑なビジネスロジックの設計
-    - ユビキタス言語の重要性
+## C.2 標準 / ガイド：governance・risk・securityの基準
 
-11. **「マイクロサービスパターン」** - クリス・リチャードソン
-    - 分散システム設計の実践
-    - パターンベースのアプローチ
+AI機能を本番化する場合、技術設計だけでなく、リスク管理、監査、説明責任、管理システムが必要になる。
+次の標準 / ガイドは、本文の security、privacy、compliance、approval、audit、rollback の観点を補強する。
 
-12. **「ソフトウェアアーキテクチャの基礎」** - マーク・リチャーズ
-    - アーキテクチャ設計の体系的学習
-    - トレードオフ分析の手法
+| リソース | 位置づけ | 使いどころ |
+| --- | --- | --- |
+| [NIST AI Risk Management Framework (AI RMF)](https://www.nist.gov/itl/ai-risk-management-framework) | AIリスク管理の基礎フレームワーク | AI施策のrisk register、govern / map / measure / manage の整理 |
+| [NIST AI RMF Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1) | 生成AI向けのリスクプロファイル | hallucination、data leakage、misuse、incident response を整理する |
+| [ISO/IEC 42001:2023](https://www.iso.org/standard/42001) | AI management system の国際規格 | AIを組織として管理・監査する必要がある場合の基準 |
+| [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/) | LLMアプリケーションの代表的リスク | prompt injection、insecure output handling、supply chain、data leakage の脅威分析 |
+| [MITRE ATLAS](https://atlas.mitre.org/) | AIシステムに対する攻撃戦術・技術の知識ベース | threat model、red team、security review の観点整理 |
+| [Guidelines for Secure AI System Development](https://www.ncsc.gov.uk/collection/guidelines-secure-ai-system-development) | NCSC、CISA、NSA等によるsecure AI開発ガイド | secure by design、secure development、secure deployment、secure operation の確認 |
+| [CISA Roadmap for AI](https://www.cisa.gov/resources-tools/resources/roadmap-ai) | 重要インフラとサイバー防衛におけるAIリスク整理 | critical infrastructure、SRE、security leadership の合意形成 |
 
-### 上級レベル
-13. **「Building Evolutionary Architectures」** - ニール・フォード
-    - 進化的アーキテクチャの設計
-    - 変化に強いシステム構築
+これらは「読んだら終わり」ではない。
+付録Aの threat model、tool approval matrix、data classification sheet、verification record へ反映して初めて、実務成果物になる。
 
-## C.3 プロジェクトマネジメント
+## C.3 公式ドキュメント：変化が速い領域
 
-### 基礎レベル
-14. **「アジャイルサムライ」** - Jonathan Rasmusson
-    - アジャイル開発の実践ガイド
-    - チーム運営の基礎
+API、agent、MCP、評価基盤、AI支援開発ツールは変化が速い。
+本文には一般化した判断原則を置き、具体的な仕様は公式ドキュメントで確認する。
 
-15. **「SCRUM BOOT CAMP THE BOOK」** - 西村直人・永瀬美穂・吉羽龍太郎
-    - スクラム実践の日本語決定版
-    - 具体的な運用方法
+| 領域 | 公式リソース | 確認すること |
+| --- | --- | --- |
+| MCP / tool integration | [Model Context Protocol documentation](https://modelcontextprotocol.io/docs/getting-started/intro) | client / server / tool / resource / prompt の責任境界、権限、transport、security notes |
+| OpenAI evals | [OpenAI Evals guide](https://developers.openai.com/api/docs/guides/evals) | eval設計、data source、grader、run、regressionの運用方法 |
+| Agent evaluation | [OpenAI Agent evals guide](https://developers.openai.com/api/docs/guides/agent-evals) | agent workflow の評価、trace、grader、failure analysis |
+| AI-assisted delivery | [GitHub Copilot coding agent best practices](https://docs.github.com/en/copilot/tutorials/cloud-agent/get-the-best-results) | Issueの書き方、taskの切り方、review前提の使い方 |
+| Responsible use | [Responsible use of GitHub Copilot coding agent](https://docs.github.com/en/copilot/responsible-use-of-github-copilot-features/responsible-use-of-copilot-coding-agent-on-githubcom) | 人間の責任、制限、レビュー、利用上の注意 |
+| Reliability / incident response | [Google SRE: Emergency Response](https://sre.google/sre-book/emergency-response/) | incident response、rollback、communication、訓練 |
+| Postmortem | [Google SRE Workbook: Postmortem Culture](https://sre.google/workbook/postmortem-culture/) | blameless postmortem、学習機会、再発防止 |
+| Documentation architecture | [Diátaxis](https://diataxis.fr/) | tutorial、how-to、reference、explanation の分離 |
 
-### 中級レベル
-16. **「Team Geek」** - ブライアン・W・フィッツパトリック
-    - チームワークの本質
-    - エンジニア文化の構築
+公式ドキュメントを読むときは、次を記録する。
 
-17. **「The Mythical Man-Month」** - フレデリック・ブルックス
-    - ソフトウェア開発の古典
-    - Brooks's Law の提唱者
+- 確認日
+- 対象バージョンまたはページURL
+- 採用した前提
+- 本文へ残す一般原則
+- 付録または更新ノートへ逃がす変動情報
+- 変更が必要な成果物テンプレート
 
-### 上級レベル
-18. **「Accelerate」** - ニコール・フォースグレン
-    - DevOps の科学的研究
-    - 高性能組織の特徴
+## C.4 優先カテゴリ別の読み方
 
-## C.4 AI・機械学習
+Issue #127 の付録Cでは、次のカテゴリを優先する。
+各カテゴリは、読むだけでなく成果物へ接続する。
 
-### 基礎レベル
-19. **「人工知能は人間を超えるか」** - 松尾豊
-    - AIの基礎概念
-    - 技術動向の理解
+| 優先カテゴリ | まず読む | 残す成果物 |
+| --- | --- | --- |
+| secure AI / LLM application security | OWASP LLM Top 10、MITRE ATLAS、Guidelines for Secure AI System Development | threat model、tool approval matrix、security review checklist |
+| evals / agent evaluation | OpenAI Evals guide、OpenAI Agent evals guide、NIST AI RMF Measure | eval spec、eval dataset design sheet、verification record |
+| MCP / tool integration | Model Context Protocol documentation、OWASP LLM Top 10、MITRE ATLAS | AI system ADR、tool approval matrix、audit trail design |
+| AI-assisted software delivery | GitHub Copilot coding agent best practices、Responsible use of Copilot coding agent、Accelerate | agent task brief、PRテンプレート、review checklist、delivery metrics dashboard |
+| incident / reliability / governance | Google SRE、NIST AI RMF、NIST AI RMF Generative AI Profile、CISA Roadmap for AI | AI incident runbook、severity matrix、postmortem、risk register |
+| documentation / evidence / traceability | Diátaxis、付録A、engineering documentation 系のシリーズ内書籍 | ADR、decision log、verification record、update notes |
 
-20. **「いちばんやさしい機械学習プロジェクトの教本」** - 韮原祐介
-    - ML プロジェクトの実践
-    - ビジネス適用の考え方
+## C.5 シリーズ内の関連書籍
 
-### 中級レベル
-21. **「機械学習エンジニアになりたい人のための本」** - 石川聡彦
-    - MLOps の実践
-    - 運用面での考慮事項
+本書は「思考法・意思決定・説明責任」に主軸を置く。
+実装や運用の詳細は、シリーズ内の関連書籍で補完する。
 
-22. **「AI・データ分析プロジェクトのすべて」** - 前田雄介
-    - データサイエンスプロジェクトの全体像
-    - 失敗しないプロジェクト運営
+| 読みたいテーマ | 関連書籍 | 使いどころ |
+| --- | --- | --- |
+| Issue / PR 運用 | [Issue駆動開発 実践ガイド](https://itdojp.github.io/issue-driven-work-book/) | Issue → plan → PR → review の運用詳細 |
+| GitHub workflow | [GitHub Workflow Book](https://itdojp.github.io/github-workflow-book/) | branch、PR、CI、review、release の運用 |
+| AgentOps | [GitHub AgentOps Book](https://itdojp.github.io/GitHub-AgentOps-book/) | agent運用、監査、権限、レビューゲート |
+| AIテスト戦略 | [AI Testing Strategy Book](https://itdojp.github.io/ai-testing-strategy-book/) | eval、regression、test generation、品質測定 |
+| エンジニアリング文書 | [Engineering Documentation Book](https://itdojp.github.io/engineering-documentation-book/) | ADR、runbook、decision log、traceability |
+| 証跡・判断根拠 | [Evidence-Based Engineering Book](https://itdojp.github.io/evidence-based-engineering-book/) | evidence、measurement、decision record |
+| セキュリティ / プライバシー | [Security Privacy Literacy Book](https://itdojp.github.io/security-privacy-literacy-book/) | data classification、privacy、risk communication |
+| インシデント対応 | [Incident Response Basics Book](https://itdojp.github.io/incident-response-basics-book/) | severity、escalation、communication、postmortem |
 
-### 上級レベル
-23. **「Designing Data-Intensive Applications」** - マーティン・クレップマン
-    - 大規模データシステム設計
-    - 分散システムの理論と実践
+シリーズ内の書籍を読むときは、本書の章と付録Aの成果物へ戻す。
+たとえば、AgentOpsの詳細を読んだ場合は、tool approval matrix、AI incident runbook、verification record を更新する。
 
-## C.5 ビジネス・経営
+## C.6 役割別おすすめ順
 
-### 基礎レベル
-24. **「ITエンジニアのためのビジネス文書作成術」** - 飯島弘文
-    - 技術者向けビジネススキル
-    - ステークホルダーコミュニケーション
+### IC / Senior Engineer
 
-25. **「エンジニアのための理論でわかるデザイン入門」** - 平石大祐
-    - デザイン思考の基礎
-    - ユーザビリティの考え方
+1. 第1章と第2章を読み、判断メモと requirements brief を作る。
+2. 「イシューからはじめよ」「仮説思考」で問題設定を補強する。
+3. OWASP LLM Top 10 と OpenAI Evals guide を読み、最低限の threat model と eval spec を作る。
+4. GitHub Copilot coding agent best practices を読み、PR単位のAI利用記録を残す。
+5. Engineering Documentation Book でADRとverification recordの書き方を補う。
 
-### 中級レベル
-26. **「リーン・スタートアップ」** - エリック・リース
-    - MVP の考え方
-    - 検証駆動開発
+### Tech Lead / Architect
 
-27. **「ビジネスモデル・ジェネレーション」** - アレックス・オスターワルダー
-    - ビジネスモデル設計
-    - 価値提案の明確化
+1. 第3章を読み、architecture decision matrix と AI system ADR を作る。
+2. NIST AI RMF、NIST AI RMF Generative AI Profile、ISO/IEC 42001 を読み、governanceと設計判断を接続する。
+3. MCP documentation と MITRE ATLAS を読み、tool権限とthreat modelを更新する。
+4. "Designing Data-Intensive Applications" と "Building Evolutionary Architectures" でデータ・評価・変化耐性を補強する。
+5. AgentOps Book と AI Testing Strategy Book へ進む。
 
-### 上級レベル
-28. **「競争優位の戦略」** - マイケル・ポーター
-    - 戦略論の古典
-    - 競争環境の分析手法
+### EM / Engineering Manager
 
-## C.6 組織・リーダーシップ
+1. 第5章を読み、stakeholder map、risk register、ROI / TCO / control cost 表を作る。
+2. "Accelerate"、"Team Topologies"、"High Output Management" を読み、組織能力と測定指標を整理する。
+3. ISO/IEC 42001 と CISA Roadmap for AI を読み、責任体制、承認、監査、教育計画を確認する。
+4. GitHub Copilot responsible use を読み、チーム利用ルールとreview責任を明文化する。
+5. #152 などのportfolio-level sprintで、書籍・チーム・成果物の更新状況を追跡する。
 
-### 基礎レベル
-29. **「エンジニアのためのマネジメントキャリアパス」** - カミーユ・フルニエ
-    - テックリードからVP of Engineeringまで
-    - キャリア設計の指針
+### SRE / DevOps / Platform
 
-30. **「チームトポロジー」** - マシュー・スケルトン
-    - 組織設計とチーム構造
-    - Conway's Law の実践的応用
+1. 第6章を読み、AI incident runbook、severity matrix、communication templateを作る。
+2. Google SRE の Emergency Response と Postmortem Culture を読み、incident運用を補強する。
+3. NIST AI RMF、NIST AI RMF Generative AI Profile、MITRE ATLAS を読み、AI固有incidentの分類を整える。
+4. MCP documentation を読み、read-only tool、approval gate、audit trailを設計する。
+5. Incident Response Basics Book と GitHub AgentOps Book で運用詳細を補う。
 
-### 中級レベル
-31. **「HIGH OUTPUT MANAGEMENT」** - アンドリュー・グローブ
-    - マネジメントの基礎理論
-    - Intel 元CEO の実践知
+### Security / Privacy / Compliance
 
-32. **「心理的安全性のつくりかた」** - 石井遼介
-    - チーム生産性向上の鍵
-    - 日本の組織文化に適用
+1. OWASP LLM Top 10、MITRE ATLAS、Guidelines for Secure AI System Development を読む。
+2. NIST AI RMF、NIST AI RMF Generative AI Profile、ISO/IEC 42001 を読み、governance、risk、auditの言葉に変換する。
+3. 第2章の data / permission boundary table と第3章の threat model をレビューする。
+4. 第6章の postmortem と incident timeline に、approval bypass、MCP authorization failure、data exfiltration を含める。
+5. Security Privacy Literacy Book と Evidence-Based Engineering Book で説明責任を補強する。
 
-## C.7 オンラインリソース
+### Documentation Owner / Tech Writer
 
-### ブログ・サイト
-- **Martin Fowler's Blog**: アーキテクチャ設計の権威
-- **Joel on Software**: ソフトウェア開発の本質
-- **High Scalability**: 大規模システム事例集
-- **The Pragmatic Engineer**: 実践的エンジニアリング
+1. Diátaxis を読み、tutorial、how-to、reference、explanationを分ける。
+2. Engineering Documentation Book を読み、ADR、runbook、decision log、update notesを整備する。
+3. 本書の付録Aテンプレートを使い、成果物の粒度と命名を揃える。
+4. 第1章のsource hierarchyを使い、AI要約と一次情報の区別を明示する。
+5. 変化しやすい情報は付録Dへ寄せ、本文に固定しすぎない。
 
-### ポッドキャスト
-- **Software Engineering Daily**: 最新技術動向
-- **The InfoQ Podcast**: アーキテクチャ・設計
-- **Engineering Culture**: エンジニア組織文化
+## C.7 読書を成果物へ変換する
 
-### YouTube チャンネル
-- **GitHub**: 開発プロセス・ベストプラクティス
-- **Google TechTalks**: 最新研究・技術動向
-- **AWS Events**: クラウド・インフラ技術
+推奨読書リストは、積読リストではない。
+読んだ内容は、次のいずれかへ変換する。
 
-## C.8 学習計画の立て方
+- 判断メモ
+- requirements brief
+- AI system ADR
+- threat model
+- eval spec
+- tool approval matrix
+- data classification sheet
+- verification record
+- runbook
+- postmortem
+- update notes
 
-### 段階的学習アプローチ
+1冊または1つの公式ドキュメントを読んだら、次を記録する。
 
-**Phase 1 (1〜3ヶ月): 基礎固め**
-- 思考法関連書籍 2〜3冊
-- 設計基礎書籍 1〜2冊
-- 実践プロジェクトでの適用
+```text
+Resource:
+URL / edition:
+Read date:
+Relevant chapter:
+Adopted principle:
+Rejected or deferred item:
+Artifact updated:
+Next review date:
+```
 
-**Phase 2 (4〜6ヶ月): 専門性向上**
-- 担当領域の中級書籍
-- 他領域の基礎書籍
-- 勉強会・カンファレンス参加
-
-**Phase 3 (7〜12ヶ月): 統合・応用**
-- 上級書籍の挑戦
-- 外部発表・アウトプット
-- メンタリング・教育活動
-
-### 読書の効果を最大化するコツ
-
-1. **アクティブリーディング**
-   - 要点のメモ作成
-   - 実務への適用計画
-
-2. **アウトプット前提の読書**
-   - ブログ記事として整理
-   - チーム内での共有
-
-3. **複数書籍の並行読書**
-   - 異なる視点の獲得
-   - 相互参照による理解深化
-
-継続的な学習によって、AI時代のプロフェッショナルエンジニアとしての競争力を維持・向上させましょう。
+これにより、学習を個人の理解で止めず、チームの判断根拠、監査証跡、運用改善へ接続できる。
