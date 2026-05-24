@@ -45,6 +45,7 @@ Issue #127 の各 PR では、次を確認する。
 
 ### Unreleased
 
+- 第2章を AIを含む要求境界の設計として全面リライトし、requirements brief、acceptance criteria、data / permission boundary table、Human-in-the-loop / Human-on-the-loop / Full automation、KPI と guardrail metric、fallback / manual override を接続した（2026-05-24）。
 - 第1章を AIネイティブ環境における意思決定OSとして全面リライトし、context engineering、schema-first thinking、source hierarchy、delegate / review / own、decision rights を接続した（2026-05-24）。
 - Issue #127 の 2026年版リライトに向けて、トップページ、まえがき、AI協働SOP、更新方針の基礎契約を定義した（2026-05-24）。
 - Phase 6 実務接続レビューゲートを追加し、AI協働SOP、判断責任の3層モデル、AI活用判断メモ、PRレビュー項目を接続した（2026-05-23）。
