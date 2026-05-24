@@ -579,7 +579,7 @@ Executive memo は、経営層へ AI投資、統制、リスク受容、撤退�
 | Risk | incident exposure | | | |
 | Risk | vendor concentration | | | |
 
-### A.11 レビュー観点
+### A.11.4 レビュー観点
 
 - benefit と verification / control cost が同じ密度で書かれている。
 - 承認条件、撤退条件、次回レビューが明確である。
