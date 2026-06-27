@@ -1,6 +1,6 @@
 title: "AI時代のプロフェッショナルITエンジニアの思考法"
-subtitle: "AIネイティブな実務における意思決定・説明責任・運用統制の実践書"
-description: "AIネイティブな実務を前提に、シニアエンジニア、テックリード、アーキテクト、EM、SRE、DevOps リーダー、Security 担当者が、意思決定・説明責任・運用統制を成果物として残すための実践書"
+subtitle: "AI ネイティブな実務における意思決定・説明責任・運用統制の実践書"
+description: "AI ネイティブな実務を前提に、シニアエンジニア、テックリード、アーキテクト、EM、SRE、DevOps リーダー、Security 担当者が、意思決定・説明責任・運用統制を成果物として残すための実践書"
 author: "株式会社アイティードゥ"
 version: "1.0.0"
 lang: "ja"
@@ -10,7 +10,7 @@ baseurl: "/ai-era-engineers-mind-book"
 # リポジトリ情報
 repository: "https://github.com/itdojp/ai-era-engineers-mind-book"
 
-# Jekyll設定
+# Jekyll 設定
 markdown: kramdown
 highlighter: rouge
 permalink: pretty
@@ -83,7 +83,7 @@ kramdown:
   syntax_highlighter_opts:
     line_numbers: false
   
-# GitHub Pages設定
+# GitHub Pages 設定
 github:
   is_project_page: true
 
@@ -92,16 +92,16 @@ structure:
   introduction:
     - title: "まえがき"
       path: "/introduction/preface/"
-    - title: "ライセンスFAQ"
+    - title: "ライセンス FAQ"
       path: "/introduction/license-faq/"
-    - title: "AI協働の標準手順（SOP）"
+    - title: "AI 協働の標準手順（SOP）"
       path: "/introduction/ai-collaboration-sop/"
     - title: "前作（論理思考ガイド）との接続"
       path: "/introduction/bridge-logical-thinking-guide/"
   
   chapters:
     - id: 1
-      title: "エンジニアの思考OS"
+      title: "エンジニアの思考 OS"
       path: "/chapters/chapter-01/"
     - id: 2
       title: "要件定義の認知プロセス"

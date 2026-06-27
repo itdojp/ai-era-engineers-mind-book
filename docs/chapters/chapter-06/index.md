@@ -1,16 +1,16 @@
 ---
-title: "第6章：危機管理と問題解決 - AI固有インシデントへの運用統制"
-subtitle: "AI固有インシデントへの運用統制"
+title: "第6章：危機管理と問題解決 - AI 固有インシデントへの運用統制"
+subtitle: "AI 固有インシデントへの運用統制"
 description: "prompt injection、誤操作、権限逸脱、provider outage、コスト暴走、retrieval / citation failure、approval bypass を、kill switch、quarantine、rollback、escalation、postmortem へ接続する章"
 layout: book
 chapter: 6
 ---
 
-# 第6章：危機管理と問題解決 - AI固有インシデントへの運用統制
+# 第6章：危機管理と問題解決 - AI 固有インシデントへの運用統制
 
-AIを含むシステムでは、従来型の障害対応だけでは足りない。サービス停止や性能劣化に加えて、prompt injection、誤った外部操作、権限逸脱、情報漏えい、誤った要約、誤判断の連鎖、retrieval failure、citation failure、MCP authorization failure、approval bypass、コスト暴走、モデル / プロバイダ障害といった、AI特有の事故が起きる。
+AI を含むシステムでは、従来型の障害対応だけでは足りない。サービス停止や性能劣化に加えて、prompt injection、誤った外部操作、権限逸脱、情報漏えい、誤った要約、誤判断の連鎖、retrieval failure、citation failure、MCP authorization failure、approval bypass、コスト暴走、モデル / プロバイダ障害といった、AI 特有の事故が起きる。
 
-これらの事故は、発生後に「AIが間違えた」と説明しても責任を果たせない。人とシステムが、どこまで自動化してよいか、どこで実行前承認を要求するか、どの証跡で事後監査するか、いつ kill switch を押すか、どの状態なら quarantine し、どう rollback し、誰へ escalation するかを、事前に決めておく必要がある。
+これらの事故は、発生後に「AI が間違えた」と説明しても責任を果たせない。人とシステムが、どこまで自動化してよいか、どこで実行前承認を要求するか、どの証跡で事後監査するか、いつ kill switch を押すか、どの状態なら quarantine し、どう rollback し、誰へ escalation するかを、事前に決めておく必要がある。
 
 本章では、第3章の threat model / eval plan / approval gate、第4章の release readiness / rollback、第5章の risk register / communication template を受け取り、AI incident runbook と postmortem へ落とす。目的は、事故をゼロにすることではない。事故が起きたときに、止める、隔離する、復旧する、説明する、学習する、再発防止するという一連の統制を、現場で実行できる状態にすることである。
 
@@ -18,7 +18,7 @@ AIを含むシステムでは、従来型の障害対応だけでは足りない
 
 本章で扱う判断は、次の8つである。
 
-1. 従来型インシデントと AI固有インシデントを、severity、影響範囲、説明責任でどう分類するか。
+1. 従来型インシデントと AI 固有インシデントを、severity、影響範囲、説明責任でどう分類するか。
 2. prompt injection、tool misuse、retrieval failure、citation failure、stale knowledge、approval bypass をどの証跡で検知するか。
 3. kill switch、quarantine、rollback、manual takeover、escalation をどの条件で発動するか。
 4. どこまで自動化してよいかを、Human-in-the-loop / Human-on-the-loop / Full automation の境界としてどう明文化するか。
@@ -29,10 +29,10 @@ AIを含むシステムでは、従来型の障害対応だけでは足りない
 
 ## 誰向けか
 
-- **SRE / DevOps**: AIを含む運用で、停止、隔離、復旧、監査、再発防止の標準手順を作りたい人。
+- **SRE / DevOps**: AI を含む運用で、停止、隔離、復旧、監査、再発防止の標準手順を作りたい人。
 - **Security**: prompt injection、権限逸脱、情報漏えい、tool misuse、approval bypass をインシデントとして扱いたい人。
 - **Tech Lead / Architect**: 第3章の AI system ADR と threat model を、運用時の incident response へ接続したい人。
-- **EM / 現場責任者**: AI誤動作時の現場判断、manual takeover、顧客連絡、教育、再発防止を管理したい人。
+- **EM / 現場責任者**: AI 誤動作時の現場判断、manual takeover、顧客連絡、教育、再発防止を管理したい人。
 - **Compliance / 監査 / Legal**: 実行前承認、事後監査、証跡、責任分界、顧客説明を確認したい人。
 
 ## 章末に残るもの
@@ -52,26 +52,26 @@ AIを含むシステムでは、従来型の障害対応だけでは足りない
 
 | 失敗 | 何が起きるか | 防止策 |
 | --- | --- | --- |
-| AI誤回答を通常の品質問題として扱う | 顧客影響、監査、説明責任が過小評価される | AI固有の severity matrix と communication template を用意する（§6.1、§6.7） |
+| AI 誤回答を通常の品質問題として扱う | 顧客影響、監査、説明責任が過小評価される | AI 固有の severity matrix と communication template を用意する（§6.1、§6.7） |
 | 自動化の停止条件がない | 誤自動化や誤った外部操作が拡大する | kill switch、quarantine、manual takeover を runbook に入れる（§6.3） |
 | 実行前承認だけで安心する | 承認後の挙動、証跡、例外処理が追えない | 実行前承認と事後監査をセットで設計する（§6.4） |
-| ログはあるが説明できない | 入力、出力、tool 実行、承認、修正履歴がつながらない | incident timeline と audit trail を同じIDで紐づける（§6.5、§6.7） |
+| ログはあるが説明できない | 入力、出力、tool 実行、承認、修正履歴がつながらない | incident timeline と audit trail を同じ ID で紐づける（§6.5、§6.7） |
 | provider outage を想定しない | モデル / プロバイダ障害時に業務が止まる | degrade gracefully、fallback、manual takeover を定義する（§6.3、§6.8） |
 | postmortem が責任追及になる | 現場が事実を隠し、再発防止が弱くなる | blameless だが accountable な postmortem を採用する（§6.6） |
 
-## 本章とAI協働の標準手順（SOP）
+## 本章と AI 協働の標準手順（SOP）
 
-本章は、[AI協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/) のうち、特に次の工程に対応する。
+本章は、[AI 協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/) のうち、特に次の工程に対応する。
 
-- Issue化: 事故の症状、影響範囲、対象システム、AI関与の有無、意思決定者を明文化する。
+- Issue 化: 事故の症状、影響範囲、対象システム、AI 関与の有無、意思決定者を明文化する。
 - 情報分類: ログ、顧客情報、個人情報、契約情報、prompt、tool 引数、出力、監査証跡を分類する。
-- Plan作成: Incident Commander、Technical Lead、Communication Lead、Security / Legal reviewer、escalation 先を決める。
-- 入力設計: AIに渡してよいログ、渡してはいけない顧客データ、要約時の根拠、出力 schema を定義する。
+- Plan 作成: Incident Commander、Technical Lead、Communication Lead、Security / Legal reviewer、escalation 先を決める。
+- 入力設計: AI に渡してよいログ、渡してはいけない顧客データ、要約時の根拠、出力 schema を定義する。
 - 評価設計: hallucination rate proxy、citation coverage、tool error rate、audit completeness、fallback rate を観測する。
 - 反映: AI incident runbook、incident timeline、postmortem、communication template、operational guardrail checklist を更新する。
 - レビュー・承認: kill switch、rollback、policy exception、顧客連絡、経営報告、監査記録を確認する。
 
-AIは、インシデント対応中の要約、仮説出し、ログ分類、communication draft、postmortem draft を支援できる。一方で、顧客影響の判断、リスク受容、本番操作、外部連絡、法務判断、原因確定は、人が責任を持つ。
+AI は、インシデント対応中の要約、仮説出し、ログ分類、communication draft、postmortem draft を支援できる。一方で、顧客影響の判断、リスク受容、本番操作、外部連絡、法務判断、原因確定は、人が責任を持つ。
 
 ## 6.1 AI incident の severity と初動を決める {#section-6-1}
 
@@ -79,14 +79,14 @@ AI incident は、サービス停止だけでなく、誤った判断や統制�
 
 ### 6.1.1 severity matrix
 
-| Severity | AI固有の例 | 影響 | 初動 | 通知先 |
+| Severity | AI 固有の例 | 影響 | 初動 | 通知先 |
 | --- | --- | --- | --- | --- |
 | SEV-1 | 機密情報の外部送信、誤った外部操作、重大な approval bypass、広範な誤自動化 | 顧客・法務・監査・事業継続に重大影響 | kill switch、quarantine、Incident Commander 起動 | 経営、Security、Legal、監査、顧客窓口 |
 | SEV-2 | 限定範囲の情報漏えい疑い、重大誤回答、provider outage による業務停止、コスト急増 | 限定顧客または主要業務に影響 | 対象機能停止、manual takeover、証跡保全 | 事業責任者、Security、SRE、現場責任者 |
-| SEV-3 | citation failure、retrieval failure、stale knowledge による軽微な誤回答 | 業務手戻りや利用者混乱 | 対象回答の停止、再評価、FAQ更新 | EM、Tech Lead、Support |
+| SEV-3 | citation failure、retrieval failure、stale knowledge による軽微な誤回答 | 業務手戻りや利用者混乱 | 対象回答の停止、再評価、FAQ 更新 | EM、Tech Lead、Support |
 | SEV-4 | eval drift、latency distribution 悪化、軽微な token / cost anomaly | 直接影響は小さいが将来リスクあり | backlog 化、定期レビュー、guardrail 改善 | Owner、SRE、Data / ML 担当 |
 
-この表の数値や名称はモデルケースである。実際には、サービスのSLO、契約、規制、顧客影響、運用体制に応じて調整する。ただし、AI固有の誤回答、情報漏えい、権限逸脱、承認 bypass を severity 判断に入れることは必須である。
+この表の数値や名称はモデルケースである。実際には、サービスの SLO、契約、規制、顧客影響、運用体制に応じて調整する。ただし、AI 固有の誤回答、情報漏えい、権限逸脱、承認 bypass を severity 判断に入れることは必須である。
 
 ### 6.1.2 初動の役割分担
 
@@ -94,20 +94,20 @@ AI incident は、サービス停止だけでなく、誤った判断や統制�
 
 | Role | 責務 | AI incident で追加する確認 |
 | --- | --- | --- |
-| Incident Commander | 優先順位、停止判断、escalation、復旧方針 | AI機能を止めるか、対象業務を quarantine するか |
+| Incident Commander | 優先順位、停止判断、escalation、復旧方針 | AI 機能を止めるか、対象業務を quarantine するか |
 | Technical Lead | 原因仮説、修正、rollback、検証 | prompt、retrieval、tool 実行、MCP authorization、eval drift |
 | Security Lead | 情報漏えい、権限逸脱、攻撃可能性 | prompt injection、data exfiltration、secret 露出、least privilege |
-| Communication Lead | 社内 / 顧客 / 経営向け説明 | AI出力の誤用、未確定事項、顧客影響範囲 |
+| Communication Lead | 社内 / 顧客 / 経営向け説明 | AI 出力の誤用、未確定事項、顧客影響範囲 |
 | Legal / Compliance | 契約、規制、監査、証跡 | データ越境、通知義務、証跡保存、責任分界 |
 | Field Owner | 現場対応、manual takeover、顧客個別対応 | 利用停止範囲、手動復旧、再処理、教育 |
 
-AIがログ要約やタイムライン草案を作る場合でも、Incident Commander は AI出力を事実として採用しない。一次ログ、監視データ、操作履歴、承認履歴で確認する。
+AI がログ要約やタイムライン草案を作る場合でも、Incident Commander は AI 出力を事実として採用しない。一次ログ、監視データ、操作履歴、承認履歴で確認する。
 
 ### 6.1.3 incident declaration の基準
 
 次のいずれかに該当する場合は、通常の改善チケットではなく、AI incident として扱う。
 
-- AI出力が顧客、契約、請求、医療・金融・法務相当の判断、セキュリティ判断へ影響した。
+- AI 出力が顧客、契約、請求、医療・金融・法務相当の判断、セキュリティ判断へ影響した。
 - prompt injection や tool misuse により、意図しないデータ取得、外部操作、通知、変更が行われた。
 - 権限逸脱 / 情報漏えい、またはその疑いがある。
 - retrieval failure、stale knowledge、citation failure により、誤った根拠が提示された。
@@ -117,18 +117,18 @@ AIがログ要約やタイムライン草案を作る場合でも、Incident Com
 
 incident declaration を遅らせると、証跡保全と顧客説明が難しくなる。迷う場合は軽い severity で宣言し、後から downgrade するほうが安全である。
 
-## 6.2 AI固有の障害モードを分類する {#section-6-2}
+## 6.2 AI 固有の障害モードを分類する {#section-6-2}
 
-AI incident の根本原因分析では、「モデルが間違えた」で止めない。AIシステムは、入力、retrieval、tool、approval、model、post-processing、human review、運用手順が連鎖して動く。障害モードを分けなければ、再発防止策が曖昧になる。
+AI incident の根本原因分析では、「モデルが間違えた」で止めない。AI システムは、入力、retrieval、tool、approval、model、post-processing、human review、運用手順が連鎖して動く。障害モードを分けなければ、再発防止策が曖昧になる。
 
 ### 6.2.1 障害モード分類表
 
 | 障害モード | 症状 | 主な原因 | 代表的な証跡 |
 | --- | --- | --- | --- |
-| prompt injection | 外部文書や入力がAIの指示を上書きする | 信頼境界の未定義、入力検査不足 | raw input、prompt、retrieved document、output |
-| 誤った外部操作 | AIまたはagentが誤った tool を実行する | tool 権限過大、approval gate 不足 | tool call log、承認ログ、実行結果 |
+| prompt injection | 外部文書や入力が AI の指示を上書きする | 信頼境界の未定義、入力検査不足 | raw input、prompt、retrieved document、output |
+| 誤った外部操作 | AI または agent が誤った tool を実行する | tool 権限過大、approval gate 不足 | tool call log、承認ログ、実行結果 |
 | 権限逸脱 / 情報漏えい | 本来見えない情報が出力または外部送信される | data boundary 不備、least privilege 不足 | access log、DLP alert、data classification |
-| モデル / プロバイダ障害 | 応答不能、品質劣化、latency 悪化 | provider outage、API変更、quota | provider status、latency distribution、error rate |
+| モデル / プロバイダ障害 | 応答不能、品質劣化、latency 悪化 | provider outage、API 変更、quota | provider status、latency distribution、error rate |
 | コスト暴走 | token / API cost が急増する | loop、retry storm、入力肥大、攻撃 | usage log、token / cost anomaly、retry log |
 | 誤った要約 / 誤判断の連鎖 | 一次情報と異なる要約が後続判断へ使われる | source hierarchy 不備、review 不足 | summary、source、decision memo、review note |
 | retrieval failure | 必要文書を検索できない | index stale、権限境界、query 設計不備 | query log、retrieved IDs、missing source |
@@ -142,26 +142,26 @@ AI incident の根本原因分析では、「モデルが間違えた」で止�
 
 ### 6.2.2 事実と仮説を分ける
 
-インシデント対応中は、AIが自然な説明を出しても、それを事実として扱わない。タイムラインには、事実、仮説、判断、実行、結果を分けて記録する。
+インシデント対応中は、AI が自然な説明を出しても、それを事実として扱わない。タイムラインには、事実、仮説、判断、実行、結果を分けて記録する。
 
 | 種別 | 例 | 記録方法 |
 | --- | --- | --- |
-| 事実 | 10:04 に tool `send_customer_email` が実行された | 実行ログ、trace ID、承認ID |
-| 仮説 | prompt injection により tool 選択が歪んだ可能性 | 仮説ID、根拠、検証方法 |
+| 事実 | 10:04 に tool `send_customer_email` が実行された | 実行ログ、trace ID、承認 ID |
+| 仮説 | prompt injection により tool 選択が歪んだ可能性 | 仮説 ID、根拠、検証方法 |
 | 判断 | 顧客通知機能を quarantine する | 判断者、理由、代替案 |
-| 実行 | 対象 connector の権限を read-only に変更した | 変更ID、実行者、rollback 手順 |
+| 実行 | 対象 connector の権限を read-only に変更した | 変更 ID、実行者、rollback 手順 |
 | 結果 | 誤送信は止まったが、手動対応が増えた | metric、現場報告、残課題 |
 
-AIに要約を依頼する場合は、事実と仮説を混ぜない schema を使う。根拠のない断定、時刻の補完、存在しない引用、未確認の原因確定を禁止する。
+AI に要約を依頼する場合は、事実と仮説を混ぜない schema を使う。根拠のない断定、時刻の補完、存在しない引用、未確認の原因確定を禁止する。
 
 ### 6.2.3 情報分類と入力制限
 
-インシデント対応では、ログや顧客情報をAIに渡したくなる。しかし、事故対応中ほど情報分類が重要である。
+インシデント対応では、ログや顧客情報を AI に渡したくなる。しかし、事故対応中ほど情報分類が重要である。
 
-- 顧客データ、個人情報、契約情報、秘密情報、認証情報は、AI投入前にマスキングまたは除外する。
+- 顧客データ、個人情報、契約情報、秘密情報、認証情報は、AI 投入前にマスキングまたは除外する。
 - prompt、tool 引数、retrieved document、出力、承認ログは、監査証跡として保存する。
-- 外部AIへ投入できないログは、社内環境で分析するか、人手で要約する。
-- AI要約を顧客や経営へそのまま転用しない。Communication Lead が一次情報で確認する。
+- 外部 AI へ投入できないログは、社内環境で分析するか、人手で要約する。
+- AI 要約を顧客や経営へそのまま転用しない。Communication Lead が一次情報で確認する。
 - 調査用権限は、incident scope に限定し、終了後に剥奪する。
 
 情報分類を省略すると、事故対応そのものが二次事故になる。
@@ -174,10 +174,10 @@ AI incident では、原因究明より先に拡大防止が必要な場合が�
 
 | Option | 使う条件 | 実施内容 | 注意点 |
 | --- | --- | --- | --- |
-| kill switch | 被害拡大中、誤操作中、情報漏えい疑い、コスト暴走 | AI機能、agent、tool 実行、外部連携を停止する | 停止による業務影響をCommunication Leadへ渡す |
-| quarantine | 影響範囲を限定したい、特定データや特定利用者だけ危険 | 対象workflow、connector、データセット、利用者を隔離する | 隔離範囲と解除条件を記録する |
-| rollback | 新しいprompt、model、retrieval index、tool 定義、権限変更が原因候補 | 直前の安全な version へ戻す | rollback 後の eval と監査証跡を残す |
-| manual takeover | 自動判断や自動実行を止め、人が処理する | 現場手順、承認者、問い合わせ先を有効化する | 現場負荷とSLOを再見積もりする |
+| kill switch | 被害拡大中、誤操作中、情報漏えい疑い、コスト暴走 | AI 機能、agent、tool 実行、外部連携を停止する | 停止による業務影響を Communication Lead へ渡す |
+| quarantine | 影響範囲を限定したい、特定データや特定利用者だけ危険 | 対象 workflow、connector、データセット、利用者を隔離する | 隔離範囲と解除条件を記録する |
+| rollback | 新しい prompt、model、retrieval index、tool 定義、権限変更が原因候補 | 直前の安全な version へ戻す | rollback 後の eval と監査証跡を残す |
+| manual takeover | 自動判断や自動実行を止め、人が処理する | 現場手順、承認者、問い合わせ先を有効化する | 現場負荷と SLO を再見積もりする |
 | degrade gracefully | provider outage や品質劣化時に機能を縮退する | 検索のみ、回答停止、読み取り専用、遅延許容へ切替 | 利用者へ制限内容を明示する |
 | escalation | 組織外や上位判断が必要 | 経営、法務、監査、顧客窓口、ベンダーへ連絡 | 未確定事項と確定事項を分ける |
 
@@ -189,8 +189,8 @@ containment は、完全な原因確定を待たない。発動条件と解除�
 
 | 自動化レベル | 許可すること | 禁止または承認必須にすること | 監査要件 |
 | --- | --- | --- | --- |
-| Human-in-the-loop | AIは提案のみ。人が実行する | 本番変更、顧客連絡、外部操作、権限変更 | 提案、承認者、実行者、結果を記録 |
-| Human-on-the-loop | AIが限定操作を行い、人が監視・停止できる | 破壊的操作、広範囲通知、データ削除、契約判断 | kill switch、操作ログ、事後レビュー |
+| Human-in-the-loop | AI は提案のみ。人が実行する | 本番変更、顧客連絡、外部操作、権限変更 | 提案、承認者、実行者、結果を記録 |
+| Human-on-the-loop | AI が限定操作を行い、人が監視・停止できる | 破壊的操作、広範囲通知、データ削除、契約判断 | kill switch、操作ログ、事後レビュー |
 | Full automation | 低リスク・可逆・限定範囲の処理 | 顧客影響、不可逆操作、機密データ処理 | SLO、alert、定期監査、上限 |
 
 AI incident 対応では、通常時に Full automation を許可している処理でも、一時的に Human-in-the-loop へ落とす判断が必要になる。
@@ -211,19 +211,19 @@ rollback は、戻すことでは終わらない。戻した後に、二次影�
 
 ## 6.4 実行前承認と事後監査を両立する {#section-6-4}
 
-AIを含む運用では、承認を厳しくすると復旧が遅くなる。承認を緩くすると誤操作や統制逸脱が増える。必要なのは、実行前承認と事後監査の組み合わせである。
+AI を含む運用では、承認を厳しくすると復旧が遅くなる。承認を緩くすると誤操作や統制逸脱が増える。必要なのは、実行前承認と事後監査の組み合わせである。
 
 ### 6.4.1 approval matrix
 
 | 操作 | 平時 | incident 中 | 必要な証跡 |
 | --- | --- | --- | --- |
-| ログ要約 | AI利用可。ただし機密マスク | SEV-1/2 では Security 確認後 | 入力範囲、マスク方法、出力、確認者 |
-| read-only 調査 | 自動化可 | 原則可。ただし権限はincident scope限定 | query、実行者、対象、時刻 |
-| 本番設定変更 | 承認必須 | Incident Commander 承認で実行 | 変更ID、承認者、rollback |
+| ログ要約 | AI 利用可。ただし機密マスク | SEV-1/2 では Security 確認後 | 入力範囲、マスク方法、出力、確認者 |
+| read-only 調査 | 自動化可 | 原則可。ただし権限は incident scope 限定 | query、実行者、対象、時刻 |
+| 本番設定変更 | 承認必須 | Incident Commander 承認で実行 | 変更 ID、承認者、rollback |
 | 外部通知 | Communication Lead / Legal 確認 | SEV-1/2 は経営・法務確認 | 文面、承認者、送信先、時刻 |
 | 顧客データ参照 | 最小権限、目的限定 | Security / Legal の条件付き承認 | ticket、目的、範囲、保持期間 |
 | tool 実行 | risk level に応じて承認 | destructive / external は承認必須 | tool call、引数、承認、結果 |
-| AIによる自動復旧 | 低リスクのみ | 原則停止し Human-in-the-loop | 停止判断、手動実行、検証 |
+| AI による自動復旧 | 低リスクのみ | 原則停止し Human-in-the-loop | 停止判断、手動実行、検証 |
 
 承認は、速度を落とすためではなく、誰が何を受け入れたかを記録するためにある。緊急時の例外承認も、後から監査できる形で残す。
 
@@ -233,9 +233,9 @@ AI incident の audit trail には、次を残す。
 
 | 項目 | 内容 |
 | --- | --- |
-| Incident ID | すべてのログ、判断、連絡、変更を紐づけるID |
-| Input | AIへ渡した情報、マスク方法、禁止情報の有無 |
-| Output | AIの回答、要約、提案、生成された文面 |
+| Incident ID | すべてのログ、判断、連絡、変更を紐づける ID |
+| Input | AI へ渡した情報、マスク方法、禁止情報の有無 |
+| Output | AI の回答、要約、提案、生成された文面 |
 | Source | 参照したログ、文書、retrieval result、citation |
 | Tool call | tool 名、引数、実行者、権限、結果、error |
 | Approval | 承認者、承認理由、承認時刻、例外条件 |
@@ -243,7 +243,7 @@ AI incident の audit trail には、次を残す。
 | Communication | 社内、顧客、経営向けの文面と承認履歴 |
 | Review | postmortem、action item、再発防止、完了証跡 |
 
-AI出力だけを保存しても、監査証跡としては弱い。入力、根拠、tool 実行、承認、結果がつながっている必要がある。
+AI 出力だけを保存しても、監査証跡としては弱い。入力、根拠、tool 実行、承認、結果がつながっている必要がある。
 
 ### 6.4.3 approval bypass の扱い
 
@@ -259,14 +259,14 @@ approval bypass が見つかった場合は、対象 workflow を quarantine し
 
 ## 6.5 AI incident metrics を観測する {#section-6-5}
 
-AI incident を運用で扱うには、通常の availability や error rate だけでは足りない。AI出力の根拠、tool 実行、承認、コスト、手動引き継ぎ、監査証跡を観測する必要がある。
+AI incident を運用で扱うには、通常の availability や error rate だけでは足りない。AI 出力の根拠、tool 実行、承認、コスト、手動引き継ぎ、監査証跡を観測する必要がある。
 
 ### 6.5.1 観測項目
 
 | Metric | 見ること | incident での使い方 |
 | --- | --- | --- |
 | hallucination rate proxy | 根拠なし回答、誤引用、レビュー修正率 | 誤回答の増加、モデル変更影響を検知する |
-| tool error rate | tool 実行失敗、権限エラー、外部API失敗 | 誤操作、MCP authorization failure、provider issue を見る |
+| tool error rate | tool 実行失敗、権限エラー、外部 API 失敗 | 誤操作、MCP authorization failure、provider issue を見る |
 | approval rejection rate | 承認却下率、差し戻し理由 | automation boundary の誤設計を検知する |
 | citation coverage | 回答に必要な引用がある割合 | citation failure、retrieval failure を検知する |
 | latency distribution | P50/P95/P99 の応答遅延 | provider outage、degrade 判断に使う |
@@ -287,11 +287,11 @@ metric は、単独で真実を示さない。例えば hallucination rate proxy
 | Safety | approval rejection rate | 急増または特定操作で増加 | workflow quarantine | Security / EM |
 | Tool | tool error rate | 通常比 2倍 | tool 実行を Human-in-the-loop へ | SRE |
 | Cost | token / cost anomaly | 予算上限の 80% | rate limit、kill switch 検討 | Owner / CFO |
-| Reliability | latency distribution | P95 がSLO超過 | degrade gracefully | SRE |
+| Reliability | latency distribution | P95 が SLO 超過 | degrade gracefully | SRE |
 | Operations | manual takeover rate | pilot 想定超過 | 対象業務を縮小 | 現場責任者 |
 | Audit | audit completeness | 必須項目 100% | リリース停止 / 監査対応 | Compliance |
 
-閾値は組織ごとに設定する。ここで重要なのは、AI固有の品質、統制、コスト、運用負荷を一つの運用画面で見ることである。
+閾値は組織ごとに設定する。ここで重要なのは、AI 固有の品質、統制、コスト、運用負荷を一つの運用画面で見ることである。
 
 ### 6.5.3 trace と timeline の紐づけ
 
@@ -330,7 +330,7 @@ AI incident の postmortem は、モデル、データ、tool、approval、人�
 - コスト影響:
 
 ## Timeline
-- 時刻、事象、判断、実行、証跡IDを記録する。
+- 時刻、事象、判断、実行、証跡 ID を記録する。
 
 ## AI involvement
 - prompt / input:
@@ -367,7 +367,7 @@ AI incident の postmortem は、モデル、データ、tool、approval、人�
 - Evidence of completion:
 ```
 
-postmortem には、AIが生成した文章をそのまま貼らない。AIを使って草案を作る場合も、Incident Commander、Technical Lead、Security、Communication Lead が事実と責任表現を確認する。
+postmortem には、AI が生成した文章をそのまま貼らない。AI を使って草案を作る場合も、Incident Commander、Technical Lead、Security、Communication Lead が事実と責任表現を確認する。
 
 ### 6.6.2 blameless だが accountable にする
 
@@ -376,7 +376,7 @@ blameless postmortem は、責任を曖昧にするためのものではない�
 | 避ける表現 | 書き換える表現 |
 | --- | --- |
 | 担当者が確認しなかった | 確認が必須になる workflow gate が存在しなかった |
-| AIが嘘をついた | citation validation がなく、根拠なし回答を検知できなかった |
+| AI が嘘をついた | citation validation がなく、根拠なし回答を検知できなかった |
 | 現場が誤って使った | 禁止条件と manual takeover 手順が教育されていなかった |
 | ベンダー障害だから仕方ない | provider outage 時の fallback と顧客説明が未定義だった |
 | 承認者が見落とした | approval request に必要な risk context が含まれていなかった |
@@ -422,7 +422,7 @@ AI incident では、説明の粒度を誤ると二次被害が起きる。社�
 - 次回更新時刻:
 ```
 
-社内向けでも、未確認の原因を断定しない。AI要約を使う場合は、source と確認者を明記する。
+社内向けでも、未確認の原因を断定しない。AI 要約を使う場合は、source と確認者を明記する。
 
 ### 6.7.2 顧客向け communication template
 
@@ -438,7 +438,7 @@ AI incident では、説明の粒度を誤ると二次被害が起きる。社�
 - 問い合わせ先:
 ```
 
-顧客向け説明では、AIの内部構造を詳述しすぎない。重要なのは、影響、対応、再発防止、次回連絡、問い合わせ先である。情報漏えいや契約影響が疑われる場合は、Legal / Security の確認を経る。
+顧客向け説明では、AI の内部構造を詳述しすぎない。重要なのは、影響、対応、再発防止、次回連絡、問い合わせ先である。情報漏えいや契約影響が疑われる場合は、Legal / Security の確認を経る。
 
 ### 6.7.3 経営向け communication template
 
@@ -502,8 +502,8 @@ AI incident の訓練では、実際に次を確認する。
 | prompt injection を含む文書が retrieval される | 検知、回答停止、citation validation、postmortem |
 | agent が誤った外部操作を提案する | approval gate、tool 権限、Human-in-the-loop |
 | provider outage が発生する | fallback、degrade gracefully、顧客説明 |
-| token / cost anomaly が発生する | alert、rate limit、kill switch、CFO連絡 |
-| approval bypass が見つかる | quarantine、policy修正、監査証跡 |
+| token / cost anomaly が発生する | alert、rate limit、kill switch、CFO 連絡 |
+| approval bypass が見つかる | quarantine、policy 修正、監査証跡 |
 | citation failure が顧客回答に混入する | 回答回収、顧客連絡、eval dataset 更新 |
 
 訓練では、成功した手順だけでなく、迷った判断、探せなかった証跡、古い連絡先、実行できなかった rollback を記録する。
@@ -530,7 +530,7 @@ runbook の更新は、ドキュメント作業ではなく、運用統制の変
 | 成果物 | 主な利用者 | 入力 | 出力 |
 | --- | --- | --- | --- |
 | AI incident runbook | SRE / EM / Security | threat model、approval matrix、risk register | 初動、停止、隔離、復旧、連絡手順 |
-| severity matrix | Incident Commander | 影響、データ、権限、契約、顧客影響 | SEV判定、通知先、初動 |
+| severity matrix | Incident Commander | 影響、データ、権限、契約、顧客影響 | SEV 判定、通知先、初動 |
 | incident timeline template | Incident team | trace、log、approval、change、communication | 事実、仮説、判断、実行、結果 |
 | communication template | Communication Lead | 影響範囲、確定事実、未確定事項 | 社内 / 顧客 / 経営向け説明 |
 | postmortem template | Incident team / 監査 | timeline、root cause、metric、action | 再発防止、owner、完了証跡 |
@@ -546,11 +546,11 @@ runbook の更新は、ドキュメント作業ではなく、運用統制の変
 
 ## Scope
 - 対象システム:
-- 対象AI機能:
-- 対象tool / connector / MCP:
+- 対象 AI 機能:
+- 対象 tool / connector / MCP:
 
 ## Severity
-- SEV判定基準:
+- SEV 判定基準:
 - incident declaration 条件:
 
 ## Roles
@@ -609,15 +609,15 @@ containment: 回答生成を停止し、検索のみへ degrade。対象回答�
 再発防止: citation coverage 必須化、stale document alert、manual takeover training、postmortem action
 ```
 
-このケースでは、原因を「AIが古い情報を出した」で終わらせない。retrieval index 更新、citation validation、現場レビュー、顧客説明、runbook、教育をまとめて改善する。
+このケースでは、原因を「AI が古い情報を出した」で終わらせない。retrieval index 更新、citation validation、現場レビュー、顧客説明、runbook、教育をまとめて改善する。
 
 ## まとめ
 
-AIを含むシステムの危機管理では、従来の障害対応に加えて、誤回答、誤操作、権限逸脱、情報漏えい、承認 bypass、provider outage、コスト暴走、retrieval / citation failure を扱う必要がある。これらは、技術問題であると同時に、説明責任、監査、法務、現場運用の問題である。
+AI を含むシステムの危機管理では、従来の障害対応に加えて、誤回答、誤操作、権限逸脱、情報漏えい、承認 bypass、provider outage、コスト暴走、retrieval / citation failure を扱う必要がある。これらは、技術問題であると同時に、説明責任、監査、法務、現場運用の問題である。
 
 重要なのは、事故発生後に正しい文章を書くことではない。平時から severity matrix、AI incident runbook、kill switch、quarantine、rollback、approval、audit、communication template、postmortem、operational guardrail checklist を用意し、訓練し、更新することである。
 
-AIは、incident response を支援できる。しかし、何を止め、何を顧客へ説明し、どのリスクを受容し、どの再発防止を完了とみなすかは、人と組織が責任を持つ判断である。
+AI は、incident response を支援できる。しかし、何を止め、何を顧客へ説明し、どのリスクを受容し、どの再発防止を完了とみなすかは、人と組織が責任を持つ判断である。
 
 ## この章のまとめとチェックリスト
 
@@ -632,7 +632,7 @@ AIは、incident response を支援できる。しかし、何を止め、何を
 
 ### この章を読み終えたら確認したいこと
 
-- [ ] severity matrix に AI固有の誤回答、情報漏えい、権限逸脱、approval bypass、コスト暴走が入っている。
+- [ ] severity matrix に AI 固有の誤回答、情報漏えい、権限逸脱、approval bypass、コスト暴走が入っている。
 - [ ] prompt injection、retrieval failure、stale knowledge、citation failure、MCP authorization failure を検知する evidence が定義されている。
 - [ ] kill switch、quarantine、rollback、manual takeover、degrade gracefully、escalation の発動条件と解除条件がある。
 - [ ] Human-in-the-loop / Human-on-the-loop / Full automation の境界が runbook に書かれている。

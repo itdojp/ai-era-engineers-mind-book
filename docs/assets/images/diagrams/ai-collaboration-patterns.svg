@@ -21,7 +21,7 @@
   </defs>
 
   <!-- Title -->
-  <text x="450" y="30" class="title" text-anchor="middle">AI時代のエンジニア協働パターン</text>
+  <text x="450" y="30" class="title" text-anchor="middle">AI 時代のエンジニア協働パターン</text>
 
   <!-- Individual Pattern -->
   <g id="individual">
@@ -39,7 +39,7 @@
   <!-- AI Assistant Pattern -->
   <g id="ai-assistant">
     <rect x="270" y="70" width="200" height="140" class="ai-box" rx="10"/>
-    <text x="370" y="95" class="pattern-title" text-anchor="middle">AI支援パターン</text>
+    <text x="370" y="95" class="pattern-title" text-anchor="middle">AI 支援パターン</text>
     
     <rect x="285" y="105" width="170" height="95" class="component" rx="3"/>
     <text x="370" y="125" class="component-title" text-anchor="middle">効率化・自動化重視</text>
@@ -57,7 +57,7 @@
     <rect x="505" y="105" width="170" height="95" class="component" rx="3"/>
     <text x="590" y="125" class="component-title" text-anchor="middle">相互補完型</text>
     <text x="515" y="145" class="text-content">• 戦略は人間が決定</text>
-    <text x="515" y="160" class="text-content">• 実装はAIが支援</text>
+    <text x="515" y="160" class="text-content">• 実装は AI が支援</text>
     <text x="515" y="175" class="text-content">• 継続的な相互学習</text>
     <text x="515" y="190" class="small-text">特徴: 双方向フィードバック</text>
   </g>
@@ -72,7 +72,7 @@
     <text x="780" y="145" class="component-title" text-anchor="middle">イノベーション</text>
     <text x="780" y="160" class="component-title" text-anchor="middle">創出</text>
     <text x="735" y="175" class="text-content">• 新しいアイデア</text>
-    <text x="735" y="190" class="small-text">人とAIの創造性融合</text>
+    <text x="735" y="190" class="small-text">人と AI の創造性融合</text>
   </g>
 
   <!-- Evolution Arrows -->
@@ -98,7 +98,7 @@
 
     <!-- AI Strengths -->
     <rect x="270" y="280" width="180" height="140" fill="#e6f3ff" stroke="#3498db" stroke-width="1" rx="3"/>
-    <text x="360" y="300" class="text-content" text-anchor="middle" font-weight="bold">AIの強み</text>
+    <text x="360" y="300" class="text-content" text-anchor="middle" font-weight="bold">AI の強み</text>
     <text x="280" y="320" class="small-text">処理能力:</text>
     <text x="280" y="335" class="small-text">• 高速な情報処理</text>
     <text x="280" y="350" class="small-text">• パターン認識</text>
@@ -114,7 +114,7 @@
     <text x="480" y="335" class="small-text">2. 情報収集 (AI)</text>
     <text x="480" y="350" class="small-text">3. 分析・検討 (協働)</text>
     <text x="480" y="365" class="small-text">4. 解決策生成 (協働)</text>
-    <text x="480" y="380" class="small-text">5. 実装 (AI支援)</text>
+    <text x="480" y="380" class="small-text">5. 実装 (AI 支援)</text>
     <text x="480" y="395" class="small-text">6. 評価・改善 (人間)</text>
     <text x="480" y="410" class="small-text">7. 学習・最適化 (協働)</text>
 

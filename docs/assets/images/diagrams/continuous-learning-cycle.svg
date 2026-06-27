@@ -26,7 +26,7 @@
   </defs>
 
   <!-- Title -->
-  <text x="450" y="30" class="title" text-anchor="middle">AI時代の継続学習サイクル</text>
+  <text x="450" y="30" class="title" text-anchor="middle">AI 時代の継続学習サイクル</text>
 
   <!-- Central Circle -->
   <circle cx="450" cy="200" r="120" class="gradient" stroke="#34495e" stroke-width="2"/>
@@ -43,7 +43,7 @@
     <text x="220" y="115" class="component-title" text-anchor="middle">現状把握・情報収集</text>
     <text x="145" y="135" class="text-content">• 技術トレンドの調査</text>
     <text x="145" y="150" class="text-content">• 市場動向の分析</text>
-    <text x="145" y="165" class="small-text">情報源: OSSトレンド、技術ブログ</text>
+    <text x="145" y="165" class="small-text">情報源: OSS トレンド、技術ブログ</text>
   </g>
 
   <!-- Reflect Phase -->
@@ -55,7 +55,7 @@
     <text x="680" y="115" class="component-title" text-anchor="middle">振り返り・分析</text>
     <text x="605" y="135" class="text-content">• 学習効果の検証</text>
     <text x="605" y="150" class="text-content">• 知識の体系化</text>
-    <text x="605" y="165" class="small-text">手法: KPT法、学習ログ分析</text>
+    <text x="605" y="165" class="small-text">手法: KPT 法、学習ログ分析</text>
   </g>
 
   <!-- Plan Phase -->
@@ -67,7 +67,7 @@
     <text x="680" y="335" class="component-title" text-anchor="middle">学習戦略の立案</text>
     <text x="605" y="355" class="text-content">• 優先順位の決定</text>
     <text x="605" y="370" class="text-content">• リソース配分計画</text>
-    <text x="605" y="385" class="small-text">フレームワーク: OKR、SMART目標</text>
+    <text x="605" y="385" class="small-text">フレームワーク: OKR、SMART 目標</text>
   </g>
 
   <!-- Act Phase -->
@@ -91,12 +91,12 @@
   <!-- Learning Methods -->
   <g id="methods">
     <rect x="50" y="430" width="800" height="240" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
-    <text x="450" y="455" class="component-title" text-anchor="middle">AI時代の効果的学習手法</text>
+    <text x="450" y="455" class="component-title" text-anchor="middle">AI 時代の効果的学習手法</text>
     
     <!-- Individual Learning -->
     <rect x="70" y="470" width="180" height="90" fill="#e6f3ff" stroke="#3498db" stroke-width="1" rx="3"/>
     <text x="160" y="490" class="text-content" text-anchor="middle" font-weight="bold">個人学習</text>
-    <text x="80" y="510" class="small-text">• AI活用学習: 対話型AI、コーディング支援AI</text>
+    <text x="80" y="510" class="small-text">• AI 活用学習: 対話型 AI、コーディング支援 AI</text>
     <text x="80" y="525" class="small-text">• オンライン教材: 講座サイト、動画教材</text>
     <text x="80" y="540" class="small-text">• 技術書・論文読破</text>
     <text x="80" y="555" class="small-text">特徴: 自分のペースで深く学習</text>
@@ -127,7 +127,7 @@
 
     <!-- Learning Accelerators -->
     <text x="80" y="585" class="component-title">学習加速要因:</text>
-    <text x="80" y="605" class="text-content">• AI活用: 個人化された学習体験、即座の質問対応、コード生成支援</text>
+    <text x="80" y="605" class="text-content">• AI 活用: 個人化された学習体験、即座の質問対応、コード生成支援</text>
     <text x="80" y="620" class="text-content">• コミュニティ: 知識共有、モチベーション維持、最新情報交換</text>
     <text x="80" y="635" class="text-content">• 実践機会: リアルプロジェクト、オープンソース貢献、副業・フリーランス</text>
 

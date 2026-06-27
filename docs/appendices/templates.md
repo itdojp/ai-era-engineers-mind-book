@@ -1,14 +1,14 @@
 ---
 title: "付録A：実務成果物テンプレート集"
-description: "AIネイティブな要求定義、ADR、eval、脅威分析、承認、ベンダー選定、インシデント、経営説明、検証記録の実務テンプレート集"
+description: "AI ネイティブな要求定義、ADR、eval、脅威分析、承認、ベンダー選定、インシデント、経営説明、検証記録の実務テンプレート集"
 layout: book
 ---
 
 # 付録A：実務成果物テンプレート集
 
-本付録は、本書で扱った思考法、意思決定、説明責任、運用統制を、現場でそのまま使える成果物へ落とすためのテンプレート集である。AIを使うかどうかに関係なく、実務では「何を決めたか」「どの根拠で判断したか」「誰が承認したか」「どの条件なら止めるか」を記録できなければならない。
+本付録は、本書で扱った思考法、意思決定、説明責任、運用統制を、現場でそのまま使える成果物へ落とすためのテンプレート集である。AI を使うかどうかに関係なく、実務では「何を決めたか」「どの根拠で判断したか」「誰が承認したか」「どの条件なら止めるか」を記録できなければならない。
 
-テンプレートは完成文書ではない。各組織の規程、契約、データ分類、監査要件、業務リスクに合わせて調整する。特にモデル名、価格、UI手順、API細部など変化しやすい情報は本文へ固定せず、参照先、版、確認日、owner を記録する。
+テンプレートは完成文書ではない。各組織の規程、契約、データ分類、監査要件、業務リスクに合わせて調整する。特にモデル名、価格、UI 手順、API 細部など変化しやすい情報は本文へ固定せず、参照先、版、確認日、owner を記録する。
 
 ## A.1 使い方と成果物の対応
 
@@ -25,7 +25,7 @@ layout: book
 
 ## A.2 AI system PRD / requirements brief
 
-AI system PRD / requirements brief は、AIを含む業務機能や社内ツールの要求境界を定義する文書である。解決策を先に固定せず、問題、利用者、データ、権限、受入条件、失敗時挙動を明示する。
+AI system PRD / requirements brief は、AI を含む業務機能や社内ツールの要求境界を定義する文書である。解決策を先に固定せず、問題、利用者、データ、権限、受入条件、失敗時挙動を明示する。
 
 ```markdown
 # AI system PRD / requirements brief
@@ -34,7 +34,7 @@ AI system PRD / requirements brief は、AIを含む業務機能や社内ツー�
 - 対象業務:
 - 利用者:
 - 現行課題:
-- AIを使わない場合の代替案:
+- AI を使わない場合の代替案:
 - 非目標:
 
 ## 2. Users and stakeholders
@@ -85,13 +85,13 @@ AI system PRD / requirements brief は、AIを含む業務機能や社内ツー�
 
 ### A.2 レビュー観点
 
-- 問題設定が「AIを使うこと」ではなく、業務上の判断や制約から始まっている。
+- 問題設定が「AI を使うこと」ではなく、業務上の判断や制約から始まっている。
 - data classification、permission boundary、fallback、manual override がある。
 - `精度が高い` のような評価不能な要件を、測定可能な acceptance criteria へ変換している。
 
 ## A.3 AI system ADR
 
-AI system ADR は、AIシステムに関する設計判断を記録する。RAG、fine-tuning、workflow、agent、MCP / connector / function calling、managed service、self-hosted / hybrid の判断を、採用理由と撤退条件まで含めて残す。
+AI system ADR は、AI システムに関する設計判断を記録する。RAG、fine-tuning、workflow / agent、MCP / connector / function calling、managed service、self-hosted / hybrid の判断を、採用理由と撤退条件まで含めて残す。
 
 ```markdown
 # AI system ADR: <decision title>
@@ -154,12 +154,12 @@ AI system ADR は、AIシステムに関する設計判断を記録する。RAG�
 
 ### A.3 レビュー観点
 
-- `AIを使うから` ではなく、通常機能、検索、RAG、workflow、agent の比較で判断している。
+- `AI を使うから` ではなく、通常機能、検索、RAG、workflow / agent の比較で判断している。
 - approval、audit、rollback、exit strategy が設計判断の一部になっている。
 
 ## A.4 eval spec
 
-Eval spec は、AI機能の品質と安全性を、受入条件と regression の形で確認する文書である。平均スコアだけでなく、失敗時影響、guardrail metric、manual takeover を含める。
+Eval spec は、AI 機能の品質と安全性を、受入条件と regression の形で確認する文書である。平均スコアだけでなく、失敗時影響、guardrail metric、manual takeover を含める。
 
 ```markdown
 # Eval spec
@@ -265,7 +265,7 @@ Eval dataset design sheet は、評価データセットの設計と更新ルー
 
 ## A.6 threat model
 
-Threat model は、AIシステムの攻撃面と統制点を整理する。prompt injection、tool misuse、data exfiltration、MCP authorization failure、approval bypass を明示的に扱う。
+Threat model は、AI システムの攻撃面と統制点を整理する。prompt injection、tool misuse、data exfiltration、MCP authorization failure、approval bypass を明示的に扱う。
 
 ```markdown
 # Threat model
@@ -348,7 +348,7 @@ Tool approval matrix は、agent や workflow が利用する tool、connector�
 
 ## A.8 data classification sheet
 
-Data classification sheet は、AIへ投入する情報、retrieval 対象、ログ、出力の扱いを整理する。要求定義、ADR、incident response の共通入力になる。
+Data classification sheet は、AI へ投入する情報、retrieval 対象、ログ、出力の扱いを整理する。要求定義、ADR、incident response の共通入力になる。
 
 ```markdown
 # Data classification sheet
@@ -376,7 +376,7 @@ Data classification sheet は、AIへ投入する情報、retrieval 対象、ロ
 
 ## A.9 vendor selection matrix
 
-Vendor selection matrix は、AIサービスや partner を選ぶときに、機能比較だけでなく、契約、データ越境、監査、退出戦略を比較するための表である。
+Vendor selection matrix は、AI サービスや partner を選ぶときに、機能比較だけでなく、契約、データ越境、監査、退出戦略を比較するための表である。
 
 ```markdown
 # Vendor selection matrix
@@ -465,7 +465,7 @@ AI incident postmortem は、第6章の incident response を組織学習へ接�
 
 ## A.11 executive memo template
 
-Executive memo は、経営層へ AI投資、統制、リスク受容、撤退条件を説明するための1〜2ページ文書である。
+Executive memo は、経営層へ AI 投資、統制、リスク受容、撤退条件を説明するための1〜2ページ文書である。
 
 ```markdown
 # Executive memo
@@ -587,18 +587,18 @@ Executive memo は、経営層へ AI投資、統制、リスク受容、撤退�
 
 ## A.12 cost / reliability dashboard sample
 
-Cost / reliability dashboard は、AIシステムを運用する owner が、品質、コスト、信頼性、統制を継続監視するためのサンプルである。
+Cost / reliability dashboard は、AI システムを運用する owner が、品質、コスト、信頼性、統制を継続監視するためのサンプルである。
 
 | Area | Metric | Target / Threshold | Signal | Action | Owner |
 | --- | --- | --- | --- | --- | --- |
-| Cost | token / cost anomaly | 予算80%でalert | 急増 / retry storm | rate limit、kill switch 検討 | Owner / CFO |
-| Reliability | latency distribution | P95 がSLO内 | provider degradation | fallback / degrade gracefully | SRE |
-| Quality | citation coverage | 重要回答は100% | citation failure | 回答停止、eval更新 | Tech Lead |
-| Safety | approval rejection rate | 急増時alert | risky automation | workflow quarantine | Security |
-| Tool | tool error rate | 通常比2倍でalert | MCP / connector failure | Human-in-the-loop へ切替 | SRE |
-| Operations | manual takeover rate | pilot想定内 | 自動化範囲の不適合 | 対象業務縮小、training | Field Owner |
-| Audit | audit completeness | 必須項目100% | 証跡不足 | release停止、監査対応 | Compliance |
-| Value | productivity benefit | baseline 比改善 | 効果不足 | scope見直し、撤退判断 | EM / Product |
+| Cost | token / cost anomaly | 予算80%で alert | 急増 / retry storm | rate limit、kill switch 検討 | Owner / CFO |
+| Reliability | latency distribution | P95 が SLO 内 | provider degradation | fallback / degrade gracefully | SRE |
+| Quality | citation coverage | 重要回答は100% | citation failure | 回答停止、eval 更新 | Tech Lead |
+| Safety | approval rejection rate | 急増時 alert | risky automation | workflow quarantine | Security |
+| Tool | tool error rate | 通常比2倍で alert | MCP / connector failure | Human-in-the-loop へ切替 | SRE |
+| Operations | manual takeover rate | pilot 想定内 | 自動化範囲の不適合 | 対象業務縮小、training | Field Owner |
+| Audit | audit completeness | 必須項目100% | 証跡不足 | release 停止、監査対応 | Compliance |
+| Value | productivity benefit | baseline 比改善 | 効果不足 | scope 見直し、撤退判断 | EM / Product |
 
 ### A.12 レビュー観点
 
@@ -607,7 +607,7 @@ Cost / reliability dashboard は、AIシステムを運用する owner が、品
 
 ## A.13 verification record template
 
-Verification record は、AI出力、生成コード、設計判断、運用変更を、どの根拠で検証したかを残す記録である。
+Verification record は、AI 出力、生成コード、設計判断、運用変更を、どの根拠で検証したかを残す記録である。
 
 ```markdown
 # Verification record
@@ -615,7 +615,7 @@ Verification record は、AI出力、生成コード、設計判断、運用変�
 ## Target
 - 対象成果物:
 - Related Issue / PR / ADR:
-- AI利用の有無:
+- AI 利用の有無:
 
 ## Inputs reviewed
 | Input | Source hierarchy | Version / date | Reviewer |
@@ -648,7 +648,7 @@ Verification record は、AI出力、生成コード、設計判断、運用変�
 
 ### A.13 レビュー観点
 
-- AI要約を一次情報として扱っていない。
+- AI 要約を一次情報として扱っていない。
 - 検証コマンド、結果、証跡、判断者が分かる。
 
 ## A.14 model / tool change impact checklist
@@ -700,9 +700,9 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 
 ## A.15 delivery / review / runbook templates
 
-第4章から参照する PRテンプレート、コードレビューチェックリスト、Runbookテンプレートは、AI支援開発を delivery pipeline へ接続するために使う。
+第4章から参照する PR テンプレート、コードレビューチェックリスト、Runbook テンプレートは、AI 支援開発を delivery pipeline へ接続するために使う。
 
-### A.15.1 AI利用ポリシー付き PRテンプレート
+### A.15.1 AI 利用ポリシー付き PR テンプレート
 
 ```markdown
 # Pull request
@@ -716,10 +716,10 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 - 変更していない範囲:
 
 ## AI use policy
-- AI利用の有無:
-- AIに委任した作業:
+- AI 利用の有無:
+- AI に委任した作業:
 - 入力した情報の分類:
-- AI出力の採用 / 修正 / 却下:
+- AI 出力の採用 / 修正 / 却下:
 - 人間が最終判断した内容:
 
 ## Verification
@@ -738,17 +738,17 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 - rollback:
 ```
 
-### A.15.2 コードレビューチェックリスト / AIレビュー checklist
+### A.15.2 コードレビューチェックリスト / AI レビュー checklist
 
 - [ ] Issue、requirements brief、ADR、acceptance criteria と差分が対応している。
-- [ ] AI生成部分と人間が判断した部分が PR に記録されている。
-- [ ] security、privacy、compliance、approval、audit、rollback の観点が確認されている。
+- [ ] AI 生成部分と人間が判断した部分が PR に記録されている。
+- [ ] security / privacy / compliance / approval / audit / rollback の観点が確認されている。
 - [ ] テスト、静的解析、eval、手動確認の証跡がある。
-- [ ] 生成コード、生成テスト、生成ドキュメントを、AI出力のまま採用していない。
+- [ ] 生成コード、生成テスト、生成ドキュメントを、AI 出力のまま採用していない。
 - [ ] runbook、release note、運用手順、問い合わせ先の更新要否を確認している。
 - [ ] rollback または manual takeover が説明できる。
 
-### A.15.3 Runbookテンプレート
+### A.15.3 Runbook テンプレート
 
 ```markdown
 # Runbook
@@ -787,7 +787,7 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 
 ## A.16 AI incident operational templates
 
-第6章から参照する AI incident runbook、severity matrix、communication template は、AI固有インシデントの初動、説明、復旧、再発防止を標準化するために使う。
+第6章から参照する AI incident runbook、severity matrix、communication template は、AI 固有インシデントの初動、説明、復旧、再発防止を標準化するために使う。
 
 ### A.16.1 AI incident runbook
 
@@ -796,7 +796,7 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 
 ## Scope
 - 対象システム:
-- 対象AI機能:
+- 対象 AI 機能:
 - 対象 tool / connector / MCP:
 
 ## Severity
@@ -843,11 +843,11 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 
 ### A.16.2 severity matrix
 
-| Severity | AI固有の例 | 初動 | 通知先 |
+| Severity | AI 固有の例 | 初動 | 通知先 |
 | --- | --- | --- | --- |
 | SEV-1 | 情報漏えい、重大な誤操作、広範な approval bypass | kill switch、quarantine、経営 escalation | 経営、Security、Legal、監査、顧客窓口 |
 | SEV-2 | 限定範囲の重大誤回答、provider outage、コスト急増 | 対象機能停止、manual takeover | 事業責任者、SRE、Security、現場責任者 |
-| SEV-3 | citation failure、retrieval failure、stale knowledge | 回答停止、再評価、FAQ更新 | EM、Tech Lead、Support |
+| SEV-3 | citation failure、retrieval failure、stale knowledge | 回答停止、再評価、FAQ 更新 | EM、Tech Lead、Support |
 | SEV-4 | eval drift、軽微な latency / cost anomaly | backlog 化、定期レビュー | Owner、SRE |
 
 ### A.16.3 communication template（社内 / 顧客 / 経営向け）
@@ -899,7 +899,7 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 
 テンプレートは、作った時点ではなく、使われて更新された時点で価値を持つ。次のルールで運用する。
 
-- 新しいAI機能を提案する場合は、AI system PRD / requirements brief から開始する。
+- 新しい AI 機能を提案する場合は、AI system PRD / requirements brief から開始する。
 - 設計選択を含む場合は、AI system ADR、threat model、tool approval matrix を更新する。
 - 品質や安全性を主張する場合は、eval spec と verification record を残す。
 - 外部サービスや partner を使う場合は、vendor selection matrix と executive memo に契約・退出条件を入れる。
