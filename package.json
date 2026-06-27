@@ -1,7 +1,7 @@
 {
   "name": "ai時代のプロフェッショナルitエンジニアの思考法",
   "version": "1.0.0",
-  "description": "AIネイティブな実務を前提に、意思決定・説明責任・運用統制を成果物として残すための実践書",
+  "description": "AI ネイティブな実務を前提に、意思決定・説明責任・運用統制を成果物として残すための実践書",
   "main": "index.md",
   "scripts": {
     "start": "cd docs && bundle exec jekyll serve --livereload",
@@ -23,12 +23,21 @@
     "url": "https://github.com/itdojp/ai-era-engineers-mind-book/issues"
   },
   "devDependencies": {
-    "markdownlint-cli": "^0.37.0",
+    "markdownlint-cli": "^0.48.0",
     "markdown-link-check": "^3.11.2",
     "gh-pages": "^6.0.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/itdojp/ai-era-engineers-mind-book.git"
+  },
+  "engines": {
+    "node": ">=20.18.1"
+  },
+  "overrides": {
+    "js-yaml": "4.3.0",
+    "markdown-it": "14.2.0",
+    "linkify-it": "5.0.1",
+    "undici": "7.28.0"
   }
 }

@@ -7,24 +7,24 @@ layout: book
 
 ## なぜ2026年版としてリライトするのか
 
-生成AIは、検索、要約、コード生成、レビュー補助、運用調査、ドキュメント作成の各場面に入り込んだ。さらに、workflow や agent が外部ツールを呼び出し、Issue、Plan、ADR、実装、PR、Eval、Runbook、Postmortem までを支援する運用も現実的になった。
+生成 AI は、検索、要約、コード生成、レビュー補助、運用調査、ドキュメント作成の各場面に入り込んだ。さらに、workflow や agent が外部ツールを呼び出し、Issue、Plan、ADR、実装、PR、Eval、Runbook、Postmortem までを支援する運用も現実的になった。
 
-この変化によって、エンジニアの価値は「AIを使えるか」だけでは測れなくなった。重要なのは、AIに何を任せ、何をレビューし、どの判断を人間が最終責任として引き受けるかである。速さだけを追うと、根拠の薄い判断、レビュー不能な変更、権限逸脱、監査証跡の欠落、事故時の説明不能が残る。
+この変化によって、エンジニアの価値は「AI を使えるか」だけでは測れなくなった。重要なのは、AI に何を任せ、何をレビューし、どの判断を人間が最終責任として引き受けるかである。速さだけを追うと、根拠の薄い判断、レビュー不能な変更、権限逸脱、監査証跡の欠落、事故時の説明不能が残る。
 
-本書の 2026年版は、生成AI活用の入門書ではなく、AIネイティブな実務を前提にした **意思決定・説明責任・運用統制の実践書** として再構成する。特定モデルや UI の手順ではなく、変化しても残る判断原則と成果物を中心に扱う。
+本書の 2026年版は、生成 AI 活用の入門書ではなく、AI ネイティブな実務を前提にした **意思決定・説明責任・運用統制の実践書** として再構成する。特定モデルや UI の手順ではなく、変化しても残る判断原則と成果物を中心に扱う。
 
 ## 本書の対象読者
 
-本書は、AIを使った作業そのものよりも、AIを含む実務の判断責任を担う読者を想定する。
+本書は、AI を使った作業そのものよりも、AI を含む実務の判断責任を担う読者を想定する。
 
 | 役割 | 本書で解決したい課題 |
 | --- | --- |
-| IC / Senior Engineer | AI出力を採用できる根拠、検証結果、PR上の説明を残したい |
-| Tech Lead | チームでAIに任せる作業と人が判断する作業を分けたい |
-| Architect | workflow、agent、RAG、tool 実行を設計判断として説明したい |
+| IC / Senior Engineer | AI 出力を採用できる根拠、検証結果、PR 上の説明を残したい |
+| Tech Lead | チームで AI に任せる作業と人が判断する作業を分けたい |
+| Architect | workflow / agent、RAG、tool 実行を設計判断として説明したい |
 | EM | 生産性だけでなく、レビュー負荷、学習劣化、説明責任を管理したい |
 | SRE | 自動化、fallback、manual takeover、rollback を運用手順に落としたい |
-| DevOps | CI/CD、PR、リリース、Runbook にAI利用の検証ゲートを組み込みたい |
+| DevOps | CI/CD、PR、リリース、Runbook に AI 利用の検証ゲートを組み込みたい |
 | Security | データ分類、権限、approval、audit、incident 対応を設計時点で確認したい |
 
 ## 本書が扱うもの、扱わないもの
@@ -35,11 +35,11 @@ layout: book
   - 問題設定、前提、根拠、制約、失敗条件の分離
   - delegate / review / own の責任分界
   - Issue、ADR、PR、Eval plan、Risk register、Runbook、Postmortem への落とし込み
-  - security、privacy、compliance、approval、audit、rollback の観点
-  - AI利用の効果と、検証コスト、監査コスト、訓練コスト、事故コストの両面
+  - security / privacy / compliance / approval / audit / rollback の観点
+  - AI 利用の効果と、検証コスト、監査コスト、訓練コスト、事故コストの両面
 - 扱わないもの
   - ベンダーやモデルの網羅的な比較カタログ
-  - UI手順、価格表、API細部の固定的な説明
+  - UI 手順、価格表、API 細部の固定的な説明
   - 隣接書籍で扱う詳細実装の重複再掲
   - 一般的なプロンプト集や流行語の紹介
 
@@ -51,9 +51,9 @@ layout: book
 | --- | --- |
 | 判断メモ | 根拠、前提、代替案、採用・却下理由を残す |
 | 前提・仮説ログ | 未確定事項と検証予定を追跡する |
-| requirements brief | AIを含む業務・プロダクトの目的、制約、受入条件を揃える |
+| requirements brief | AI を含む業務・プロダクトの目的、制約、受入条件を揃える |
 | data / permission boundary table | データ分類、アクセス権、利用禁止情報を明確にする |
-| AI system ADR | workflow、agent、RAG、tool 実行などの採否を説明する |
+| AI system ADR | workflow / agent、RAG、tool 実行などの採否を説明する |
 | eval plan | 品質、再現性、安全性、回帰をどう評価するかを決める |
 | risk register | 法務、セキュリティ、監査、運用のリスクと対応を追跡する |
 | Runbook / Postmortem | 事故時の判断、復旧、説明、再発防止を記録する |
@@ -76,19 +76,19 @@ layout: book
 3. 章末に何が残るか
 4. よくある失敗
 
-この形式により、章ごとの話題が広がっても、Issue #127 の目的である「AIネイティブな実務における意思決定・説明責任・運用統制」から外れないようにする。
+この形式により、章ごとの話題が広がっても、Issue #127 の目的である「AI ネイティブな実務における意思決定・説明責任・運用統制」から外れないようにする。
 
 ## 本書の使い方
 
-1. まず [AI協働の標準手順（SOP）](https://itdojp.github.io/ai-era-engineers-mind-book/introduction/ai-collaboration-sop/) を確認し、AI出力を成果物へ変換する最小ゲートを把握する。
+1. まず [AI 協働の標準手順（SOP）](https://itdojp.github.io/ai-era-engineers-mind-book/introduction/ai-collaboration-sop/) を確認し、AI 出力を成果物へ変換する最小ゲートを把握する。
 2. 自分の役割に近い章から読み、章末の成果物を1つだけ実務に適用する。
 3. 成果物には、採用理由だけでなく、却下理由、検証結果、承認条件、ロールバック方針を残す。
 4. 実装詳細や個別運用に踏み込む場合は、シリーズ内の関連書籍へ移動する。
-5. モデル名、価格、UI、API細部など変動しやすい情報は、本文の判断原則と切り分けて [付録D](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/update-notes/) で更新方針を確認する。
+5. モデル名、価格、UI、API 細部など変動しやすい情報は、本文の判断原則と切り分けて [付録D](https://itdojp.github.io/ai-era-engineers-mind-book/appendices/update-notes/) で更新方針を確認する。
 
 ## 2026年5月時点の前提
 
-本書は、AIが誤り得ること、外部ツール実行には権限と監査が必要であること、最終判断責任は人間と組織に残ることを前提にする。これらはAIの能力が向上しても変わらない実務上の前提である。
+本書は、AI が誤り得ること、外部ツール実行には権限と監査が必要であること、最終判断責任は人間と組織に残ることを前提にする。これらは AI の能力が向上しても変わらない実務上の前提である。
 
 2026年5月
 

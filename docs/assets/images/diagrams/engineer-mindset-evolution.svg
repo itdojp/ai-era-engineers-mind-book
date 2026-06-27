@@ -38,7 +38,7 @@
     
     <circle cx="550" cy="100" r="5" fill="#e74c3c"/>
     <text x="550" y="85" class="small-text" text-anchor="middle">2010s-2020s</text>
-    <text x="550" y="120" class="small-text" text-anchor="middle">AI時代</text>
+    <text x="550" y="120" class="small-text" text-anchor="middle">AI 時代</text>
     
     <circle cx="750" cy="100" r="5" fill="#9b59b6"/>
     <text x="750" y="85" class="small-text" text-anchor="middle">2020s-</text>
@@ -76,11 +76,11 @@
   <!-- AI Era -->
   <g id="ai-era">
     <rect x="490" y="150" width="200" height="160" class="ai-box" rx="10"/>
-    <text x="590" y="175" class="era-title" text-anchor="middle">AI時代</text>
+    <text x="590" y="175" class="era-title" text-anchor="middle">AI 時代</text>
     
     <rect x="505" y="185" width="170" height="110" class="component" rx="3"/>
-    <text x="590" y="205" class="mindset-title" text-anchor="middle">AI協働・価値創造</text>
-    <text x="515" y="225" class="text-content">• AI活用・協働</text>
+    <text x="590" y="205" class="mindset-title" text-anchor="middle">AI 協働・価値創造</text>
+    <text x="515" y="225" class="text-content">• AI 活用・協働</text>
     <text x="515" y="240" class="text-content">• 創造的問題解決</text>
     <text x="515" y="255" class="text-content">• ビジネス価値重視</text>
     <text x="515" y="270" class="text-content">• 倫理的判断力</text>
@@ -109,7 +109,7 @@
   <!-- Core Mindset Components -->
   <g id="mindset-components">
     <rect x="50" y="340" width="800" height="320" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
-    <text x="450" y="365" class="mindset-title" text-anchor="middle">AI時代のプロフェッショナルエンジニアの思考法</text>
+    <text x="450" y="365" class="mindset-title" text-anchor="middle">AI 時代のプロフェッショナルエンジニアの思考法</text>
     
     <!-- Growth Mindset -->
     <rect x="70" y="380" width="180" height="120" fill="#e6f3ff" stroke="#3498db" stroke-width="1" rx="3"/>

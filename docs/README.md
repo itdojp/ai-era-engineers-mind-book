@@ -1,12 +1,12 @@
 # AI時代のプロフェッショナルITエンジニアの思考法
 
-> AIネイティブな実務における意思決定・説明責任・運用統制の実践書
+> AI ネイティブな実務における意思決定・説明責任・運用統制の実践書
 
 ## 概要
 
-本書は、生成AI、workflow、agent、外部 connector を実務で使う際に、何をAIへ任せ、何を人間がレビューし、どの判断を人間と組織が最終責任として引き受けるかを扱う技術書です。
+本書は、生成 AI、workflow / agent、外部 connector を実務で使う際に、何を AI へ任せ、何を人間がレビューし、どの判断を人間と組織が最終責任として引き受けるかを扱う技術書です。
 
-2026年版では、AI活用をプロンプト単体ではなく、Issue、Plan、ADR、PR、Eval、Runbook、Postmortem まで接続された運用体系として整理します。本文の主軸は、特定ベンダーやモデルの比較ではなく、意思決定・説明責任・運用統制です。
+2026年版では、AI 活用をプロンプト単体ではなく、Issue、Plan、ADR、PR、Eval、Runbook、Postmortem まで接続された運用体系として整理します。本文の主軸は、特定ベンダーやモデルの比較ではなく、意思決定・説明責任・運用統制です。
 
 ## オンライン版
 
@@ -17,12 +17,12 @@
 ### はじめに
 
 - [まえがき](https://itdojp.github.io/ai-era-engineers-mind-book/introduction/preface/) - 2026年版の位置づけ、対象読者、役割別の読み方
-- [AI協働の標準手順（SOP）](https://itdojp.github.io/ai-era-engineers-mind-book/introduction/ai-collaboration-sop/) - Issue から Postmortem までの成果物連鎖
+- [AI 協働の標準手順（SOP）](https://itdojp.github.io/ai-era-engineers-mind-book/introduction/ai-collaboration-sop/) - Issue から Postmortem までの成果物連鎖
 - [前作（論理思考ガイド）との接続](https://itdojp.github.io/ai-era-engineers-mind-book/introduction/bridge-logical-thinking-guide/) - 汎用スキルとの役割分担
 
 ### 本編
 
-- [第1章: エンジニアの思考OS](https://itdojp.github.io/ai-era-engineers-mind-book/chapters/chapter-01/)
+- [第1章: エンジニアの思考 OS](https://itdojp.github.io/ai-era-engineers-mind-book/chapters/chapter-01/)
 - [第2章: 要件定義の認知プロセス](https://itdojp.github.io/ai-era-engineers-mind-book/chapters/chapter-02/)
 - [第3章: アーキテクチャ設計の意思決定](https://itdojp.github.io/ai-era-engineers-mind-book/chapters/chapter-03/)
 - [第4章: 開発/構築フェーズの最適化思考](https://itdojp.github.io/ai-era-engineers-mind-book/chapters/chapter-04/)
@@ -38,9 +38,9 @@
 
 ## 想定読者
 
-- AI出力を採用できる根拠、検証結果、PR上の説明を残したい IC / Senior Engineer
-- チームでAIに任せる作業と人が判断する作業を分けたい Tech Lead
-- workflow、agent、RAG、tool 実行を設計判断として説明したい Architect
+- AI 出力を採用できる根拠、検証結果、PR 上の説明を残したい IC / Senior Engineer
+- チームで AI に任せる作業と人が判断する作業を分けたい Tech Lead
+- workflow / agent、RAG、tool 実行を設計判断として説明したい Architect
 - 生産性だけでなく、レビュー負荷、学習劣化、説明責任を管理したい EM
 - fallback、rollback、manual takeover、監査ログを運用へ組み込みたい SRE / DevOps / Security
 
@@ -51,7 +51,7 @@
 ## 著者について
 
 **ITDO Inc. (株式会社アイティードゥ)**
-ITエンジニアの技術力向上と組織の成長を支援する企業です。
+IT エンジニアの技術力向上と組織の成長を支援する企業です。
 
 - Website: [https://itdo.jp](https://itdo.jp)
 - Email: knowledge@itdo.jp
@@ -70,4 +70,4 @@ ITエンジニアの技術力向上と組織の成長を支援する企業です
 
 ---
 
-[今すぐ読み始める](https://itdojp.github.io/ai-era-engineers-mind-book/) | [GitHubで見る](https://github.com/itdojp/ai-era-engineers-mind-book)
+[今すぐ読み始める](https://itdojp.github.io/ai-era-engineers-mind-book/) | [GitHub で見る](https://github.com/itdojp/ai-era-engineers-mind-book)

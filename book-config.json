@@ -1,7 +1,7 @@
 {
   "title": "AI時代のプロフェッショナルITエンジニアの思考法",
-  "subtitle": "AIネイティブな実務における意思決定・説明責任・運用統制の実践書",
-  "description": "AIネイティブな実務を前提に、シニアエンジニア、テックリード、アーキテクト、EM、SRE、DevOps リーダー、Security 担当者が、意思決定・説明責任・運用統制を成果物として残すための実践書",
+  "subtitle": "AI ネイティブな実務における意思決定・説明責任・運用統制の実践書",
+  "description": "AI ネイティブな実務を前提に、シニアエンジニア、テックリード、アーキテクト、EM、SRE、DevOps リーダー、Security 担当者が、意思決定・説明責任・運用統制を成果物として残すための実践書",
   "author": "ITDO Inc.",
   "version": "1.0.0",
   "license": "CC-BY-NC-SA-4.0",
@@ -17,10 +17,10 @@
     "chapters": [
       {
         "id": "1",
-        "title": "エンジニアの思考OS",
-        "subtitle": "AIネイティブ環境における意思決定OS",
+        "title": "エンジニアの思考 OS",
+        "subtitle": "AI ネイティブ環境における意思決定 OS",
         "path": "/chapters/chapter-01/",
-        "description": "context engineering、schema-first thinking、不確実性、source hierarchy、delegate / review / own を使って、AI出力を責任ある判断へ変換する章",
+        "description": "context engineering、schema-first thinking、不確実性、source hierarchy、delegate / review / own を使って、AI 出力を責任ある判断へ変換する章",
         "sections": [
           {
             "id": "1",
@@ -62,9 +62,9 @@
       {
         "id": "2",
         "title": "要件定義の認知プロセス",
-        "subtitle": "AIを含む要求境界の設計",
+        "subtitle": "AI を含む要求境界の設計",
         "path": "/chapters/chapter-02/",
-        "description": "AIを含む業務・プロダクト・社内ツールの要求を、評価可能な受入条件、データ分類、権限、fallback、承認境界へ落とす章",
+        "description": "AI を含む業務・プロダクト・社内ツールの要求を、評価可能な受入条件、データ分類、権限、fallback、承認境界へ落とす章",
         "sections": [
           {
             "id": "1",
@@ -113,7 +113,7 @@
         "title": "アーキテクチャ設計の意思決定",
         "subtitle": "workflow / agent 時代の設計判断",
         "path": "/chapters/chapter-03/",
-        "description": "通常機能、RAG、workflow、agent、MCP / connector / function calling を、eval、threat model、approval、audit、rollback と接続して設計判断へ落とす章",
+        "description": "通常機能、RAG、workflow / agent、MCP / connector / function calling を、eval、threat model、approval、audit、rollback と接続して設計判断へ落とす章",
         "sections": [
           {
             "id": "1",
@@ -167,7 +167,7 @@
         "title": "開発/構築フェーズの最適化思考",
         "subtitle": "AI-native SDLC / Agent-assisted delivery",
         "path": "/chapters/chapter-04/",
-        "description": "Issue 起点の実装計画、agent-assisted delivery、AIレビュー、検証責任、release readiness、team working agreement を、PR と delivery pipeline へ落とす章",
+        "description": "Issue 起点の実装計画、agent-assisted delivery、AI レビュー、検証責任、release readiness、team working agreement を、PR と delivery pipeline へ落とす章",
         "sections": [
           {
             "id": "1",
@@ -191,7 +191,7 @@
           },
           {
             "id": "5",
-            "title": "AIレビューと人間レビューを重ねる",
+            "title": "AI レビューと人間レビューを重ねる",
             "path": "/chapters/chapter-04/#section-4-5"
           },
           {
@@ -219,9 +219,9 @@
       {
         "id": "5",
         "title": "ステークホルダーマネジメント",
-        "subtitle": "AI投資・統制・説明責任の合意形成",
+        "subtitle": "AI 投資・統制・説明責任の合意形成",
         "path": "/chapters/chapter-05/",
-        "description": "CFO、法務、セキュリティ、監査、現場責任者の関心を整理し、AI投資、ROI / TCO / control cost、vendor concentration、契約、データ越境、退出戦略を意思決定メモへ落とす章",
+        "description": "CFO、法務、セキュリティ、監査、現場責任者の関心を整理し、AI 投資、ROI / TCO / control cost、vendor concentration、契約、データ越境、退出戦略を意思決定メモへ落とす章",
         "sections": [
           {
             "id": "1",
@@ -273,7 +273,7 @@
       {
         "id": "6",
         "title": "危機管理と問題解決",
-        "subtitle": "AI固有インシデントへの運用統制",
+        "subtitle": "AI 固有インシデントへの運用統制",
         "path": "/chapters/chapter-06/",
         "description": "prompt injection、誤操作、権限逸脱、provider outage、コスト暴走、retrieval / citation failure、approval bypass を、kill switch、quarantine、rollback、escalation、postmortem へ接続する章",
         "sections": [
@@ -284,7 +284,7 @@
           },
           {
             "id": "2",
-            "title": "AI固有の障害モードを分類する",
+            "title": "AI 固有の障害モードを分類する",
             "path": "/chapters/chapter-06/#section-6-2"
           },
           {
