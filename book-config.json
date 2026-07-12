@@ -363,10 +363,10 @@
       "readingGuide": true,
       "checklistPack": false,
       "troubleshootingFlow": false,
-      "conceptMap": true,
-      "figureIndex": true,
+      "conceptMap": false,
+      "figureIndex": false,
       "legalNotice": true,
-      "glossary": true
+      "glossary": false
     }
   },
   "shared": {
