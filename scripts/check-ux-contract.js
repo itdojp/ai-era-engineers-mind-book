@@ -454,7 +454,8 @@ for (let index = 0; index < dependencyStages.length; index += 1) {
   const row = dependencyRows[index];
   if (!row) continue;
   check(row.length === 5, `concept map dependency row ${index + 1} must have 5 cells`);
-  check(row[0] === `${index + 1}. ${dependencyStages[index]}`, `concept map dependency row ${index + 1} must be ${dependencyStages[index]}`);
+  const expectedStage = `${index + 1}. ${dependencyStages[index]}`;
+  check(row[0] === expectedStage, `concept map dependency row ${index + 1} must be ${expectedStage} (got ${row[0] ?? 'missing'})`);
   const rowLinks = extractMarkdownLinks(row.join(' | ')).map((link) => normalizeSourceDestination(link.destination, appendices[4].route)).filter(Boolean);
   check(rowLinks.some((link) => link.path === `/chapters/chapter-0${index + 1}/`), `concept map row ${index + 1} must link its chapter`);
   const nextChapter = index === 5 ? 1 : index + 2;
