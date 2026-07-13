@@ -617,6 +617,15 @@ function classList(attributes) {
 
 function checkBuiltSite(siteDirectory, baseurl) {
   const builtPages = new Map();
+  const builtTargets = new Map();
+  const readBuiltTarget = (file, label) => {
+    const key = path.resolve(file);
+    if (!builtTargets.has(key)) {
+      const source = readRequired(file, label);
+      builtTargets.set(key, { source, ids: extractBuiltIds(source) });
+    }
+    return builtTargets.get(key);
+  };
   const requestedPages = [{ label: 'built top page', route: '/', file: path.join(siteDirectory, 'index.html') }];
   for (const module of modules) {
     requestedPages.push({
@@ -625,7 +634,7 @@ function checkBuiltSite(siteDirectory, baseurl) {
       file: path.join(siteDirectory, module.route.replace(/^\//, ''), 'index.html'),
     });
   }
-  for (const page of requestedPages) builtPages.set(page.route, readRequired(page.file, page.label));
+  for (const page of requestedPages) builtPages.set(page.route, readBuiltTarget(page.file, page.label).source);
 
   const builtTop = builtPages.get('/') || '';
   const builtTopLinks = extractHtmlStartTags(builtTop, 'a');
@@ -661,8 +670,8 @@ function checkBuiltSite(siteDirectory, baseurl) {
         failures.push(`built Appendix ${module.id} has out-of-base internal href ${href}`);
         continue;
       }
-      const targetSource = readRequired(targetFile, `built link target for ${href}`);
-      if (resolved.hash && targetSource) {
+      const target = readBuiltTarget(targetFile, `built link target for ${href}`);
+      if (resolved.hash && target.source) {
         let fragment = resolved.hash.slice(1);
         try {
           fragment = decodeURIComponent(fragment);
@@ -670,7 +679,7 @@ function checkBuiltSite(siteDirectory, baseurl) {
           failures.push(`built Appendix ${module.id} has invalid encoded fragment ${resolved.hash}`);
           continue;
         }
-        check(extractBuiltIds(targetSource).has(fragment), `built Appendix ${module.id} links missing fragment ${resolved.pathname}#${fragment}`);
+        check(target.ids.has(fragment), `built Appendix ${module.id} links missing fragment ${resolved.pathname}#${fragment}`);
       }
     }
 

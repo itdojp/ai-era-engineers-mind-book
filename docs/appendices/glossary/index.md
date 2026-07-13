@@ -4,6 +4,8 @@ description: "本書で使うAIネイティブな実務用語を、関連章・S
 layout: book
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 # 付録F：用語集
 
 この用語集は、単なる英単語の翻訳表ではない。本書で用語が指す判断、成果物、責任境界を短く定義し、関連する章、[AI 協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/)、付録へ移動できるようにしている。製品名やモデル名ではなく、複数の実装に適用できる概念を優先する。

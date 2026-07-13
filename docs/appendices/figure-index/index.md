@@ -4,6 +4,8 @@ description: "docs/assets/images/diagrams にある3件のSVG図版を、安定�
 layout: book
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 # 付録G：図表索引
 
 この付録は、`docs/assets/images/diagrams/` にある公開 SVG **3件をすべて**、読者が直接参照できるようにした図表索引である。各図は画像を埋め込み、安定したアンカー、代替テキスト、キャプション、用途、関連章を持つ。

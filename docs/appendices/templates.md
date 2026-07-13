@@ -697,7 +697,6 @@ Model / tool change impact checklist は、モデル、provider、prompt、retri
 - 変更を「差し替え」で終わらせず、eval、security、cost、rollback、approval まで確認している。
 - 影響を受ける成果物が明示されている。
 
-
 ## A.15 delivery / review / runbook templates
 
 第4章から参照する PR テンプレート、コードレビューチェックリスト、Runbook テンプレートは、AI 支援開発を delivery pipeline へ接続するために使う。
