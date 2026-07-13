@@ -6,8 +6,10 @@
   "scripts": {
     "start": "cd docs && bundle exec jekyll serve --livereload",
     "build": "cd docs && bundle exec jekyll build",
-    "test": "npm run lint && npm run check-links",
-    "lint": "markdownlint ./**/*.md",
+    "test": "npm run lint && npm run check-ux-contract && npm run check-links",
+    "lint": "markdownlint 'docs/**/*.md' --ignore docs/_site",
+    "check-ux-contract": "node scripts/check-ux-contract.js",
+    "check-ux-contract:built": "node scripts/check-ux-contract.js --built-site docs/_site",
     "check-links": "find . -name '*.md' -not -path './node_modules/*' -not -path './docs/_site/*' -print0 | xargs -0 markdown-link-check --config .markdown-link-check.json",
     "deploy": "gh-pages -d docs/_site"
   },
