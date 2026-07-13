@@ -21,9 +21,9 @@ const paths = {
   pageNavigation: path.join(docs, '_includes', 'page-navigation.html'),
   sidebar: path.join(docs, '_includes', 'sidebar-nav.html'),
   top: path.join(docs, 'index.md'),
-  conceptMap: path.join(docs, 'appendices', 'concept-map.md'),
-  glossary: path.join(docs, 'appendices', 'glossary.md'),
-  figureIndex: path.join(docs, 'appendices', 'figure-index.md'),
+  conceptMap: path.join(docs, 'appendices', 'concept-map', 'index.md'),
+  glossary: path.join(docs, 'appendices', 'glossary', 'index.md'),
+  figureIndex: path.join(docs, 'appendices', 'figure-index', 'index.md'),
   diagrams: path.join(docs, 'assets', 'images', 'diagrams'),
 };
 
