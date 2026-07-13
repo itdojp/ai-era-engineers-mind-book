@@ -86,6 +86,9 @@ jobs:
           source: ./${{ steps.scan.outputs.dir }}
           destination: ./_site
 
+      - name: Verify rendered reader UX contract
+        run: npm run check-ux-contract -- --built-site _site
+
       - name: Smoke check built site (top + navigation + assets)
         shell: bash
         run: |

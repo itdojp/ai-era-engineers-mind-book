@@ -31,3 +31,9 @@ appendices:
     path: /appendices/reading-list/
   - title: 付録D：更新履歴とメンテナンス方針
     path: /appendices/update-notes/
+  - title: 付録E：成果物連鎖の概念マップ
+    path: /appendices/concept-map/
+  - title: 付録F：用語集
+    path: /appendices/glossary/
+  - title: 付録G：図表索引
+    path: /appendices/figure-index/

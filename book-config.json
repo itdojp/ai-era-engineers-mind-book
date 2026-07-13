@@ -349,6 +349,24 @@
         "title": "更新履歴とメンテナンス方針",
         "path": "/appendices/update-notes/",
         "description": "変動要素の隔離方針、更新時レビュー観点、差分記録、陳腐化対応、最終監査、更新履歴"
+      },
+      {
+        "id": "e",
+        "title": "成果物連鎖の概念マップ",
+        "path": "/appendices/concept-map/",
+        "description": "第1章から第6章までを判断、要求、設計、delivery、合意、運用の成果物依存で読むテキストマップ"
+      },
+      {
+        "id": "f",
+        "title": "用語集",
+        "path": "/appendices/glossary/",
+        "description": "主要用語の定義と、関連章、AI 協働 SOP、付録へのリンク"
+      },
+      {
+        "id": "g",
+        "title": "図表索引",
+        "path": "/appendices/figure-index/",
+        "description": "docs/assets/images/diagrams にある全3件のSVG図版をstable anchor、alt、用途、関連章付きで直接表示"
       }
     ]
   },
@@ -363,10 +381,10 @@
       "readingGuide": true,
       "checklistPack": false,
       "troubleshootingFlow": false,
-      "conceptMap": false,
-      "figureIndex": false,
+      "conceptMap": true,
+      "figureIndex": true,
       "legalNotice": true,
-      "glossary": false
+      "glossary": true
     }
   },
   "shared": {
