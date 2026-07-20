@@ -38,19 +38,30 @@ function stripHtmlComments(source) {
   const output = [];
   let fence = null;
   let inComment = false;
+  let inlineCodeTicks = null;
 
   for (const line of source.split(/(?<=\n)/u)) {
-    const fenceMarker = !inComment && line.match(/^\s*(`{3,}|~{3,})/u);
-    if (fenceMarker) {
-      const marker = fenceMarker[1];
-      if (fence === null) fence = { character: marker[0], length: marker.length };
-      else if (marker[0] === fence.character && marker.length >= fence.length) fence = null;
+    if (fence !== null) {
+      const closingFence = line.match(/^ {0,3}(`{3,}|~{3,})[ \t]*(?:\r?\n)?$/u);
+      if (closingFence) {
+        const marker = closingFence[1];
+        if (marker[0] === fence.character && marker.length >= fence.length) fence = null;
+      }
       output.push(line);
       continue;
     }
-    if (fence !== null) {
-      output.push(line);
-      continue;
+
+    if (!inComment && inlineCodeTicks === null) {
+      const openingFence = line.match(/^ {0,3}(`{3,}|~{3,})([^\r\n]*)(?:\r?\n)?$/u);
+      if (openingFence) {
+        const marker = openingFence[1];
+        const info = openingFence[2];
+        if (marker[0] !== '`' || !info.includes('`')) {
+          fence = { character: marker[0], length: marker.length };
+          output.push(line);
+          continue;
+        }
+      }
     }
 
     let cursor = 0;
@@ -67,14 +78,22 @@ function stripHtmlComments(source) {
           inComment = false;
         }
       } else {
-        const start = line.indexOf('<!--', cursor);
-        if (start < 0) {
-          visible += line.slice(cursor);
-          cursor = line.length;
-        } else {
-          visible += line.slice(cursor, start);
-          cursor = start;
+        if (line[cursor] === '`') {
+          let end = cursor + 1;
+          while (line[end] === '`') end += 1;
+          const tickCount = end - cursor;
+          visible += line.slice(cursor, end);
+          if (inlineCodeTicks === null) inlineCodeTicks = tickCount;
+          else if (tickCount === inlineCodeTicks) inlineCodeTicks = null;
+          cursor = end;
+        } else if (inlineCodeTicks !== null) {
+          visible += line[cursor];
+          cursor += 1;
+        } else if (line.startsWith('<!--', cursor)) {
           inComment = true;
+        } else {
+          visible += line[cursor];
+          cursor += 1;
         }
       }
     }
@@ -90,7 +109,7 @@ function lineNumberAt(source, offset) {
 function scanEntries(entries) {
   const findings = [];
   for (const entry of entries) {
-    const visible = stripHtmlComments(entry.source);
+    const visible = entry.stripHtmlComments === false ? entry.source : stripHtmlComments(entry.source);
     for (const rule of forbidden) {
       const pattern = new RegExp(rule.pattern.source, rule.pattern.flags);
       for (const match of visible.matchAll(pattern)) {
@@ -174,8 +193,10 @@ function replaceHtmlTags(source) {
     }
 
     const tag = source.slice(cursor, end + 1);
-    const attributes = [...tag.matchAll(/\b(?:alt|aria-label|title)\s*=\s*(?:"([^"]*)"|'([^']*)')/giu)]
-      .map((match) => match[1] ?? match[2] ?? '')
+    const attributes = [...tag.matchAll(
+      /\b(?:alt|aria-label|title)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/giu,
+    )]
+      .map((match) => match[1] ?? match[2] ?? match[3] ?? '')
       .filter(Boolean);
     const newlines = tag.match(/\n/gu)?.length ?? 0;
     output += ` ${attributes.join(' ')} ${'\n'.repeat(newlines)}`;
@@ -196,7 +217,7 @@ function readerVisibleHtml(source) {
 
 function collectBuiltHtml(directory) {
   return collectFiles(directory, (file) => path.extname(file).toLowerCase() === '.html')
-    .map((entry) => ({ ...entry, source: readerVisibleHtml(entry.source) }));
+    .map((entry) => ({ ...entry, source: readerVisibleHtml(entry.source), stripHtmlComments: false }));
 }
 
 function readRequired(file, label, failures) {
@@ -234,11 +255,15 @@ function checkWiring(packageSource, workflowSource, failures) {
   const scripts = packageJson.scripts || {};
   const selfTest = 'node scripts/check-reader-maintainer-boundary.js --self-test';
   const check = 'node scripts/check-reader-maintainer-boundary.js';
+  const builtCheck = 'node scripts/check-reader-maintainer-boundary.js --built-site docs/_site';
   if (scripts['test:reader-maintainer-boundary'] !== selfTest) {
     failures.push('package script test:reader-maintainer-boundary is missing or changed');
   }
   if (scripts['check:reader-maintainer-boundary'] !== check) {
     failures.push('package script check:reader-maintainer-boundary is missing or changed');
+  }
+  if (scripts['check:reader-maintainer-boundary:built'] !== builtCheck) {
+    failures.push('package script check:reader-maintainer-boundary:built is missing or changed');
   }
 
   const aggregate = parseStrictAndChain(scripts.test || '', 'scripts.test', failures);
@@ -379,6 +404,22 @@ function runSelfTest() {
     }
   }
 
+  const invalidClosingFence = scanEntries([{
+    path: 'docs/fence-info.md',
+    source: ['````html', '````html', '<!-- Issue #127 -->', '````'].join('\n'),
+  }]);
+  if (!invalidClosingFence.some((finding) => finding.rule === 'raw Issue number')) {
+    failures.push('self-test accepted a fenced marker after an invalid closing-fence suffix');
+  }
+
+  const inlineCodeComment = scanEntries([{
+    path: 'docs/inline-code.md',
+    source: '`<!-- Issue #127 -->`',
+  }]);
+  if (!inlineCodeComment.some((finding) => finding.rule === 'raw Issue number')) {
+    failures.push('self-test stripped a reader-visible HTML comment inside inline code');
+  }
+
   const legitimateExamples = scanEntries([{
     path: 'docs/example.md',
     source: 'PR comment、review thread、CI logを成果物として扱う。GitHub Actions run、CI run、workflow run、pages-build-deployment ジョブ、squash merge abcdef1の手順を説明する。',
@@ -390,6 +431,7 @@ function runSelfTest() {
   const renderedHtml = scanEntries([{
     path: '_site/test.html',
     source: readerVisibleHtml('<nav title="Issue &#35;127">PR &#x23;83</nav><script>Issue #999</script>'),
+    stripHtmlComments: false,
   }]);
   for (const expected of ['raw Issue number', 'raw PR number']) {
     if (!renderedHtml.some((finding) => finding.rule === expected)) {
@@ -403,6 +445,7 @@ function runSelfTest() {
   const noScriptHtml = scanEntries([{
     path: '_site/noscript.html',
     source: readerVisibleHtml('<noscript>Issue &#35;127</noscript>'),
+    stripHtmlComments: false,
   }]);
   if (!noScriptHtml.some((finding) => finding.rule === 'raw Issue number')) {
     failures.push('self-test treated noscript content as reader-invisible');
@@ -411,9 +454,19 @@ function runSelfTest() {
   const quotedGreaterThan = scanEntries([{
     path: '_site/attribute.html',
     source: readerVisibleHtml('<span title="Issue &#35;127>">reader text</span>'),
+    stripHtmlComments: false,
   }]);
   if (!quotedGreaterThan.some((finding) => finding.rule === 'raw Issue number')) {
     failures.push('self-test truncated a quoted attribute at a literal greater-than sign');
+  }
+
+  const unquotedAttribute = scanEntries([{
+    path: '_site/unquoted-attribute.html',
+    source: readerVisibleHtml('<span title=Issue#127>reader text</span>'),
+    stripHtmlComments: false,
+  }]);
+  if (!unquotedAttribute.some((finding) => finding.rule === 'raw Issue number')) {
+    failures.push('self-test ignored a reader-visible marker in an unquoted attribute');
   }
 
   const packageFixture = JSON.stringify({
@@ -421,6 +474,7 @@ function runSelfTest() {
       test: 'npm run lint && npm run test:reader-maintainer-boundary && npm run check:reader-maintainer-boundary && npm run check-links',
       'test:reader-maintainer-boundary': 'node scripts/check-reader-maintainer-boundary.js --self-test',
       'check:reader-maintainer-boundary': 'node scripts/check-reader-maintainer-boundary.js',
+      'check:reader-maintainer-boundary:built': 'node scripts/check-reader-maintainer-boundary.js --built-site docs/_site',
     },
   });
   const workflowFixture = [
@@ -468,11 +522,19 @@ function runSelfTest() {
     failures.push('self-test accepted a backgrounded aggregate command');
   }
 
+  const missingBuiltScript = JSON.parse(packageFixture);
+  delete missingBuiltScript.scripts['check:reader-maintainer-boundary:built'];
+  const builtScriptFailures = [];
+  checkWiring(JSON.stringify(missingBuiltScript), workflowFixture, builtScriptFailures);
+  if (!builtScriptFailures.some((failure) => failure.includes('check:reader-maintainer-boundary:built'))) {
+    failures.push('self-test accepted a missing local built-site package script');
+  }
+
   if (failures.length > 0) {
     for (const failure of failures) console.error(`ERROR: ${failure}`);
     process.exit(1);
   }
-  console.log(`OK: reader / maintainer boundary self-test (${forbidden.length + 9} content cases, 7 wiring negatives)`);
+  console.log(`OK: reader / maintainer boundary self-test (${forbidden.length + 12} content cases, 8 wiring negatives)`);
 }
 
 function runSourceCheck() {
