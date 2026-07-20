@@ -215,7 +215,7 @@ function requireVisibleMarkers(source, label, markers, failures) {
 }
 
 function parseStrictAndChain(command, label, failures) {
-  if (/\|\||[;|]/u.test(command)) {
+  if (/[;|]/u.test(command) || /(^|[^&])&([^&]|$)/u.test(command)) {
     failures.push(`${label} must use only a fail-closed && command chain`);
     return [];
   }
@@ -460,11 +460,19 @@ function runSelfTest() {
   checkWiring(JSON.stringify(missingAggregate), workflowFixture, aggregateFailures);
   if (aggregateFailures.length === 0) failures.push('self-test accepted missing aggregate command');
 
+  const backgroundAggregate = JSON.parse(packageFixture);
+  backgroundAggregate.scripts.test = backgroundAggregate.scripts.test.replace(' && ', ' & ');
+  const backgroundFailures = [];
+  checkWiring(JSON.stringify(backgroundAggregate), workflowFixture, backgroundFailures);
+  if (!backgroundFailures.some((failure) => failure.includes('only a fail-closed && command chain'))) {
+    failures.push('self-test accepted a backgrounded aggregate command');
+  }
+
   if (failures.length > 0) {
     for (const failure of failures) console.error(`ERROR: ${failure}`);
     process.exit(1);
   }
-  console.log(`OK: reader / maintainer boundary self-test (${forbidden.length + 9} content cases, 6 wiring negatives)`);
+  console.log(`OK: reader / maintainer boundary self-test (${forbidden.length + 9} content cases, 7 wiring negatives)`);
 }
 
 function runSourceCheck() {
