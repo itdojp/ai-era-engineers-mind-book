@@ -9,6 +9,7 @@ const appendixPath = path.join(docsRoot, 'appendices', 'update-notes.md');
 const runbookPath = path.join(root, 'MAINTENANCE.md');
 const packagePath = path.join(root, 'package.json');
 const workflowPath = path.join(root, '.github', 'workflows', 'book-qa.yml');
+const ignoredGeneratedDirectories = new Set(['_site', '.jekyll-cache', '.sass-cache']);
 
 const forbidden = [
   { id: 'raw Issue number', pattern: /\bIssue\s*#?\s*\d+\b/giu },
@@ -109,7 +110,7 @@ function collectFiles(directory, predicate) {
   const entries = [];
   const visit = (current) => {
     for (const item of fs.readdirSync(current, { withFileTypes: true })) {
-      if (item.name === '_site') continue;
+      if (item.isDirectory() && ignoredGeneratedDirectories.has(item.name)) continue;
       const absolute = path.join(current, item.name);
       if (item.isDirectory()) visit(absolute);
       else if (item.isFile() && predicate(absolute)) {
