@@ -623,4 +623,4 @@ AI 時代のステークホルダーマネジメントは、技術説明から�
 - [付録A：実務成果物テンプレート集](../../appendices/templates/) - 1ページ提案メモ、意思決定メモ、risk register、ROI / TCO / control cost 表の雛形として利用する。
 - [付録B：ケーススタディ](../../appendices/case-studies/) - 社内ナレッジアシスタント、agent-assisted delivery、障害調査 / 運用支援 copilot を、ステークホルダー合意の観点で読み直す。
 - [付録C：推奨読書リスト](../../appendices/reading-list/) - NIST AI RMF、ISO/IEC 42001、CISA Roadmap for AI など、governance / risk / audit の参照元を確認する。
-- [付録D：更新履歴とメンテナンス方針](../../appendices/update-notes/) - 契約、価格、モデル名、UI など変動しやすい情報を本文へ固定しすぎない方針を確認する。
+- [付録D：更新方針と更新履歴](../../appendices/update-notes/) - 契約、価格、モデル名、UI など変動しやすい情報を本文へ固定しすぎない方針を確認する。

@@ -130,7 +130,7 @@ structure:
       title: "推奨読書リスト"
       path: "/appendices/reading-list/"
     - id: "D"
-      title: "更新履歴とメンテナンス方針"
+      title: "更新方針と更新履歴"
       path: "/appendices/update-notes/"
     - id: "E"
       title: "成果物連鎖の概念マップ"

@@ -421,4 +421,4 @@ AI ネイティブな思考 OS は、問いを構造化し、出力 schema を�
 
 - [AI 協働の標準手順（SOP）](../../introduction/ai-collaboration-sop/)
 - [付録A：実務成果物テンプレート集](../../appendices/templates/)
-- [付録D：更新履歴とメンテナンス方針](../../appendices/update-notes/) - モデル名、価格、UI、API 細部など変化しやすい情報を、判断原則から切り分けて更新する基準を確認する。
+- [付録D：更新方針と更新履歴](../../appendices/update-notes/) - モデル名、価格、UI、API 細部など変化しやすい情報を、判断原則から切り分けて更新する基準を確認する。

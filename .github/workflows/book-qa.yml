@@ -37,6 +37,9 @@ jobs:
         working-directory: book-formatter
         run: npm ci
 
+      - name: Reader / maintainer boundary contract
+        run: npm run test:reader-maintainer-boundary && npm run check:reader-maintainer-boundary
+
       - name: Determine scan directory
         id: scan
         shell: bash
@@ -85,6 +88,9 @@ jobs:
         with:
           source: ./${{ steps.scan.outputs.dir }}
           destination: ./_site
+
+      - name: Verify rendered reader / maintainer boundary
+        run: node scripts/check-reader-maintainer-boundary.js --built-site _site
 
       - name: Verify rendered reader UX contract
         run: npm run check-ux-contract -- --built-site _site
