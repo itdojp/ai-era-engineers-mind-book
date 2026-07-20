@@ -21,6 +21,7 @@ const paths = {
   pageNavigation: path.join(docs, '_includes', 'page-navigation.html'),
   sidebar: path.join(docs, '_includes', 'sidebar-nav.html'),
   top: path.join(docs, 'index.md'),
+  chapterThree: path.join(docs, 'chapters', 'chapter-03', 'index.md'),
   conceptMap: path.join(docs, 'appendices', 'concept-map', 'index.md'),
   glossary: path.join(docs, 'appendices', 'glossary', 'index.md'),
   figureIndex: path.join(docs, 'appendices', 'figure-index', 'index.md'),
@@ -64,6 +65,13 @@ const appendices = [
   },
 ];
 const modules = appendices.slice(4);
+const chapterThreeRoute = '/chapters/chapter-03/';
+const connectionTerms = [
+  { anchor: 'term-mcp', label: 'MCP' },
+  { anchor: 'term-connector', label: 'connector' },
+  { anchor: 'term-function-calling', label: 'function calling' },
+  { anchor: 'term-external-api', label: '外部 API' },
+];
 
 const failures = [];
 const check = (condition, message) => {
@@ -225,7 +233,12 @@ function extractMarkdownLinks(source) {
   const content = stripMarkdownNonContent(source);
   const pattern = /(?<!!)\[([^\]\n]+)\]\(\s*([^\s)]+)(?:\s+(?:"[^"]*"|'[^']*'))?\s*\)/g;
   for (const match of content.matchAll(pattern)) {
-    links.push({ label: match[1].trim(), destination: match[2].trim() });
+    links.push({
+      label: match[1].trim(),
+      destination: match[2].trim(),
+      index: match.index,
+      raw: match[0],
+    });
   }
   return links;
 }
@@ -330,6 +343,7 @@ const layoutSource = readRequired(paths.layout, 'book layout');
 const pageNavigationSource = readRequired(paths.pageNavigation, 'page-navigation include');
 const sidebarSource = readRequired(paths.sidebar, 'sidebar include');
 const topSource = readRequired(paths.top, 'top page');
+const chapterThreeSource = readRequired(paths.chapterThree, 'Chapter 3 page');
 const conceptMapSource = readRequired(paths.conceptMap, 'Appendix E page');
 const glossarySource = readRequired(paths.glossary, 'Appendix F page');
 const figureIndexSource = readRequired(paths.figureIndex, 'Appendix G page');
@@ -516,6 +530,44 @@ for (const [index, row] of glossaryRows.entries()) {
   check(relatedLinks.some((link) => link.path.startsWith('/appendices/')), `glossary row ${index + 1} must link a related appendix`);
 }
 
+// Chapter 3 connection terminology must be defined once and support round-trip navigation.
+const chapterThreeTermLinks = extractMarkdownLinks(chapterThreeSource)
+  .map((link) => ({ ...link, normalized: normalizeSourceDestination(link.destination, chapterThreeRoute) }))
+  .filter((link) => link.normalized?.path === appendices[5].route && link.normalized.fragment);
+const chapterThreeDecisionSource = stripMarkdownNonContent(extractSection(chapterThreeSource, '## この章で扱う判断'));
+const chapterThreeDecisionTermLinks = extractMarkdownLinks(chapterThreeDecisionSource)
+  .map((link) => ({ ...link, normalized: normalizeSourceDestination(link.destination, chapterThreeRoute) }))
+  .filter((link) => link.normalized?.path === appendices[5].route && link.normalized.fragment);
+const connectionPrimer = extractSection(
+  chapterThreeSource,
+  '### 3.4.1 接続方式の位置づけ',
+);
+check(connectionPrimer.includes('同じ「規程検索」'), 'Chapter 3 connection primer must include one shared policy-search example');
+for (const term of connectionTerms) {
+  const rows = glossaryRows.filter((row) => (row[0] || '').includes(`id="${term.anchor}"`));
+  check(rows.length === 1, `glossary must define one connection term #${term.anchor}`);
+  const row = rows[0];
+  if (row) {
+    const chapterLinks = extractMarkdownLinks(row[2] || '')
+      .map((link) => normalizeSourceDestination(link.destination, appendices[5].route))
+      .filter(Boolean);
+    check(chapterLinks.some((link) => link.path === chapterThreeRoute && link.fragment === 'section-3-4'),
+      `glossary #${term.anchor} must link Chapter 3 §3.4`);
+  }
+  const forwardLinks = chapterThreeTermLinks.filter((link) => link.normalized.fragment === term.anchor);
+  check(forwardLinks.length === 1, `Chapter 3 must link glossary #${term.anchor} exactly once (found ${forwardLinks.length})`);
+  if (forwardLinks[0]) check(forwardLinks[0].label === term.label, `Chapter 3 glossary #${term.anchor} link label must be ${term.label}`);
+  const firstOccurrenceLinks = chapterThreeDecisionTermLinks.filter((link) => link.normalized.fragment === term.anchor);
+  check(firstOccurrenceLinks.length === 1, `Chapter 3 decision list must link first occurrence to glossary #${term.anchor} exactly once (found ${firstOccurrenceLinks.length})`);
+  const firstLabelIndex = chapterThreeDecisionSource.indexOf(term.label);
+  const firstOccurrenceLink = firstOccurrenceLinks[0];
+  const linkedLabelIndex = firstOccurrenceLink
+    ? firstOccurrenceLink.index + firstOccurrenceLink.raw.indexOf(term.label)
+    : -1;
+  check(firstOccurrenceLink?.label === term.label && firstLabelIndex === linkedLabelIndex,
+    `Chapter 3 first ${term.label} occurrence must be the canonical glossary link to #${term.anchor}`);
+}
+
 const requiredConceptTerms = [
   'term-source-hierarchy',
   'term-requirements-brief',
@@ -637,6 +689,11 @@ function checkBuiltSite(siteDirectory, baseurl) {
     return builtTargets.get(key);
   };
   const requestedPages = [{ label: 'built top page', route: '/', file: path.join(siteDirectory, 'index.html') }];
+  requestedPages.push({
+    label: 'built Chapter 3',
+    route: chapterThreeRoute,
+    file: path.join(siteDirectory, chapterThreeRoute.replace(/^\//, ''), 'index.html'),
+  });
   for (const module of modules) {
     requestedPages.push({
       label: `built Appendix ${module.id}`,
@@ -658,6 +715,23 @@ function checkBuiltSite(siteDirectory, baseurl) {
       }
     });
     check(matching.length >= 1, `built top page must link ${expectedPath}`);
+  }
+
+  const builtChapterThree = builtPages.get(chapterThreeRoute) || '';
+  const builtChapterThreeLinks = extractHtmlStartTags(builtChapterThree, 'a');
+  const chapterThreeUrl = `https://contract.invalid${baseurl}${chapterThreeRoute}`;
+  for (const term of connectionTerms) {
+    const matching = builtChapterThreeLinks.filter((tag) => {
+      try {
+        const target = new URL(tag.attributes.href || '', chapterThreeUrl);
+        return target.origin === 'https://contract.invalid'
+          && target.pathname === `${baseurl}${appendices[5].route}`
+          && target.hash === `#${term.anchor}`;
+      } catch {
+        return false;
+      }
+    });
+    check(matching.length === 1, `built Chapter 3 must link glossary #${term.anchor} exactly once (found ${matching.length})`);
   }
 
   // Check all internal links and fragments originating from E/F/G.

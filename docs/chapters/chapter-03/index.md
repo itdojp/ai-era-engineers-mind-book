@@ -1,7 +1,7 @@
 ---
 title: "第3章：アーキテクチャ設計の意思決定 - workflow / agent 時代の設計判断"
 subtitle: "workflow / agent 時代の設計判断"
-description: "通常機能、RAG、workflow / agent、MCP / connector / function calling を、eval、threat model、approval、audit、rollback と接続して設計判断へ落とす章"
+description: "通常機能、RAG、workflow / agent、MCP / connector / function calling / 外部 API を、eval、threat model、approval、audit、rollback と接続して設計判断へ落とす章"
 layout: book
 chapter: 3
 ---
@@ -20,7 +20,7 @@ AI ネイティブなアーキテクチャ設計では、「AI を入れるか�
 本章で扱う判断は、次の6つである。
 
 1. 通常機能、検索付き機能、RAG、workflow / agent のどれを採用するか。
-2. MCP、connector、function calling、外部 API をどの権限・承認・監査で接続するか。
+2. [MCP](../../appendices/glossary/#term-mcp)、[connector](../../appendices/glossary/#term-connector)、[function calling](../../appendices/glossary/#term-function-calling)、[外部 API](../../appendices/glossary/#term-external-api)をどの権限・承認・監査で接続するか。
 3. schema-driven input / output、validation、output validation をどこへ置くか。
 4. prompt injection、tool misuse、data exfiltration、権限逸脱をどう防ぐか。
 5. offline eval、trace-based evaluation、regression test をどう設計に含めるか。
@@ -231,12 +231,32 @@ schema は運用中に変わる。
 
 この記録がないと、障害時に「いつから挙動が変わったか」を追跡できない。
 
-## 3.4 tool 実行と MCP / connector / function calling を統制する {#section-3-4}
+## 3.4 tool 実行と MCP / connector / function calling / 外部 API を統制する {#section-3-4}
 
 AI システムが tool を実行する場合、設計の中心は「呼び出せるか」ではなく「何を許可し、何を止め、何を記録するか」になる。
 MCP、connector、function calling、外部 API は、便利な接続面であると同時に、権限逸脱、誤操作、data exfiltration の経路にもなる。
 
 ### 3.4.1 接続方式の位置づけ
+
+まず、接続方式、製品機能、実行主体を分ける。
+
+- **MCP** は、AI applicationと外部systemのcontext交換に使うopenなclient-server protocolである。hostはclientを通じてserverへ接続し、serverはtool、resource、promptを公開できる。どれを利用・承認するかはhost側、接続先へ実際にaccessする処理はserver側の責務として設計する。
+- **connector** は共通protocolの名称ではない。本書では、製品やplatformがSaaS・業務systemとの認証、data取得、操作をまとめて提供する統合面の総称とする。内部でMCPを使う製品も、独自APIを使う製品もあり得るため、権限と監査の仕様は実装ごとに確認する。
+- **function calling** は、modelが定義済みのtool / function schemaに沿って呼び出し名と引数を返す仕組みである。modelがcodeやAPIを直接実行するのではなく、applicationが引数を検証し、許可された処理だけを実行して結果を戻す。
+- **外部 API** は、本書ではapplicationまたはtoolが既存のAPI contractを直接呼ぶ方式を指す。認証、rate limit、retry、error処理、rollbackは呼び出すapplication側が管理する。
+
+MCPは標準化されたprotocol、connectorは製品依存の統合面、function callingはmodelとapplication間の呼び出し表現、外部 APIはapplicationから接続先への直接contractであり、同じ階層の同義語ではない。function callingでmodelからapplicationへ意図を渡し、そのapplicationがMCP、connector、または外部 APIを使うように、複数を組み合わせる構成もある。
+
+同じ「規程検索」を実装しても、責任境界は次のように異なる。
+
+| 方式 | 規程検索での最小例 | 実行責任 |
+| --- | --- | --- |
+| function calling | modelが`search_policy`と検索語を返す | applicationが引数を検証して関数を実行する |
+| connector | 製品が承認済み文書storeへの統合面を提供する | connectorを導入するapplication / platform管理者が認証scopeとdata flowを管理する |
+| MCP | clientが承認済みserverの検索toolを呼ぶ | hostが利用を統制し、serverが文書storeへaccessする |
+| 外部 API | applicationが検索serviceのAPIを直接呼ぶ | applicationが認証、retry、監査を管理する |
+
+この区別を付けたうえで、方式ごとのriskとcontrolを比較する。
 
 | 方式 | 位置づけ | 主なリスク | 必須統制 |
 | --- | --- | --- | --- |
@@ -517,7 +537,7 @@ Date:
 - [ ] data / permission boundary table と検索・tool 権限が一致している。
 - [ ] input schema、output schema、schema version を定義した。
 - [ ] output validation と回答不可条件を定義した。
-- [ ] MCP / connector / function calling の権限、approval、audit を定義した。
+- [ ] MCP / connector / function calling / 外部 API の権限、approval、audit を定義した。
 - [ ] least privilege、isolation、secret 非投入を確認した。
 - [ ] prompt injection、tool misuse、data exfiltration、retrieval leakage を threat model に含めた。
 - [ ] offline eval、trace-based evaluation、regression test、human review を eval plan に含めた。
@@ -539,7 +559,7 @@ Date:
 **要点**：
 
 - 通常機能、検索付き機能、RAG、workflow / agent を同じ表で比較し、AI 採用と不採用の理由を残す。
-- MCP、connector、function calling は、tool 実行能力ではなく、権限、approval、audit、rollback の境界として設計する。
+- MCP、connector、function calling、外部 API は、tool 実行能力ではなく、権限、approval、audit、rollback の境界として設計する。
 - schema-driven input / output と validation を使い、AI 出力を採用可能、回答不可、要確認、escalation に分類する。
 - prompt injection、tool misuse、data exfiltration、retrieval leakage を threat model に含める。
 - eval harness、offline eval、trace-based evaluation、regression test をアーキテクチャの一部として扱う。
@@ -563,7 +583,7 @@ Date:
 ### この章を読み終えたら確認したいこと
 
 - [ ] 最近扱った AI 機能について、通常機能、検索付き機能、RAG、workflow / agent の比較表を作ったか。
-- [ ] MCP / connector / function calling の権限、approval、audit、rollback を説明できるか。
+- [ ] MCP / connector / function calling / 外部 API の権限、approval、audit、rollback を説明できるか。
 - [ ] prompt injection、tool misuse、data exfiltration を threat model に含めたか。
 - [ ] eval plan に offline eval、trace-based evaluation、regression test を含めたか。
 - [ ] provider outage 時の fallback、degrade gracefully、manual takeover を定義したか。
@@ -578,3 +598,4 @@ Date:
 - 標準 / ガイド / 公式ドキュメントの読み方は、[付録C：推奨読書リスト](../../appendices/reading-list/) を参照する。
 - RAG、workflow / agent、tool approval の実例は、[付録B：ケーススタディ](../../appendices/case-studies/) を参照する。
 - provider、API、connector、価格、UI など変化しやすい情報の扱いは、[付録D：更新方針と更新履歴](../../appendices/update-notes/) を参照する。
+- MCP、connector、function calling、外部 API の定義は、[付録F：用語集](../../appendices/glossary/) を参照する。
