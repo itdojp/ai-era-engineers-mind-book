@@ -44,10 +44,11 @@ npm ci
 npm test
 npm run build
 npm run check:reader-maintainer-boundary:built
+npm run check:case-study-quantitative-coverage:built
 npm run check-ux-contract:built
 ```
 
-加えて、Book QAでUnicode、textlint、内部リンク、layout risk、Markdown構造、Jekyll build、rendered reader UXを確認します。warningを無視または抑制せず、既知の別Issueとして扱う場合はowner、期限、再確認条件を記録します。
+加えて、Book QAでUnicode、textlint、内部リンク、layout risk、Markdown構造、Jekyll build、rendered quantitative coverage、rendered reader UXを確認します。warningを無視または抑制せず、既知の別Issueとして扱う場合はowner、期限、再確認条件を記録します。
 
 ## 完了証跡
 

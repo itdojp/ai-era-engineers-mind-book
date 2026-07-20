@@ -40,6 +40,9 @@ jobs:
       - name: Reader / maintainer boundary contract
         run: npm run test:reader-maintainer-boundary && npm run check:reader-maintainer-boundary
 
+      - name: Case-study quantitative coverage contract
+        run: npm run test:case-study-quantitative-coverage && npm run check:case-study-quantitative-coverage
+
       - name: Determine scan directory
         id: scan
         shell: bash
@@ -91,6 +94,9 @@ jobs:
 
       - name: Verify rendered reader / maintainer boundary
         run: node scripts/check-reader-maintainer-boundary.js --built-site _site
+
+      - name: Verify rendered case-study quantitative coverage
+        run: node scripts/check-case-study-quantitative-coverage.js --built-site _site
 
       - name: Verify rendered reader UX contract
         run: npm run check-ux-contract -- --built-site _site
