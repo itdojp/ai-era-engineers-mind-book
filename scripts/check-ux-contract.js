@@ -31,7 +31,13 @@ const appendices = [
   { id: 'A', title: '実務成果物テンプレート集', navTitle: '付録A：実務成果物テンプレート集', route: '/appendices/templates/' },
   { id: 'B', title: 'ケーススタディ', navTitle: '付録B：ケーススタディ', route: '/appendices/case-studies/' },
   { id: 'C', title: '推奨読書リスト', navTitle: '付録C：推奨読書リスト', route: '/appendices/reading-list/' },
-  { id: 'D', title: '更新履歴とメンテナンス方針', navTitle: '付録D：更新履歴とメンテナンス方針', route: '/appendices/update-notes/' },
+  {
+    id: 'D',
+    title: '更新方針と更新履歴',
+    navTitle: '付録D：更新方針と更新履歴',
+    route: '/appendices/update-notes/',
+    description: '変動情報の確認日、正本、適用範囲、陳腐化の兆候、内容上の更新履歴',
+  },
   {
     id: 'E',
     title: '成果物連鎖の概念マップ',
@@ -373,6 +379,10 @@ for (const appendix of appendices) {
     check(String(bookEntry.id) === appendix.id.toLowerCase(), `book-config appendix ${appendix.id} id must be ${appendix.id.toLowerCase()}`);
     check(bookEntry.title === appendix.title, `book-config appendix ${appendix.id} title must be ${appendix.title}`);
     check(bookEntry.path === appendix.route, `book-config appendix ${appendix.id} path must be ${appendix.route}`);
+    if (appendix.description) {
+      check(bookEntry.description === appendix.description,
+        `book-config appendix ${appendix.id} description must be ${appendix.description}`);
+    }
   }
   if (configEntry) {
     check(configEntry.id === appendix.id, `docs/_config.yml appendix ${appendix.id} id must be ${appendix.id}`);

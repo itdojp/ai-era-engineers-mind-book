@@ -6,6 +6,7 @@ AI ネイティブな実務を前提に、シニアエンジニア、テック�
 - 目次（リポジトリ内）: `docs/index.md`
 - シリーズ: [IT エンジニア知識体系](https://github.com/itdojp/it-engineer-knowledge-architecture)
 - 関連 Issue: [#127 2026年版への全面リライト](https://github.com/itdojp/ai-era-engineers-mind-book/issues/127)
+- 保守者向け手順: [`MAINTENANCE.md`](MAINTENANCE.md)
 
 ## 本書の位置づけ
 

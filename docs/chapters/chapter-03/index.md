@@ -577,4 +577,4 @@ Date:
 - 成果物テンプレートは、[付録A：実務成果物テンプレート集](../../appendices/templates/) を参照する。
 - 標準 / ガイド / 公式ドキュメントの読み方は、[付録C：推奨読書リスト](../../appendices/reading-list/) を参照する。
 - RAG、workflow / agent、tool approval の実例は、[付録B：ケーススタディ](../../appendices/case-studies/) を参照する。
-- provider、API、connector、価格、UI など変化しやすい情報の扱いは、[付録D：更新履歴とメンテナンス方針](../../appendices/update-notes/) を参照する。
+- provider、API、connector、価格、UI など変化しやすい情報の扱いは、[付録D：更新方針と更新履歴](../../appendices/update-notes/) を参照する。

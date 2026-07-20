@@ -85,7 +85,7 @@ incident timeline と postmortem は、障害を閉じるだけの記録では�
 
 - [第6章：根本原因分析と postmortem](../../chapters/chapter-06/#section-6-6)
 - [第1章：前提・仮説ログ](../../chapters/chapter-01/#section-1-6)
-- [付録D：更新時のレビュー観点](../update-notes/#d3-更新時のレビュー観点)
+- [付録D：鮮度情報の読み方](../update-notes/#d3-鮮度情報の読み方)
 
 ## 役割・目的別のルート
 

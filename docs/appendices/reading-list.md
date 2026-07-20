@@ -104,7 +104,7 @@ API、agent、MCP、評価基盤、AI 支援開発ツールは変化が速い。
 
 ## C.4 優先カテゴリ別の読み方
 
-Issue #127 の付録Cでは、次のカテゴリを優先する。
+本付録では、次のカテゴリを優先する。
 各カテゴリは、読むだけでなく成果物へ接続する。
 
 | 優先カテゴリ | まず読む | 残す成果物 |
@@ -159,7 +159,7 @@ Issue #127 の付録Cでは、次のカテゴリを優先する。
 2. "Accelerate"、"Team Topologies"、"High Output Management" を読み、組織能力と測定指標を整理する。
 3. ISO/IEC 42001 と CISA Roadmap for AI を読み、責任体制、承認、監査、教育計画を確認する。
 4. GitHub Copilot responsible use を読み、チーム利用ルールと review 責任を明文化する。
-5. #152 などの portfolio-level sprint で、書籍・チーム・成果物の更新状況を追跡する。
+5. 定期的なポートフォリオレビューで、書籍・チーム・成果物の更新状況を追跡する。
 
 ### SRE / DevOps / Platform
 
