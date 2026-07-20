@@ -233,7 +233,12 @@ function extractMarkdownLinks(source) {
   const content = stripMarkdownNonContent(source);
   const pattern = /(?<!!)\[([^\]\n]+)\]\(\s*([^\s)]+)(?:\s+(?:"[^"]*"|'[^']*'))?\s*\)/g;
   for (const match of content.matchAll(pattern)) {
-    links.push({ label: match[1].trim(), destination: match[2].trim() });
+    links.push({
+      label: match[1].trim(),
+      destination: match[2].trim(),
+      index: match.index,
+      raw: match[0],
+    });
   }
   return links;
 }
@@ -554,10 +559,12 @@ for (const term of connectionTerms) {
   if (forwardLinks[0]) check(forwardLinks[0].label === term.label, `Chapter 3 glossary #${term.anchor} link label must be ${term.label}`);
   const firstOccurrenceLinks = chapterThreeDecisionTermLinks.filter((link) => link.normalized.fragment === term.anchor);
   check(firstOccurrenceLinks.length === 1, `Chapter 3 decision list must link first occurrence to glossary #${term.anchor} exactly once (found ${firstOccurrenceLinks.length})`);
-  const expectedFirstLink = `[${term.label}](../../appendices/glossary/#${term.anchor})`;
   const firstLabelIndex = chapterThreeDecisionSource.indexOf(term.label);
-  const expectedLinkIndex = chapterThreeDecisionSource.indexOf(expectedFirstLink);
-  check(expectedLinkIndex >= 0 && firstLabelIndex === expectedLinkIndex + 1,
+  const firstOccurrenceLink = firstOccurrenceLinks[0];
+  const linkedLabelIndex = firstOccurrenceLink
+    ? firstOccurrenceLink.index + firstOccurrenceLink.raw.indexOf(term.label)
+    : -1;
+  check(firstOccurrenceLink?.label === term.label && firstLabelIndex === linkedLabelIndex,
     `Chapter 3 first ${term.label} occurrence must be the canonical glossary link to #${term.anchor}`);
 }
 

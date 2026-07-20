@@ -245,7 +245,7 @@ MCP、connector、function calling、外部 API は、便利な接続面であ�
 - **function calling** は、modelが定義済みのtool / function schemaに沿って呼び出し名と引数を返す仕組みである。modelがcodeやAPIを直接実行するのではなく、applicationが引数を検証し、許可された処理だけを実行して結果を戻す。
 - **外部 API** は、本書ではapplicationまたはtoolが既存のAPI contractを直接呼ぶ方式を指す。認証、rate limit、retry、error処理、rollbackは呼び出すapplication側が管理する。
 
-MCPは標準化されたprotocol、connectorは製品依存の統合面、function callingはmodelとapplication間の呼び出し表現、外部APIはapplicationから接続先への直接contractであり、同じ階層の同義語ではない。function callingでmodelからapplicationへ意図を渡し、そのapplicationがMCP、connector、または外部APIを使うように、複数を組み合わせる構成もある。
+MCPは標準化されたprotocol、connectorは製品依存の統合面、function callingはmodelとapplication間の呼び出し表現、外部 APIはapplicationから接続先への直接contractであり、同じ階層の同義語ではない。function callingでmodelからapplicationへ意図を渡し、そのapplicationがMCP、connector、または外部 APIを使うように、複数を組み合わせる構成もある。
 
 同じ「規程検索」を実装しても、責任境界は次のように異なる。
 
