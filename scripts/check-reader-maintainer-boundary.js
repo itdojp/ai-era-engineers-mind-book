@@ -145,19 +145,51 @@ function decodeHtmlEntities(value) {
   });
 }
 
+function replaceHtmlTags(source) {
+  let output = '';
+  let cursor = 0;
+  while (cursor < source.length) {
+    if (source[cursor] !== '<') {
+      output += source[cursor];
+      cursor += 1;
+      continue;
+    }
+
+    let quote = null;
+    let end = cursor + 1;
+    for (; end < source.length; end += 1) {
+      const character = source[end];
+      if (quote !== null) {
+        if (character === quote) quote = null;
+      } else if (character === '"' || character === "'") {
+        quote = character;
+      } else if (character === '>') {
+        break;
+      }
+    }
+    if (end >= source.length) {
+      output += source.slice(cursor);
+      break;
+    }
+
+    const tag = source.slice(cursor, end + 1);
+    const attributes = [...tag.matchAll(/\b(?:alt|aria-label|title)\s*=\s*(?:"([^"]*)"|'([^']*)')/giu)]
+      .map((match) => match[1] ?? match[2] ?? '')
+      .filter(Boolean);
+    const newlines = tag.match(/\n/gu)?.length ?? 0;
+    output += ` ${attributes.join(' ')} ${'\n'.repeat(newlines)}`;
+    cursor = end + 1;
+  }
+  return output;
+}
+
 function readerVisibleHtml(source) {
   let visible = stripHtmlComments(source);
   visible = visible.replace(
     /<(script|style|template|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/giu,
     (match) => blankPreservingNewlines(match),
   );
-  visible = visible.replace(/<[^>]*>/gu, (tag) => {
-    const attributes = [...tag.matchAll(/\b(?:alt|aria-label|title)\s*=\s*(?:"([^"]*)"|'([^']*)')/giu)]
-      .map((match) => match[1] ?? match[2] ?? '')
-      .filter(Boolean);
-    const newlines = tag.match(/\n/gu)?.length ?? 0;
-    return ` ${attributes.join(' ')} ${'\n'.repeat(newlines)}`;
-  });
+  visible = replaceHtmlTags(visible);
   return decodeHtmlEntities(visible);
 }
 
@@ -367,6 +399,14 @@ function runSelfTest() {
     failures.push('self-test treated script content as reader-visible evidence');
   }
 
+  const quotedGreaterThan = scanEntries([{
+    path: '_site/attribute.html',
+    source: readerVisibleHtml('<span title="Issue &#35;127>">reader text</span>'),
+  }]);
+  if (!quotedGreaterThan.some((finding) => finding.rule === 'raw Issue number')) {
+    failures.push('self-test truncated a quoted attribute at a literal greater-than sign');
+  }
+
   const packageFixture = JSON.stringify({
     scripts: {
       test: 'npm run lint && npm run test:reader-maintainer-boundary && npm run check:reader-maintainer-boundary && npm run check-links',
@@ -415,7 +455,7 @@ function runSelfTest() {
     for (const failure of failures) console.error(`ERROR: ${failure}`);
     process.exit(1);
   }
-  console.log(`OK: reader / maintainer boundary self-test (${forbidden.length + 7} content cases, 6 wiring negatives)`);
+  console.log(`OK: reader / maintainer boundary self-test (${forbidden.length + 8} content cases, 6 wiring negatives)`);
 }
 
 function runSourceCheck() {
