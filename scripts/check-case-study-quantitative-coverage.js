@@ -91,9 +91,9 @@ function protectHtmlCodeContents(value) {
     /<(code|pre)\b[^>]*>([\s\S]*?)<\/\1\s*>/giu,
     (_match, _tag, content) => {
       const token = `\uE000CASESTUDYCODE${replacements.length}\uE001`;
-      let visibleContent = decodeHtmlEntities(content);
+      let visibleContent = content.replace(/<[^>]+>/gu, (tag) => blankPreservingNewlines(tag));
+      visibleContent = decodeHtmlEntities(visibleContent);
       visibleContent = maskClassifications(visibleContent);
-      visibleContent = visibleContent.replace(/<[^>]+>/gu, (tag) => blankPreservingNewlines(tag));
       replacements.push([token, visibleContent]);
       return token;
     },
@@ -566,6 +566,7 @@ function runSelfTest() {
     ['Japanese-adjacent scientific notation', sourceFixture('誤差1e-3以下を採用する。')],
     ['HTML entity code classification', sourceFixture('| accuracy | 0.91 | <code data-label="目標例">&#x76ee;&#x6a19;&#x4f8b;</code> |')],
     ['double HTML entity code classification', sourceFixture('| accuracy | 0.91 | <code>&amp;#x76ee;&amp;#x6a19;&amp;#x4f8b;</code> |')],
+    ['escaped angle-bracket number in code', sourceFixture('| threshold | <code>&lt;1&gt;</code> | — |')],
   ];
   for (const [name, source] of contentNegatives) {
     if (analyzeSource(source, `${name}.md`).failures.length === 0) failures.push(`source self-test accepted ${name}`);
@@ -590,6 +591,7 @@ function runSelfTest() {
     builtFixture('<tr><td>誤差1e-3以下を採用する。</td><td>—</td></tr>'),
     builtFixture('<tr><td>accuracy</td><td>0.91</td><td><code data-label="目標例">&#x76ee;&#x6a19;&#x4f8b;</code></td></tr>'),
     builtFixture('<tr><td>accuracy</td><td>0.91</td><td><code>&amp;#x76ee;&amp;#x6a19;&amp;#x4f8b;</code></td></tr>'),
+    builtFixture('<tr><td>threshold</td><td><code>&lt;1&gt;</code></td><td>—</td></tr>'),
     builtFixture().replace('<h3>測定テンプレートの記入例</h3>', '<pre>測定テンプレートの記入例</pre>'),
     builtFixture().replace('測定テンプレートの記入例', ''),
   ];
