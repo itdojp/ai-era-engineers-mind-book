@@ -494,6 +494,7 @@ function runSourceCheck() {
     'merge SHA',
     'Pages deployment',
     'GitHub Actions run ID',
+    'npm run check:reader-maintainer-boundary:built',
   ], failures);
 
   checkWiring(packageSource, workflowSource, failures);

@@ -43,6 +43,7 @@
 npm ci
 npm test
 npm run build
+npm run check:reader-maintainer-boundary:built
 npm run check-ux-contract:built
 ```
 
