@@ -187,7 +187,7 @@ function replaceHtmlTags(source) {
 function readerVisibleHtml(source) {
   let visible = stripHtmlComments(source);
   visible = visible.replace(
-    /<(script|style|template|noscript)\b[^>]*>[\s\S]*?<\/\1\s*>/giu,
+    /<(script|style|template)\b[^>]*>[\s\S]*?<\/\1\s*>/giu,
     (match) => blankPreservingNewlines(match),
   );
   visible = replaceHtmlTags(visible);
@@ -400,6 +400,14 @@ function runSelfTest() {
     failures.push('self-test treated script content as reader-visible evidence');
   }
 
+  const noScriptHtml = scanEntries([{
+    path: '_site/noscript.html',
+    source: readerVisibleHtml('<noscript>Issue &#35;127</noscript>'),
+  }]);
+  if (!noScriptHtml.some((finding) => finding.rule === 'raw Issue number')) {
+    failures.push('self-test treated noscript content as reader-invisible');
+  }
+
   const quotedGreaterThan = scanEntries([{
     path: '_site/attribute.html',
     source: readerVisibleHtml('<span title="Issue &#35;127>">reader text</span>'),
@@ -456,7 +464,7 @@ function runSelfTest() {
     for (const failure of failures) console.error(`ERROR: ${failure}`);
     process.exit(1);
   }
-  console.log(`OK: reader / maintainer boundary self-test (${forbidden.length + 8} content cases, 6 wiring negatives)`);
+  console.log(`OK: reader / maintainer boundary self-test (${forbidden.length + 9} content cases, 6 wiring negatives)`);
 }
 
 function runSourceCheck() {
