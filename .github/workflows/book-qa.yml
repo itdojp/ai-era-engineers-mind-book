@@ -29,9 +29,36 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '22.22.2'
           cache: npm
-          cache-dependency-path: book-formatter/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            book-formatter/package-lock.json
+
+      - name: Install book dependencies
+        run: npm ci
+
+      - name: Verify book dependency hygiene
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm audit
+          node <<'NODE'
+          const lock = require('./package-lock.json');
+          const packages = lock.packages ?? {};
+          const whatwg = Object.keys(packages)
+            .filter((path) => /(^|\/)node_modules\/whatwg-encoding$/.test(path));
+          const sniffers = Object.entries(packages)
+            .filter(([path]) => /(^|\/)node_modules\/encoding-sniffer$/.test(path))
+            .map(([path, metadata]) => ({ path, version: metadata.version }));
+          if (whatwg.length !== 0) {
+            throw new Error(`deprecated whatwg-encoding remains: ${whatwg.join(', ')}`);
+          }
+          if (sniffers.length !== 1 || sniffers[0].version !== '1.0.2') {
+            throw new Error(`unexpected encoding-sniffer tree: ${JSON.stringify(sniffers)}`);
+          }
+          console.log(JSON.stringify({ whatwgCount: whatwg.length, encodingSniffer: sniffers }));
+          NODE
 
       - name: Install dependencies (book-formatter)
         working-directory: book-formatter
