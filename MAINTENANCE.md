@@ -39,6 +39,8 @@
 
 ## 必須検証
 
+依存関係とlint toolchainの実行にはNode.js 22.22.2以上を使用します。
+
 ```bash
 npm ci
 npm test
