@@ -127,6 +127,9 @@ jobs:
       - name: Verify rendered reader / maintainer boundary
         run: node scripts/check-reader-maintainer-boundary.js --built-site _site
 
+      - name: Verify rendered shared metadata boundary
+        run: npm run check:shared-metadata -- --formatter-version book-formatter/shared/version.json --built-site _site
+
       - name: Verify rendered case-study quantitative coverage
         run: node scripts/check-case-study-quantitative-coverage.js --built-site _site
 

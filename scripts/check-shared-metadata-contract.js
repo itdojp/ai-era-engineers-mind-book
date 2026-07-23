@@ -34,6 +34,16 @@ function optionValue(name) {
   return value;
 }
 
+function readerVisibleText(value) {
+  return value
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/&#x([0-9a-f]+);/gi, (_, value) => String.fromCodePoint(parseInt(value, 16)))
+    .replace(/&#([0-9]+);/g, (_, value) => String.fromCodePoint(parseInt(value, 10)))
+    .replace(/&period;/gi, '.')
+    .replace(/&nbsp;/gi, ' ');
+}
+
 function validate(state, now = new Date()) {
   const errors = [];
   const shared = state.config.shared;
@@ -69,8 +79,9 @@ function validate(state, now = new Date()) {
     }
   }
 
+  const publicFreshness = readerVisibleText(state.publicFreshness);
   for (const forbidden of ['shared.version', 'shared.lastSync', 'book-config.json#shared']) {
-    if (state.publicFreshness.includes(forbidden)) {
+    if (publicFreshness.includes(forbidden)) {
       errors.push('public freshness notes must not expose maintainer metadata: ' + forbidden);
     }
   }
@@ -80,13 +91,21 @@ function validate(state, now = new Date()) {
 
 function loadState() {
   const formatterVersionPath = optionValue('--formatter-version');
+  const builtSitePath = optionValue('--built-site');
+  const publicFreshness = [fs.readFileSync('docs/appendices/update-notes.md', 'utf8')];
+  if (builtSitePath) {
+    publicFreshness.push(fs.readFileSync(
+      builtSitePath + '/appendices/update-notes/index.html',
+      'utf8',
+    ));
+  }
   return {
     config: readJson('book-config.json'),
     formatterVersion: formatterVersionPath
       ? readJson(formatterVersionPath).version
       : null,
     maintenance: fs.readFileSync('MAINTENANCE.md', 'utf8'),
-    publicFreshness: fs.readFileSync('docs/appendices/update-notes.md', 'utf8'),
+    publicFreshness: publicFreshness.join('\n'),
   };
 }
 
@@ -116,6 +135,8 @@ if (process.argv.includes('--self-test')) {
     ['missing generator source', (s) => { s.maintenance = s.maintenance.replace('book-formatter/scripts/sync-components.js', 'unknown-generator'); }, 'sync-components.js'],
     ['public timestamp leak', (s) => { s.publicFreshness += '\nshared.lastSync\n'; }, 'must not expose'],
     ['public version leak', (s) => { s.publicFreshness += '\nshared.version\n'; }, 'must not expose'],
+    ['entity-encoded public leak', (s) => { s.publicFreshness += '\nshared&#46;version\n'; }, 'must not expose'],
+    ['markup-split public leak', (s) => { s.publicFreshness += '\nshared.<span>lastSync</span>\n'; }, 'must not expose'],
   ];
   cases.forEach(([name, mutate, marker]) => expectRejected(state, name, mutate, marker));
   console.log('Shared metadata contract self-test passed: ' + cases.length + ' negative mutations rejected.');
