@@ -67,6 +67,11 @@ jobs:
       - name: Reader / maintainer boundary contract
         run: npm run test:reader-maintainer-boundary && npm run check:reader-maintainer-boundary
 
+      - name: Shared metadata contract
+        run: |
+          npm run test:shared-metadata -- --formatter-version book-formatter/shared/version.json
+          npm run check:shared-metadata -- --formatter-version book-formatter/shared/version.json
+
       - name: Case-study quantitative coverage contract
         run: npm run test:case-study-quantitative-coverage && npm run check:case-study-quantitative-coverage
 
@@ -121,6 +126,9 @@ jobs:
 
       - name: Verify rendered reader / maintainer boundary
         run: node scripts/check-reader-maintainer-boundary.js --built-site _site
+
+      - name: Verify rendered shared metadata boundary
+        run: npm run check:shared-metadata -- --formatter-version book-formatter/shared/version.json --built-site _site
 
       - name: Verify rendered case-study quantitative coverage
         run: node scripts/check-case-study-quantitative-coverage.js --built-site _site

@@ -16,6 +16,19 @@
 
 `docs/`へ内部のIssue番号、PR番号、portfolio sprint名、review thread、Book QA、main merge commitなどの個別運用証跡を記載しません。読者が必要とする内容上の変更、確認日、対象バージョン、正本、適用範囲、再確認条件だけを公開更新履歴へ反映します。
 
+## 共有コンポーネント同期メタデータ
+
+`book-config.json#shared` は本文や公開サイトの鮮度ではなく、`book-formatter` から取り込む共有コンポーネントの同期baselineを記録します。
+
+- `shared.version` の正本は `book-formatter/shared/version.json#version` です。
+- `shared.lastSync` の生成元は `book-formatter/scripts/sync-components.js` です。共有fileまたは共有versionが実際に変わった同期時だけ同scriptが更新します。
+- `shared.lastSync` は、本文の更新日、公開日、最終校正日など**内容の鮮度**を表しません。同一内容の再同期、本文変更、依存更新を理由に手動更新しません。
+- 共有fileを取り込んだ後のbook-local customizationは許容します。再同期前にlayout、include、assetの差分を確認し、書籍固有の変更を機械的に上書きしません。
+- 読者向けの内容更新と鮮度の正本は `docs/appendices/update-notes.md` です。`shared.*` を公開上の鮮度表示には使用しません。
+- owner: `ootakazuhiko`。共有同期の再確認は、Book QAのformatter pin更新時、`shared/version.json` 更新時、または共有component修正が必要になった時に行います。
+
+2026-07-23 JSTの監査では、Book QA pin `69eb5c12f5a750b65614bc9bbbc3d7abd5aa6f6c` と本書の `shared.version` はともに `3.2.2` でした。既定の同期対象10件のうち5件は2026年版でbook-localに変更されているため、破壊的な再同期とtimestampだけの更新は行っていません。
+
 ## 更新手順
 
 1. 影響範囲を特定する。対象章、付録、目次、関連リンク、成果物テンプレート、`book-config.json`を確認する。
