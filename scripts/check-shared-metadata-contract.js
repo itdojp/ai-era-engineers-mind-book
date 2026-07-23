@@ -2,6 +2,7 @@
 'use strict';
 
 const fs = require('node:fs');
+const { decodeHTML } = require('entities');
 
 const REQUIRED_MAINTENANCE_MARKERS = [
   '## 共有コンポーネント同期メタデータ',
@@ -35,13 +36,10 @@ function optionValue(name) {
 }
 
 function readerVisibleText(value) {
-  return value
+  return decodeHTML(value
     .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/<[^>]*>/g, '')
-    .replace(/&#x([0-9a-f]+);/gi, (_, value) => String.fromCodePoint(parseInt(value, 16)))
-    .replace(/&#([0-9]+);/g, (_, value) => String.fromCodePoint(parseInt(value, 10)))
-    .replace(/&period;/gi, '.')
-    .replace(/&nbsp;/gi, ' ');
+    .replace(/<[^>]*>/g, ''))
+    .replace(/\p{Default_Ignorable_Code_Point}/gu, '');
 }
 
 function validate(state, now = new Date()) {
@@ -137,6 +135,7 @@ if (process.argv.includes('--self-test')) {
     ['public version leak', (s) => { s.publicFreshness += '\nshared.version\n'; }, 'must not expose'],
     ['entity-encoded public leak', (s) => { s.publicFreshness += '\nshared&#46;version\n'; }, 'must not expose'],
     ['markup-split public leak', (s) => { s.publicFreshness += '\nshared.<span>lastSync</span>\n'; }, 'must not expose'],
+    ['invisible-entity public leak', (s) => { s.publicFreshness += '\nshared&ZeroWidthSpace;.version\n'; }, 'must not expose'],
   ];
   cases.forEach(([name, mutate, marker]) => expectRejected(state, name, mutate, marker));
   console.log('Shared metadata contract self-test passed: ' + cases.length + ' negative mutations rejected.');
