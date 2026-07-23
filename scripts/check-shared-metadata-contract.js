@@ -24,6 +24,16 @@ function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
+function optionValue(name) {
+  const index = process.argv.indexOf(name);
+  if (index === -1) return null;
+  const value = process.argv[index + 1];
+  if (!value || value.startsWith('--')) {
+    throw new Error(name + ' requires a file path');
+  }
+  return value;
+}
+
 function validate(state, now = new Date()) {
   const errors = [];
   const shared = state.config.shared;
@@ -34,6 +44,12 @@ function validate(state, now = new Date()) {
   }
   if (!/^\d+\.\d+\.\d+$/.test(shared.version ?? '')) {
     errors.push('shared.version must be a semantic version');
+  }
+  if (state.formatterVersion !== null && shared.version !== state.formatterVersion) {
+    errors.push(
+      'shared.version must match the pinned formatter: '
+      + shared.version + ' != ' + state.formatterVersion,
+    );
   }
 
   const parsed = new Date(shared.lastSync);
@@ -53,7 +69,7 @@ function validate(state, now = new Date()) {
     }
   }
 
-  for (const forbidden of ['shared.lastSync', 'book-config.json#shared']) {
+  for (const forbidden of ['shared.version', 'shared.lastSync', 'book-config.json#shared']) {
     if (state.publicFreshness.includes(forbidden)) {
       errors.push('public freshness notes must not expose maintainer metadata: ' + forbidden);
     }
@@ -63,8 +79,12 @@ function validate(state, now = new Date()) {
 }
 
 function loadState() {
+  const formatterVersionPath = optionValue('--formatter-version');
   return {
     config: readJson('book-config.json'),
+    formatterVersion: formatterVersionPath
+      ? readJson(formatterVersionPath).version
+      : null,
     maintenance: fs.readFileSync('MAINTENANCE.md', 'utf8'),
     publicFreshness: fs.readFileSync('docs/appendices/update-notes.md', 'utf8'),
   };
@@ -91,9 +111,11 @@ if (process.argv.includes('--self-test')) {
   const cases = [
     ['missing shared object', (s) => { delete s.config.shared; }, 'define shared metadata'],
     ['invalid version', (s) => { s.config.shared.version = 'latest'; }, 'semantic version'],
+    ['formatter version mismatch', (s) => { s.formatterVersion = '999.0.0'; }, 'must match the pinned formatter'],
     ['invalid timestamp', (s) => { s.config.shared.lastSync = '2026-02-04'; }, 'canonical ISO-8601'],
     ['missing generator source', (s) => { s.maintenance = s.maintenance.replace('book-formatter/scripts/sync-components.js', 'unknown-generator'); }, 'sync-components.js'],
     ['public timestamp leak', (s) => { s.publicFreshness += '\nshared.lastSync\n'; }, 'must not expose'],
+    ['public version leak', (s) => { s.publicFreshness += '\nshared.version\n'; }, 'must not expose'],
   ];
   cases.forEach(([name, mutate, marker]) => expectRejected(state, name, mutate, marker));
   console.log('Shared metadata contract self-test passed: ' + cases.length + ' negative mutations rejected.');
