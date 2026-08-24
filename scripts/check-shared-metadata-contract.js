@@ -27,7 +27,8 @@ function clone(value) {
 }
 
 function parseSemanticVersion(value) {
-  const match = /^(\d+)\.(\d+)\.(\d+)$/.exec(value ?? '');
+  if (typeof value !== 'string') return null;
+  const match = /^(\d+)\.(\d+)\.(\d+)$/.exec(value);
   return match ? match.slice(1).map(Number) : null;
 }
 
@@ -170,6 +171,7 @@ if (process.argv.includes('--self-test')) {
     ['formatter version mismatch', (s) => { s.formatterVersion = '999.0.0'; }, 'must match the pinned formatter'],
     ['compatibility list is not an array', (s) => { s.config.shared.compatibleVersions = '3.2.3'; }, 'must be an array'],
     ['null compatibility list', (s) => { s.config.shared.compatibleVersions = null; }, 'must be an array'],
+    ['non-string compatible version', (s) => { s.config.shared.compatibleVersions = [['3.2.3']]; }, 'entries must be semantic versions'],
     ['invalid compatible version', (s) => { s.config.shared.compatibleVersions = ['next']; }, 'entries must be semantic versions'],
     ['multiple staged versions', (s) => { s.config.shared.compatibleVersions = ['3.2.3', '3.3.0']; }, 'at most one staged version'],
     ['non-forward compatible version', (s) => { s.config.shared.compatibleVersions = ['3.2.1']; }, 'only a forward version'],
