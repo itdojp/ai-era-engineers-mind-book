@@ -68,7 +68,9 @@ function validate(state, now = new Date()) {
     errors.push('shared.version must be a semantic version');
   }
 
-  const compatibleVersions = shared.compatibleVersions ?? [];
+  const compatibleVersions = Object.hasOwn(shared, 'compatibleVersions')
+    ? shared.compatibleVersions
+    : [];
   if (!Array.isArray(compatibleVersions)) {
     errors.push('shared.compatibleVersions must be an array when present');
   } else {
@@ -167,6 +169,7 @@ if (process.argv.includes('--self-test')) {
     ['invalid version', (s) => { s.config.shared.version = 'latest'; }, 'semantic version'],
     ['formatter version mismatch', (s) => { s.formatterVersion = '999.0.0'; }, 'must match the pinned formatter'],
     ['compatibility list is not an array', (s) => { s.config.shared.compatibleVersions = '3.2.3'; }, 'must be an array'],
+    ['null compatibility list', (s) => { s.config.shared.compatibleVersions = null; }, 'must be an array'],
     ['invalid compatible version', (s) => { s.config.shared.compatibleVersions = ['next']; }, 'entries must be semantic versions'],
     ['multiple staged versions', (s) => { s.config.shared.compatibleVersions = ['3.2.3', '3.3.0']; }, 'at most one staged version'],
     ['non-forward compatible version', (s) => { s.config.shared.compatibleVersions = ['3.2.1']; }, 'only a forward version'],
