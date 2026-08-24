@@ -81,6 +81,8 @@ function validate(state, now = new Date()) {
         errors.push('shared.compatibleVersions entries must be semantic versions');
       } else if (currentVersion && compareSemanticVersions(parsedVersion, currentVersion) <= 0) {
         errors.push('shared.compatibleVersions must contain only a forward version');
+      } else if (!state.maintenance.includes('`' + version + '`')) {
+        errors.push('each shared.compatibleVersions entry must be documented in MAINTENANCE.md: ' + version);
       }
     }
   }
@@ -169,6 +171,7 @@ if (process.argv.includes('--self-test')) {
     ['multiple staged versions', (s) => { s.config.shared.compatibleVersions = ['3.2.3', '3.3.0']; }, 'at most one staged version'],
     ['non-forward compatible version', (s) => { s.config.shared.compatibleVersions = ['3.2.1']; }, 'only a forward version'],
     ['current version repeated as compatible', (s) => { s.config.shared.compatibleVersions = [s.config.shared.version]; }, 'only a forward version'],
+    ['undocumented compatible version', (s) => { s.config.shared.compatibleVersions = ['3.2.4']; }, 'must be documented'],
     ['invalid timestamp', (s) => { s.config.shared.lastSync = '2026-02-04'; }, 'canonical ISO-8601'],
     ['missing generator source', (s) => { s.maintenance = s.maintenance.replace('book-formatter/scripts/sync-components.js', 'unknown-generator'); }, 'sync-components.js'],
     ['public timestamp leak', (s) => { s.publicFreshness += '\nshared.lastSync\n'; }, 'must not expose'],
