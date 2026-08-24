@@ -29,6 +29,8 @@
 
 2026-07-23 JSTの監査では、Book QA pin `69eb5c12f5a750b65614bc9bbbc3d7abd5aa6f6c` と本書の `shared.version` はともに `3.2.2` でした。既定の同期対象10件のうち5件は2026年版でbook-localに変更されているため、破壊的な再同期とtimestampだけの更新は行っていません。
 
+2026-08-24 JSTの互換性監査では、formatter `cff9fcf8bae31140f07b358d314fc64173cb7013` の共有component `3.2.3` が、`mobile-responsive.css` のsidebar selectorを1箇所強化する更新であることを確認しました。本書のbook-local CSSは、closed drawerを `!important` と `visibility` で維持する同等以上の境界を既に実装しているため、local layout/include/CSSを機械的に上書きしません。旧pinでの互換性PRとpin-only PRをともにgreenに保つため、`shared.compatibleVersions` には監査済みの次version `3.2.3` を1件だけ一時宣言し、pin反映後のcleanup PRで `shared.version` へ昇格して同宣言を除去します。共有fileの再同期は行っていないため、`shared.lastSync` は更新しません。
+
 ## 更新手順
 
 1. 影響範囲を特定する。対象章、付録、目次、関連リンク、成果物テンプレート、`book-config.json`を確認する。

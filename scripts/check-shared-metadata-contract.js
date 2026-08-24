@@ -7,6 +7,7 @@ const { decodeHTML } = require('entities');
 const REQUIRED_MAINTENANCE_MARKERS = [
   '## 共有コンポーネント同期メタデータ',
   'shared.version',
+  'shared.compatibleVersions',
   'shared.lastSync',
   'book-formatter/shared/version.json',
   'book-formatter/scripts/sync-components.js',
@@ -23,6 +24,19 @@ function readJson(path) {
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
+}
+
+function parseSemanticVersion(value) {
+  if (typeof value !== 'string') return null;
+  const match = /^(\d+)\.(\d+)\.(\d+)$/.exec(value);
+  return match ? match.slice(1).map(Number) : null;
+}
+
+function compareSemanticVersions(left, right) {
+  for (let index = 0; index < left.length; index += 1) {
+    if (left[index] !== right[index]) return left[index] - right[index];
+  }
+  return 0;
 }
 
 function optionValue(name) {
@@ -50,13 +64,39 @@ function validate(state, now = new Date()) {
     errors.push('book-config.json must define shared metadata');
     return errors;
   }
-  if (!/^\d+\.\d+\.\d+$/.test(shared.version ?? '')) {
+  const currentVersion = parseSemanticVersion(shared.version);
+  if (!currentVersion) {
     errors.push('shared.version must be a semantic version');
   }
-  if (state.formatterVersion !== null && shared.version !== state.formatterVersion) {
+
+  const compatibleVersions = Object.hasOwn(shared, 'compatibleVersions')
+    ? shared.compatibleVersions
+    : [];
+  if (!Array.isArray(compatibleVersions)) {
+    errors.push('shared.compatibleVersions must be an array when present');
+  } else {
+    if (compatibleVersions.length > 1) {
+      errors.push('shared.compatibleVersions may declare at most one staged version');
+    }
+    for (const version of compatibleVersions) {
+      const parsedVersion = parseSemanticVersion(version);
+      if (!parsedVersion) {
+        errors.push('shared.compatibleVersions entries must be semantic versions');
+      } else if (currentVersion && compareSemanticVersions(parsedVersion, currentVersion) <= 0) {
+        errors.push('shared.compatibleVersions must contain only a forward version');
+      } else if (!state.maintenance.includes('`' + version + '`')) {
+        errors.push('each shared.compatibleVersions entry must be documented in MAINTENANCE.md: ' + version);
+      }
+    }
+  }
+
+  const acceptedVersions = Array.isArray(compatibleVersions)
+    ? [shared.version, ...compatibleVersions]
+    : [shared.version];
+  if (state.formatterVersion !== null && !acceptedVersions.includes(state.formatterVersion)) {
     errors.push(
-      'shared.version must match the pinned formatter: '
-      + shared.version + ' != ' + state.formatterVersion,
+      'shared.version or a reviewed compatible version must match the pinned formatter: '
+      + acceptedVersions.join(', ') + ' != ' + state.formatterVersion,
     );
   }
 
@@ -78,7 +118,7 @@ function validate(state, now = new Date()) {
   }
 
   const publicFreshness = readerVisibleText(state.publicFreshness);
-  for (const forbidden of ['shared.version', 'shared.lastSync', 'book-config.json#shared']) {
+  for (const forbidden of ['shared.version', 'shared.compatibleVersions', 'shared.lastSync', 'book-config.json#shared']) {
     if (publicFreshness.includes(forbidden)) {
       errors.push('public freshness notes must not expose maintainer metadata: ' + forbidden);
     }
@@ -129,10 +169,19 @@ if (process.argv.includes('--self-test')) {
     ['missing shared object', (s) => { delete s.config.shared; }, 'define shared metadata'],
     ['invalid version', (s) => { s.config.shared.version = 'latest'; }, 'semantic version'],
     ['formatter version mismatch', (s) => { s.formatterVersion = '999.0.0'; }, 'must match the pinned formatter'],
+    ['compatibility list is not an array', (s) => { s.config.shared.compatibleVersions = '3.2.3'; }, 'must be an array'],
+    ['null compatibility list', (s) => { s.config.shared.compatibleVersions = null; }, 'must be an array'],
+    ['non-string compatible version', (s) => { s.config.shared.compatibleVersions = [['3.2.3']]; }, 'entries must be semantic versions'],
+    ['invalid compatible version', (s) => { s.config.shared.compatibleVersions = ['next']; }, 'entries must be semantic versions'],
+    ['multiple staged versions', (s) => { s.config.shared.compatibleVersions = ['3.2.3', '3.3.0']; }, 'at most one staged version'],
+    ['non-forward compatible version', (s) => { s.config.shared.compatibleVersions = ['3.2.1']; }, 'only a forward version'],
+    ['current version repeated as compatible', (s) => { s.config.shared.compatibleVersions = [s.config.shared.version]; }, 'only a forward version'],
+    ['undocumented compatible version', (s) => { s.config.shared.compatibleVersions = ['3.2.4']; }, 'must be documented'],
     ['invalid timestamp', (s) => { s.config.shared.lastSync = '2026-02-04'; }, 'canonical ISO-8601'],
     ['missing generator source', (s) => { s.maintenance = s.maintenance.replace('book-formatter/scripts/sync-components.js', 'unknown-generator'); }, 'sync-components.js'],
     ['public timestamp leak', (s) => { s.publicFreshness += '\nshared.lastSync\n'; }, 'must not expose'],
     ['public version leak', (s) => { s.publicFreshness += '\nshared.version\n'; }, 'must not expose'],
+    ['public compatibility leak', (s) => { s.publicFreshness += '\nshared.compatibleVersions\n'; }, 'must not expose'],
     ['entity-encoded public leak', (s) => { s.publicFreshness += '\nshared&#46;version\n'; }, 'must not expose'],
     ['markup-split public leak', (s) => { s.publicFreshness += '\nshared.<span>lastSync</span>\n'; }, 'must not expose'],
     ['invisible-entity public leak', (s) => { s.publicFreshness += '\nshared&ZeroWidthSpace;.version\n'; }, 'must not expose'],
